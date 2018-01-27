@@ -1,6 +1,7 @@
 package com.djavid.schoolapp.model;
 
 import com.djavid.schoolapp.model.dto.groups.Group;
+import com.djavid.schoolapp.model.users.Level;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ import retrofit2.http.Query;
  */
 public interface Api {
 
-    String ENDPOINT = "https://school-1329-server.appspot.com/api";
+    String ENDPOINT = "https://school-1329-server.appspot.com/api/";
 
     // headers
 
@@ -27,33 +28,42 @@ public interface Api {
 
     // users
 
-    String USERS = ENDPOINT + "/users";
+    String USERS = ENDPOINT + "users/";
 
-    @GET(USERS + "/create_code")
+    @POST(USERS + "create_code")
     Single<String> createCode(@Query("expiration_date") Date expiration_date, @Query("level") int level);
 
-    @GET(USERS + "/check_code")
+    @POST(USERS + "check_code")
     Single<String> checkCode(@Query("code") String code);
 
-    @GET(USERS + "/register")
+    @POST(USERS + "register")
     Single<String> register(@Query("username") String nickname, @Query("password") String userID, @Query("level") int level, @Query("code") String code);
 
-    @GET(USERS + "/login")
+    @POST(USERS + "login")
     Single<String> login(@Query("username") String nickname, @Query("password") String userID);
 
     // groups
 
-    String GROUPS = ENDPOINT + "/groups";
+    String GROUPS = ENDPOINT + "groups/";
 
     @GET(GROUPS)
     Single<List<Group>> getAllGroups(@Header(Auth) String auth);
 
+    @GET(GROUPS + "user_groups")
+    Single<List<Group>> getMyGroups(@Header(Auth) String auth);
+
     @POST(GROUPS)
     Single<Group> createGroup(@Header(Auth) String auth, @Query("title") String title);
 
-    @PUT(GROUPS + "/{id}")
+    @PUT(GROUPS + "{id}")
     Single<Group> updateGroup(@Header(Auth) String auth, @Path("id") String id, @Query("title") String title);
 
-    @DELETE(GROUPS + "/{id}")
+    @DELETE(GROUPS + "{id}")
     Single<String> deleteGroup(@Header(Auth) String auth, @Path("id") String id);
+
+    @POST(GROUPS + "{id}/add_user")
+    Single<String> joinGroup(@Header(Auth) String auth, @Path("id") String groupId);
+
+    @POST(GROUPS + "{id}/remove_user")
+    Single<String> leaveGroup(@Header(Auth) String auth, @Path("id") String groupId);
 }
