@@ -22,4 +22,16 @@ public class SavedPreferences {
                 .putString("token", token)
                 .apply();
     }
+
+
+    public String getIdentity() {
+        return sharedPreferences.getString("identity", "");
+    }
+
+    public void setIdentity(String token) {
+        sharedPreferences
+                .edit()
+                .putString("identity", token)
+                .apply();
+    }
 }

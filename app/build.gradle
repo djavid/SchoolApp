@@ -61,4 +61,7 @@ dependencies {
 
     //Lightweight-Stream-API
     compile 'com.annimon:stream:1.1.9'
+
+    //Google play services auth
+    compile 'com.google.android.gms:play-services-auth:11.8.0'
 }
