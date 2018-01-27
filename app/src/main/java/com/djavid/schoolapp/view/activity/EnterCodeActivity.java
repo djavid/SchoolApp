@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 
 /**
@@ -61,7 +62,7 @@ public class EnterCodeActivity extends AppCompatActivity {
 
         mProgressView = findViewById(R.id.login_progress);
 
-        _userID = getPreferences(MODE_PRIVATE).getString("identity", null);
+        _userID = App.getAppInstance().getPreferences().getIdentity();
         if (_userID == null) {
             mEnterCodeButton.setEnabled(false);
         }

@@ -14,7 +14,7 @@ public class SavedPreferences {
 
 
     public String getToken() {
-        return sharedPreferences.getString("token", "");
+        return sharedPreferences.getString("token", null);
     }
     public void setToken(String token) {
         sharedPreferences
@@ -25,7 +25,7 @@ public class SavedPreferences {
 
 
     public String getIdentity() {
-        return sharedPreferences.getString("identity", "");
+        return sharedPreferences.getString("identity", null);
     }
 
     public void setIdentity(String token) {

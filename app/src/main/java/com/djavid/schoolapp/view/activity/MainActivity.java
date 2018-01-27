@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.util.LogTags;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         _googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
 
-        if (getPreferences(MODE_PRIVATE).getString("identity", null) != null) {
+        if (App.getAppInstance().getPreferences().getIdentity() != null) {
             showDashboard();
         }
     }
@@ -73,18 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void onGoogleSignInSuccess(GoogleSignInAccount account) {
-        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-        editor.putString("identity", account.getId());
-        for (int i = 0; i < 5; i++) {
-            if (editor.commit()) {
-                showDashboard();
-                return;
-            }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ignored) {
-            }
-        }
+        App.getAppInstance().getPreferences().setIdentity(account.getId());
         onGoogleSignInError();
     }
 

@@ -5,7 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.djavid.schoolapp.core.PresenterProvider;
+import com.djavid.schoolapp.model.Api;
 import com.djavid.schoolapp.util.SavedPreferences;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class App extends Application {
@@ -14,6 +21,7 @@ public class App extends Application {
     private PresenterProvider presenterProvider;
     private SharedPreferences sharedPreferences;
     private SavedPreferences savedPreferences;
+    private Api api;
     private static String SHARED_PREFERENCES_CODE = "school_app";
 
 
@@ -24,6 +32,7 @@ public class App extends Application {
         getPresenterProvider();
         getSharedPreferences();
         getPreferences();
+        getApi();
 
         appInstance = (App) getApplicationContext();
     }
@@ -57,4 +66,25 @@ public class App extends Application {
         return savedPreferences;
     }
 
+    public Api getApi() {
+        if (api == null)
+            api = buildApi();
+        return api;
+    }
+
+    private Api buildApi() {
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpClient.addInterceptor(logging);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(httpClient.build())
+                .build();
+
+        return retrofit.create(Api.class);
+    }
 }
