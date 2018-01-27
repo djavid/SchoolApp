@@ -1,7 +1,6 @@
 package com.djavid.schoolapp.view.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LandingActivity extends AppCompatActivity implements View.OnClickListener {
 
     // TODO: Where shall I put them?
     public static int RC_SIGN_IN = 1;
@@ -25,13 +24,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_landing);
 
         // google sign in
         _googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
 
-        if (App.getAppInstance().getPreferences().getIdentity() != null) {
+        if (App.getAppInstance().getPreferences().getToken() != null) {
             showDashboard();
         }
     }
@@ -75,11 +74,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void onGoogleSignInSuccess(GoogleSignInAccount account) {
         App.getAppInstance().getPreferences().setIdentity(account.getId());
-        onGoogleSignInError();
+        showEnterCode(account);
     }
 
     private void onGoogleSignInError() {
         findViewById(R.id.note_google_sign_in_error).setVisibility(View.VISIBLE);
+    }
+
+    private void showEnterCode(GoogleSignInAccount account) {
+        Intent intent = new Intent(this, EnterCodeActivity.class);
+        intent.putExtra(EnterCodeActivity.AccountParameter, account);
+        startActivity(intent);
     }
 
     private void showDashboard() {

@@ -9,12 +9,9 @@ import com.google.gson.annotations.SerializedName;
 public class Group {
     @SerializedName("id")
     @Expose
-    private long id;
+    public long id;
 
     @SerializedName("title")
     @Expose
-    private String title;
-
-    public Group() {
-    }
+    public String title;
 }

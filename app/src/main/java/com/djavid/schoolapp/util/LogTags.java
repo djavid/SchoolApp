@@ -6,4 +6,5 @@ package com.djavid.schoolapp.util;
 public class LogTags {
     public static String SignIn = "SignIn";
     public static String Identity = "Identity";
+    public static String Exception = "Exception";
 }

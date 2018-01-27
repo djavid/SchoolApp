@@ -1,19 +1,21 @@
 package com.djavid.schoolapp.model;
 
+import com.djavid.schoolapp.model.dto.users.TokenResponse;
 import com.djavid.schoolapp.model.dto.groups.Group;
-import com.djavid.schoolapp.model.users.Level;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Single;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * @author Andrei Kolomiets
@@ -30,17 +32,21 @@ public interface Api {
 
     String USERS = ENDPOINT + "users/";
 
+    @FormUrlEncoded
     @POST(USERS + "create_code")
-    Single<String> createCode(@Query("expiration_date") Date expiration_date, @Query("level") int level);
+    Single<Map<String, String>> createCode(@Field("expiration_date") Date expiration_date, @Field("level") int level);
 
+    @FormUrlEncoded
     @POST(USERS + "check_code")
-    Single<String> checkCode(@Query("code") String code);
+    Single<Map<String, String>> checkCode(@Field("code") String code);
 
+    @FormUrlEncoded
     @POST(USERS + "register")
-    Single<String> register(@Query("username") String nickname, @Query("password") String userID, @Query("level") int level, @Query("code") String code);
+    Single<TokenResponse> register(@Field("username") String nickname, @Field("password") String userID, @Field("level") int level, @Field("code") String code);
 
+    @FormUrlEncoded
     @POST(USERS + "login")
-    Single<String> login(@Query("username") String nickname, @Query("password") String userID);
+    Single<Map<String, String>> login(@Field("username") String nickname, @Field("password") String userID);
 
     // groups
 
@@ -52,11 +58,13 @@ public interface Api {
     @GET(GROUPS + "user_groups")
     Single<List<Group>> getMyGroups(@Header(Auth) String auth);
 
+    @FormUrlEncoded
     @POST(GROUPS)
-    Single<Group> createGroup(@Header(Auth) String auth, @Query("title") String title);
+    Single<Group> createGroup(@Header(Auth) String auth, @Field("title") String title);
 
+    @FormUrlEncoded
     @PUT(GROUPS + "{id}")
-    Single<Group> updateGroup(@Header(Auth) String auth, @Path("id") String id, @Query("title") String title);
+    Single<Group> updateGroup(@Header(Auth) String auth, @Path("id") String id, @Field("title") String title);
 
     @DELETE(GROUPS + "{id}")
     Single<String> deleteGroup(@Header(Auth) String auth, @Path("id") String id);

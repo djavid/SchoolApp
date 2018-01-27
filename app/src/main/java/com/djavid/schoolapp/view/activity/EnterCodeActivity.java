@@ -3,34 +3,33 @@ package com.djavid.schoolapp.view.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.model.dto.users.Level;
+import com.djavid.schoolapp.model.dto.users.TokenResponse;
+import com.djavid.schoolapp.util.LogTags;
+
+import retrofit2.HttpException;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class EnterCodeActivity extends AppCompatActivity {
+
+    public static String AccountParameter = "Account";
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -46,6 +45,7 @@ public class EnterCodeActivity extends AppCompatActivity {
 
     // UI references.
     private EditText mPasswordView;
+    private EditText mNicknameView;
     private View mProgressView;
 
     private String _userID;
@@ -56,15 +56,20 @@ public class EnterCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter_code);
 
         mPasswordView = findViewById(R.id.password);
+        mNicknameView = findViewById(R.id.nickname);
 
         Button mEnterCodeButton = findViewById(R.id.enter_code_button);
         mEnterCodeButton.setOnClickListener(view -> attemptLogin());
 
         mProgressView = findViewById(R.id.login_progress);
 
+        if (App.getAppInstance().getPreferences().getToken() != null) {
+            showDashboard();
+        }
+
         _userID = App.getAppInstance().getPreferences().getIdentity();
         if (_userID == null) {
-            mEnterCodeButton.setEnabled(false);
+            showLanding();
         }
     }
 
@@ -83,33 +88,57 @@ public class EnterCodeActivity extends AppCompatActivity {
 
         // Store values at the time of the login attempt.
         String password = mPasswordView.getText().toString();
+        String nickname = mNicknameView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+        // validate password and nickname
+        String error;
+
+        if (!TextUtils.isEmpty(password) && (error = validatePassword(password)) != null) {
+            mPasswordView.setError(error);
             focusView = mPasswordView;
+            cancel = true;
+        }
+
+        if (!TextUtils.isEmpty(nickname) && (error = validateNickname(nickname)) != null) {
+            mNicknameView.setError(getString(R.string.error_invalid_nickname));
+            focusView = mNicknameView;
+            cancel = true;
+        }
+
+        if (TextUtils.isEmpty(password) || TextUtils.isEmpty(nickname)) {
             cancel = true;
         }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            focusView.requestFocus();
+            if (focusView != null) {
+                focusView.requestFocus();
+            }
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(_userID, password);
+            mAuthTask = new UserLoginTask(password, nickname, _userID, findViewById(R.id.enter_code_i_am_teacher).isSelected() ? Level.Teacher : Level.Student);
             mAuthTask.execute((Void) null);
         }
     }
 
-    private boolean isPasswordValid(String password) {
+    private String validatePassword(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 4
+                ? null
+                : getString(R.string.error_invalid_password);
+    }
+
+    private String validateNickname(String nickname) {
+        // letters, numbers, spaces, dots and commas
+        return nickname.matches("[a-zA-Zа-яА-ЯёЁ0-9 \\.\\,]+")
+                ? null
+                : getString(R.string.error_invalid_nickname);
     }
 
     /**
@@ -135,35 +164,34 @@ public class EnterCodeActivity extends AppCompatActivity {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
+        private final String _nickname;
         private final String _userID;
         private final String _code;
+        private final Level _level;
 
-        UserLoginTask(String userID, String password) {
+        UserLoginTask(String code, String nickname, String userID, Level level) {
+            _code = code;
+            _nickname = nickname;
             _userID = userID;
-            _code = password;
+            _level = level;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                String token = App.getAppInstance().getApi()
+                        .register(_nickname, _userID, _level.ordinal(), _code).blockingGet()
+                        .token;
+                Log.i(LogTags.SignIn, "register returned:" + token);
+                App.getAppInstance().getPreferences().setToken(token);
+                App.getAppInstance().getPreferences().setDisplayName(_nickname);
+                App.getAppInstance().getPreferences().setLevel(_level);
+
+                return token != null;
+            } catch (HttpException e) {
+                Log.w(LogTags.Exception, e);
                 return false;
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(_userID)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(_code);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
         }
 
         @Override
@@ -173,8 +201,9 @@ public class EnterCodeActivity extends AppCompatActivity {
 
             if (success) {
                 finish();
+                showDashboard();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError(getString(R.string.error_invalid_password));
                 mPasswordView.requestFocus();
             }
         }
@@ -184,6 +213,16 @@ public class EnterCodeActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    private void showDashboard() {
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
+    }
+
+    private void showLanding() {
+        Intent intent = new Intent(this, LandingActivity.class);
+        startActivity(intent);
     }
 }
 

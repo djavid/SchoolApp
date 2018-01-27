@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.djavid.schoolapp.core.PresenterProvider;
 import com.djavid.schoolapp.model.Api;
 import com.djavid.schoolapp.util.SavedPreferences;
+import com.google.gson.Gson;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

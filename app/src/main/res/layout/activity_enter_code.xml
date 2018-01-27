@@ -30,11 +30,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.design.widget.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:text="@string/enter_code_input_code" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -48,11 +47,51 @@
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_code_input_nickname" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_nickname"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/enter_code_i_am_teacher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/i_am_teacher" />
+
+                <RadioButton
+                    android:id="@+id/enter_code_i_am_students"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/i_am_student" />
+            </RadioGroup>
 
             <Button
                 android:id="@+id/enter_code_button"
@@ -62,14 +101,6 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/enter_code_success_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="8sp"
-                android:visibility="gone" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

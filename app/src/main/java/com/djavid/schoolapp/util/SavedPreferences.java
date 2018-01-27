@@ -2,6 +2,8 @@ package com.djavid.schoolapp.util;
 
 import android.content.SharedPreferences;
 
+import com.djavid.schoolapp.model.dto.users.Level;
+
 
 public class SavedPreferences {
 
@@ -20,6 +22,30 @@ public class SavedPreferences {
         sharedPreferences
                 .edit()
                 .putString("token", token)
+                .apply();
+    }
+
+
+    public String getDisplayName() {
+        return sharedPreferences.getString("displayName", null);
+    }
+
+    public void setDisplayName(String displayName) {
+        sharedPreferences
+                .edit()
+                .putString("displayName", displayName)
+                .apply();
+    }
+
+
+    public Level getLevel() {
+        return Level.values()[sharedPreferences.getInt("level", Level.None.ordinal())];
+    }
+
+    public void setLevel(Level level) {
+        sharedPreferences
+                .edit()
+                .putInt("level", level.ordinal())
                 .apply();
     }
 

@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+    <!--
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_enter_code"
             android:title="@string/EnterCode" />
     </group>
+    -->
 
     <item android:title="@string/Schedule">
         <menu>
