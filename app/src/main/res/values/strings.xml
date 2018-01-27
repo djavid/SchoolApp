@@ -16,7 +16,7 @@
         completions."
     </string>
 
-    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_dashboard">Школа 1329</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -32,5 +32,6 @@
     <string name="groups">Группы</string>
     <string name="i_am_student">Я ученик</string>
     <string name="i_am_teacher">Я учитель</string>
+    <string name="create_code">Сгенерировать пароль</string>
 
 </resources>

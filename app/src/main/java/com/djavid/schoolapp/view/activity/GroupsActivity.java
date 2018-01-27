@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ public class GroupsActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            invalidateOptionsMenu();
             switch (item.getItemId()) {
                 case R.id.groups_navigation_all_groups:
                     mTextMessage.setText(R.string.all_groups);
@@ -29,7 +32,7 @@ public class GroupsActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.create_group);
                     return true;
             }
-            return false;
+            return true;
         }
     };
 
@@ -38,13 +41,19 @@ public class GroupsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+        mTextMessage = findViewById(R.id.message);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        MenuItem createGroupItem = navigation.findViewById(R.id.groups_navigation_create_group);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(0);
+    }
 
-        createGroupItem.setVisible(getPreferences(MODE_PRIVATE).getInt("level", 0) > 1);
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuView.ItemView createGroupItem = findViewById(R.id.groups_navigation_create_group);
+        createGroupItem.setEnabled(getPreferences(MODE_PRIVATE).getInt("level", 0) > 1);
+
+        return true;
     }
 
 }

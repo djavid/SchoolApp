@@ -31,7 +31,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activity.GroupsActivity"
-            android:label="@string/title_activity_groups"></activity>
+            android:label="@string/title_activity_groups" />
+        <activity android:name=".view.activity.GenerateCodeActivity"></activity>
     </application>
 
 </manifest>
