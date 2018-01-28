@@ -1,5 +1,6 @@
 package com.djavid.schoolapp.model;
 
+import com.djavid.schoolapp.model.dto.events.Event;
 import com.djavid.schoolapp.model.dto.users.TokenResponse;
 import com.djavid.schoolapp.model.dto.groups.Group;
 
@@ -74,4 +75,22 @@ public interface Api {
 
     @POST(GROUPS + "{id}/remove_user")
     Single<String> leaveGroup(@Header(Auth) String auth, @Path("id") String groupId);
+
+    // events
+
+    String EVENTS = ENDPOINT + "events/";
+
+    @GET(EVENTS)
+    Single<List<Event>> getAllEvents(@Header(Auth) String auth);
+
+    @FormUrlEncoded
+    @POST(EVENTS)
+    Single<Event> createEvent(@Header(Auth) String auth, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") Date startDate, @Field("end_date") Date endDate);
+
+    @FormUrlEncoded
+    @PUT(EVENTS + "{id}")
+    Single<Event> updateEvent(@Header(Auth) String auth, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") Date startDate, @Field("end_date") Date endDate);
+
+    @DELETE(EVENTS + "{id}")
+    Single<Map<String, String>> deleteEvent(@Header(Auth) String auth);
 }
