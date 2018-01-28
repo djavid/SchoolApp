@@ -27,36 +27,36 @@ public interface Api {
 
     // headers
 
-    String Auth = "Auth";
+    String Auth = "Authorization";
 
     // users
 
-    String USERS = ENDPOINT + "users/";
+    String USERS = ENDPOINT + "users";
 
     @FormUrlEncoded
-    @POST(USERS + "create_code")
+    @POST(USERS + "/create_code")
     Single<Map<String, String>> createCode(@Field("expiration_date") Date expiration_date, @Field("level") int level);
 
     @FormUrlEncoded
-    @POST(USERS + "check_code")
+    @POST(USERS + "/check_code")
     Single<Map<String, String>> checkCode(@Field("code") String code);
 
     @FormUrlEncoded
-    @POST(USERS + "register")
+    @POST(USERS + "/register")
     Single<TokenResponse> register(@Field("username") String nickname, @Field("password") String userID, @Field("level") int level, @Field("code") String code);
 
     @FormUrlEncoded
-    @POST(USERS + "login")
+    @POST(USERS + "/login")
     Single<Map<String, String>> login(@Field("username") String nickname, @Field("password") String userID);
 
     // groups
 
-    String GROUPS = ENDPOINT + "groups/";
+    String GROUPS = ENDPOINT + "groups";
 
     @GET(GROUPS)
     Single<List<Group>> getAllGroups(@Header(Auth) String auth);
 
-    @GET(GROUPS + "user_groups")
+    @GET(GROUPS + "/user_groups")
     Single<List<Group>> getMyGroups(@Header(Auth) String auth);
 
     @FormUrlEncoded
@@ -64,21 +64,21 @@ public interface Api {
     Single<Group> createGroup(@Header(Auth) String auth, @Field("title") String title);
 
     @FormUrlEncoded
-    @PUT(GROUPS + "{id}")
-    Single<Group> updateGroup(@Header(Auth) String auth, @Path("id") String id, @Field("title") String title);
+    @PUT(GROUPS + "/{id}")
+    Single<Group> updateGroup(@Header(Auth) String auth, @Path("id") long id, @Field("title") String title);
 
-    @DELETE(GROUPS + "{id}")
-    Single<String> deleteGroup(@Header(Auth) String auth, @Path("id") String id);
+    @DELETE(GROUPS + "/{id}")
+    Single<Map<String, String>> deleteGroup(@Header(Auth) String auth, @Path("id") long id);
 
-    @POST(GROUPS + "{id}/add_user")
-    Single<String> joinGroup(@Header(Auth) String auth, @Path("id") String groupId);
+    @POST(GROUPS + "/{id}/add_user")
+    Single<Map<String, String>> joinGroup(@Header(Auth) String auth, @Path("id") long groupId);
 
-    @POST(GROUPS + "{id}/remove_user")
-    Single<String> leaveGroup(@Header(Auth) String auth, @Path("id") String groupId);
+    @POST(GROUPS + "/{id}/remove_user")
+    Single<Map<String, String>> leaveGroup(@Header(Auth) String auth, @Path("id") long groupId);
 
     // events
 
-    String EVENTS = ENDPOINT + "events/";
+    String EVENTS = ENDPOINT + "events";
 
     @GET(EVENTS)
     Single<List<Event>> getAllEvents(@Header(Auth) String auth);
@@ -88,9 +88,9 @@ public interface Api {
     Single<Event> createEvent(@Header(Auth) String auth, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") Date startDate, @Field("end_date") Date endDate);
 
     @FormUrlEncoded
-    @PUT(EVENTS + "{id}")
-    Single<Event> updateEvent(@Header(Auth) String auth, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") Date startDate, @Field("end_date") Date endDate);
+    @PUT(EVENTS + "/{id}")
+    Single<Event> updateEvent(@Header(Auth) String auth, @Path("id") long eventId, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") Date startDate, @Field("end_date") Date endDate);
 
-    @DELETE(EVENTS + "{id}")
-    Single<Map<String, String>> deleteEvent(@Header(Auth) String auth);
+    @DELETE(EVENTS + "/{id}")
+    Single<Map<String, String>> deleteEvent(@Header(Auth) String auth, @Path("id") long eventId);
 }

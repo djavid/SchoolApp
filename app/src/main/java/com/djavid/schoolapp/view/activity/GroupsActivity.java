@@ -1,8 +1,10 @@
 package com.djavid.schoolapp.view.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuView;
 import android.view.Menu;
@@ -10,11 +12,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.view.fragment.groups.AllGroupFragment;
+import com.djavid.schoolapp.view.fragment.groups.AllGroupItem;
+import com.djavid.schoolapp.view.fragment.groups.CreateGroupFragment;
+import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
+import com.djavid.schoolapp.view.fragment.groups.MyGroupItem;
 
-public class GroupsActivity extends AppCompatActivity {
-
-    private TextView mTextMessage;
-
+public class GroupsActivity extends AppCompatActivity implements AllGroupFragment.OnListFragmentInteractionListener, CreateGroupFragment.OnFragmentInteractionListener, MyGroupFragment.OnListFragmentInteractionListener {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -23,13 +27,13 @@ public class GroupsActivity extends AppCompatActivity {
             invalidateOptionsMenu();
             switch (item.getItemId()) {
                 case R.id.groups_navigation_all_groups:
-                    mTextMessage.setText(R.string.all_groups);
+                    showFragment(new AllGroupFragment());
                     return true;
                 case R.id.groups_navigation_my_groups:
-                    mTextMessage.setText(R.string.my_groups);
+                    showFragment(new MyGroupFragment());
                     return true;
                 case R.id.groups_navigation_create_group:
-                    mTextMessage.setText(R.string.create_group);
+                    showFragment(CreateGroupFragment.newInstance("", ""));
                     return true;
             }
             return true;
@@ -41,11 +45,10 @@ public class GroupsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
 
-        mTextMessage = findViewById(R.id.message);
-
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(0);
+        showFragment(new AllGroupFragment());
     }
 
     @Override
@@ -56,4 +59,25 @@ public class GroupsActivity extends AppCompatActivity {
         return true;
     }
 
+    private void showFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.groupsFragment, fragment)
+                .commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(AllGroupItem item) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(MyGroupItem item) {
+
+    }
 }
