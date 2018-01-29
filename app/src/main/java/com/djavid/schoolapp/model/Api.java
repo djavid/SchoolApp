@@ -35,7 +35,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(USERS + "/create_code")
-    Single<Map<String, String>> createCode(@Field("expiration_date") Date expiration_date, @Field("level") int level);
+    Single<Map<String, String>> createCode(@Field("expiration_date") String expiration_date, @Field("level") int level);
 
     @FormUrlEncoded
     @POST(USERS + "/check_code")

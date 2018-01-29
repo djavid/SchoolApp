@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
@@ -122,7 +123,7 @@ public class EnterCodeActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(password, nickname, _userID, findViewById(R.id.enter_code_i_am_teacher).isSelected() ? Level.Teacher : Level.Student);
+            mAuthTask = new UserLoginTask(password, nickname, _userID, ((RadioButton) findViewById(R.id.enter_code_i_am_teacher)).isChecked() ? Level.Teacher : Level.Student);
             mAuthTask.execute((Void) null);
         }
     }

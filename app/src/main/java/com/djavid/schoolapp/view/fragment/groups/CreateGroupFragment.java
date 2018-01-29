@@ -7,8 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +34,9 @@ public class CreateGroupFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Button _createButton;
+    TextView _title;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,7 +75,19 @@ public class CreateGroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_group, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_group, container, false);
+        _createButton = view.findViewById(R.id.createGroupButton);
+        _title = view.findViewById(R.id.groupTitle);
+
+        _createButton.setOnClickListener(a -> {
+            App.getAppInstance().getApi()
+                    .createGroup(App.getAppInstance().getPreferences().getToken(), _title.getText().toString())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(q -> mListener.onFragmentInteraction(Uri.EMPTY));
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

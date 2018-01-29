@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.model.dto.users.Level;
 import com.djavid.schoolapp.view.fragment.groups.AllGroupFragment;
 import com.djavid.schoolapp.view.fragment.groups.AllGroupItem;
 import com.djavid.schoolapp.view.fragment.groups.CreateGroupFragment;
@@ -54,7 +56,7 @@ public class GroupsActivity extends AppCompatActivity implements AllGroupFragmen
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuView.ItemView createGroupItem = findViewById(R.id.groups_navigation_create_group);
-        createGroupItem.setEnabled(getPreferences(MODE_PRIVATE).getInt("level", 0) > 1);
+        createGroupItem.setEnabled(App.getAppInstance().getPreferences().getLevel().ordinal() > Level.Student.ordinal());
 
         return true;
     }
@@ -68,7 +70,9 @@ public class GroupsActivity extends AppCompatActivity implements AllGroupFragmen
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setSelectedItemId(0);
+        showFragment(new AllGroupFragment());
     }
 
     @Override
