@@ -83,6 +83,9 @@ public interface Api {
     @GET(EVENTS)
     Single<List<Event>> getAllEvents(@Header(Auth) String auth);
 
+    @GET(GROUPS + "/user_events")
+    Single<List<Event>> getMyEvents(@Header(Auth) String auth);
+
     @FormUrlEncoded
     @POST(EVENTS)
     Single<Event> createEvent(@Header(Auth) String auth, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") Date startDate, @Field("end_date") Date endDate);

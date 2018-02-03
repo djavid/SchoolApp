@@ -8,6 +8,7 @@ import com.djavid.schoolapp.core.PresenterProvider;
 import com.djavid.schoolapp.model.Api;
 import com.djavid.schoolapp.util.SavedPreferences;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -81,7 +82,10 @@ public class App extends Application {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Api.ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setDateFormat("yyyy-mm-dd'T'HH:mm:ss")
+                                .create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient.build())
                 .build();

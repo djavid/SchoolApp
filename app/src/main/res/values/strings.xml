@@ -38,10 +38,18 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="code_for_students">Код для учеников</string>
     <string name="code_for_teachers">Код для учителей</string>
-    <string name="code_eligible_until">Код действует до:</string>
-    <string name="group_name_label">Название группы:</string>
+    <string name="code_eligible_until">Код действует до: </string>
+    <string name="group_name_label">Название группы: </string>
     <string name="Create">Создать</string>
     <string name="group_name_hint">9Б</string>
     <string name="welcome">Доброй пожаловать!</string>
+    <string name="title_activity_events">Мероприятия</string>
+    <string name="all_events">Все мероприятия</string>
+    <string name="my_events">Мои мероприятия</string>
+    <string name="create_event">Создать мероприятие</string>
+    <string name="startDate_note">Начало: </string>
+    <string name="endDate_note">Окончание: </string>
+    <string name="event_name_label">Название:</string>
+    <string name="event_name_hint">Родительское собрание</string>
 
 </resources>

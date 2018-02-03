@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Andrei Kolomiets
@@ -11,7 +12,7 @@ import java.util.Date;
 public class Event {
     @SerializedName("id")
     @Expose
-    public String id;
+    public long id;
 
     @SerializedName("title")
     @Expose
@@ -31,7 +32,7 @@ public class Event {
 
     @SerializedName("participation_groups")
     @Expose
-    public String participation_groups;
+    public List<Long> participation_groups;
 
     @SerializedName("start_date")
     @Expose
