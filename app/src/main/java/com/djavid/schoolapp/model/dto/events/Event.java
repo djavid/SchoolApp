@@ -1,9 +1,11 @@
 package com.djavid.schoolapp.model.dto.events;
 
+import com.djavid.schoolapp.model.Api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,30 +18,46 @@ public class Event {
 
     @SerializedName("title")
     @Expose
-    public String title;
+    public String title = "";
 
     @SerializedName("place")
     @Expose
-    public String place;
+    public String place = "";
 
     @SerializedName("description")
     @Expose
-    public String description;
+    public String description = "";
 
     @SerializedName("created_by")
     @Expose
-    public String created_by;
+    public String created_by = "";
 
     @SerializedName("participation_groups")
     @Expose
-    public List<Long> participation_groups;
+    public List<Long> participation_groups = new LinkedList<>();
 
     @SerializedName("start_date")
     @Expose
-    public Date start_date;
+    private String start_date = Api.Date(Calendar.getInstance());
+
+    public Calendar getStartDate() {
+        return Api.ParseDate(start_date);
+    }
+
+    public void setStartDate(Calendar calendar) {
+        start_date = Api.Date(calendar);
+    }
 
     @SerializedName("end_date")
     @Expose
-    public Date end_date;
+    private String end_date = Api.Date(Calendar.getInstance());
+
+    public Calendar getEndDate() {
+        return Api.ParseDate(end_date);
+    }
+
+    public void setEndDate(Calendar calendar) {
+        end_date = Api.Date(calendar);
+    }
 
 }

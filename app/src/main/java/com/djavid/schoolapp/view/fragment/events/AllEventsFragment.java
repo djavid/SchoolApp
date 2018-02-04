@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.viewmodel.events.AllEventItem;
+import com.djavid.schoolapp.viewmodel.events.MyEventItem;
 
 /**
  * A fragment representing a list of Items.

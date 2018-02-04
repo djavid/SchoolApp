@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.databinding.FragmentAlleventsBinding;
+import com.djavid.schoolapp.viewmodel.events.AllEventItem;
+import com.djavid.schoolapp.viewmodel.events.MyEventItem;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,7 +43,7 @@ public class AllEventsRecyclerViewAdapter extends RecyclerView.Adapter<AllEvents
     private void onItemsArrived(List<AllEventItem> items) {
         mValues = items;
         for (AllEventItem allEventItem : mValues) {
-            if (Stream.of(mMyEvents).anyMatch(q -> q.id == allEventItem.id)) {
+            if (Stream.of(mMyEvents).anyMatch(q -> q.getId() == allEventItem.getId())) {
                 allEventItem.isMyEvent = true;
             }
         }

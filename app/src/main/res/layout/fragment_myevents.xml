@@ -3,9 +3,10 @@
 
     <data>
 
+        <import type="com.djavid.schoolapp.model.Api" />
         <variable
             name="event"
-            type="com.djavid.schoolapp.view.fragment.events.MyEventItem" />
+            type="com.djavid.schoolapp.viewmodel.events.MyEventItem" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -58,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    android:text="@{event.startDate}" />
+                    android:text="@{Api.Date(event.startDate)}" />
             </LinearLayout>
 
             <LinearLayout
@@ -75,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    android:text="@{event.endDate}" />
+                    android:text="@{Api.Date(event.endDate)}" />
             </LinearLayout>
 
             <TextView

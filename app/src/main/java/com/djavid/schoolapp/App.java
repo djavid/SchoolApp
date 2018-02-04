@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import com.djavid.schoolapp.core.PresenterProvider;
 import com.djavid.schoolapp.model.Api;
 import com.djavid.schoolapp.util.SavedPreferences;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
@@ -84,7 +83,7 @@ public class App extends Application {
                 .baseUrl(Api.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create(
                         new GsonBuilder()
-                                .setDateFormat("yyyy-mm-dd'T'HH:mm:ss")
+                                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                                 .create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient.build())

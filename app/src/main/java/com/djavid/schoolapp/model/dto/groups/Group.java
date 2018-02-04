@@ -13,5 +13,5 @@ public class Group {
 
     @SerializedName("title")
     @Expose
-    public String title;
+    public String title = "";
 }

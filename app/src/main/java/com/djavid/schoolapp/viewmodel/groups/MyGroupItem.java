@@ -1,24 +1,21 @@
-package com.djavid.schoolapp.view.fragment.groups;
+package com.djavid.schoolapp.viewmodel.groups;
 
 import com.djavid.schoolapp.model.dto.groups.Group;
 
 /**
  * @author Andrei Kolomiets
  */
-public class AllGroupItem {
+public class MyGroupItem {
     public final long id;
     public final String content;
 
-    public boolean isMyGroup;
-
     private final Group group;
 
-    public AllGroupItem(Group group, boolean isMyGroup) {
+    public MyGroupItem(Group group) {
         this.group = group;
 
         this.id = group.id;
         this.content = group.title;
-        this.isMyGroup = isMyGroup;
     }
 
     @Override

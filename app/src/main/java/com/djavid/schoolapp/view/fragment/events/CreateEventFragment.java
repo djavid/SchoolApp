@@ -7,15 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.djavid.schoolapp.App;
-import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.databinding.FragmentCreateEventBinding;
+import com.djavid.schoolapp.model.Api;
+import com.djavid.schoolapp.viewmodel.events.CreateEventItem;
 
-import java.util.Date;
 import java.util.LinkedList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,9 +35,6 @@ public class CreateEventFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    Button _createButton;
-    TextView _title;
 
     private OnFragmentInteractionListener mListener;
 
@@ -80,18 +74,19 @@ public class CreateEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         FragmentCreateEventBinding binding = FragmentCreateEventBinding.inflate(inflater, container, false);
+        binding.setEvent(new CreateEventItem());
 
-        _createButton.setOnClickListener(a -> {
-            AllEventItem event = binding.getEvent();
+        binding.setCreateCommand(a -> {
+            CreateEventItem event = binding.getEvent();
             App.getAppInstance().getApi()
                     .createEvent(
                             App.getAppInstance().getPreferences().getToken(),
-                            event.title,
-                            event.place,
-                            event.description,
+                            event.getTitle(),
+                            event.getPlace(),
+                            event.getDescription(),
                             new LinkedList<>(),
-                            new Date(),
-                            new Date())
+                            Api.Date(event.getStartDate()),
+                            Api.Date(event.getEndDate()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(q -> mListener.onFragmentInteraction(Uri.EMPTY));

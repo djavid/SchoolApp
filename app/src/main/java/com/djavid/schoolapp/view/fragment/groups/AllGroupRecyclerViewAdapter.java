@@ -13,11 +13,12 @@ import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.util.LogTags;
 import com.djavid.schoolapp.view.fragment.groups.AllGroupFragment.OnListFragmentInteractionListener;
+import com.djavid.schoolapp.viewmodel.groups.AllGroupItem;
+import com.djavid.schoolapp.viewmodel.groups.MyGroupItem;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

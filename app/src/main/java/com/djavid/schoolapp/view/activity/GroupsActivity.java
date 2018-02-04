@@ -9,16 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.dto.users.Level;
 import com.djavid.schoolapp.view.fragment.groups.AllGroupFragment;
-import com.djavid.schoolapp.view.fragment.groups.AllGroupItem;
+import com.djavid.schoolapp.viewmodel.groups.AllGroupItem;
 import com.djavid.schoolapp.view.fragment.groups.CreateGroupFragment;
 import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
-import com.djavid.schoolapp.view.fragment.groups.MyGroupItem;
+import com.djavid.schoolapp.viewmodel.groups.MyGroupItem;
 
 public class GroupsActivity extends AppCompatActivity implements AllGroupFragment.OnListFragmentInteractionListener, CreateGroupFragment.OnFragmentInteractionListener, MyGroupFragment.OnListFragmentInteractionListener {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

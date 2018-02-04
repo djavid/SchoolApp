@@ -4,7 +4,9 @@ import com.djavid.schoolapp.model.dto.events.Event;
 import com.djavid.schoolapp.model.dto.users.TokenResponse;
 import com.djavid.schoolapp.model.dto.groups.Group;
 
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,9 @@ import retrofit2.http.Path;
 public interface Api {
 
     String ENDPOINT = "https://school-1329-server.appspot.com/api/";
+
+    String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    String DATE_STRING_FORMAT = "%04d-%02d-%02dT%02d:%02d:%02d";
 
     // headers
 
@@ -88,12 +93,30 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(EVENTS)
-    Single<Event> createEvent(@Header(Auth) String auth, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") Date startDate, @Field("end_date") Date endDate);
+    Single<Event> createEvent(@Header(Auth) String auth, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") String startDate, @Field("end_date") String endDate);
 
     @FormUrlEncoded
     @PUT(EVENTS + "/{id}")
-    Single<Event> updateEvent(@Header(Auth) String auth, @Path("id") long eventId, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") Date startDate, @Field("end_date") Date endDate);
+    Single<Event> updateEvent(@Header(Auth) String auth, @Path("id") long eventId, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") String startDate, @Field("end_date") String endDate);
 
     @DELETE(EVENTS + "/{id}")
     Single<Map<String, String>> deleteEvent(@Header(Auth) String auth, @Path("id") long eventId);
+
+
+    // helpers
+
+    static String Date(Calendar date) {
+        return new SimpleDateFormat(Api.DATE_FORMAT).format(date.getTime());
+    }
+
+    static Calendar ParseDate(String date) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(
+                    new SimpleDateFormat(Api.DATE_FORMAT).parse(date));
+            return calendar;
+        } catch (ParseException e) {
+            return Calendar.getInstance();
+        }
+    }
 }

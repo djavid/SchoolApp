@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.model.Api;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -37,7 +38,7 @@ public class GenerateCodeActivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.generateButton:
                 App.getAppInstance().getApi()
-                        .createCode(String.format("%04d-%02d-%02dT12:00:00", _datePicker.getYear(), _datePicker.getMonth() + 1, _datePicker.getDayOfMonth()),
+                        .createCode(String.format(Api.DATE_STRING_FORMAT, _datePicker.getYear(), _datePicker.getMonth() + 1, _datePicker.getDayOfMonth(), 12, 0, 0),
                                 ((RadioButton) findViewById(R.id.studentCode)).isChecked() ? 1 : 2)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

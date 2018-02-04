@@ -1,5 +1,6 @@
 package com.djavid.schoolapp.view.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,12 +14,13 @@ import android.widget.TextView;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.dto.users.Level;
-import com.djavid.schoolapp.view.fragment.events.AllEventItem;
+import com.djavid.schoolapp.view.fragment.events.CreateEventFragment;
+import com.djavid.schoolapp.viewmodel.events.AllEventItem;
 import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;
-import com.djavid.schoolapp.view.fragment.events.MyEventItem;
+import com.djavid.schoolapp.viewmodel.events.MyEventItem;
 import com.djavid.schoolapp.view.fragment.events.MyEventsFragment;
 
-public class EventsActivity extends AppCompatActivity implements AllEventsFragment.OnListFragmentInteractionListener, MyEventsFragment.OnListFragmentInteractionListener {
+public class EventsActivity extends AppCompatActivity implements AllEventsFragment.OnListFragmentInteractionListener, MyEventsFragment.OnListFragmentInteractionListener, CreateEventFragment.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
 
@@ -31,12 +33,12 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
                 case R.id.events_navigation_all_events:
                     showFragment(new AllEventsFragment());
                     return true;
-//                case R.id.events_navigation_my_events:
-//                    showFragment(new MyEventsFragment());
-//                    return true;
-//                case R.id.events_navigation_create_event:
-//                    showFragment(new CreateEventFragment());
-//                    return true;
+                case R.id.events_navigation_my_events:
+                    showFragment(new MyEventsFragment());
+                    return true;
+                case R.id.events_navigation_create_event:
+                    showFragment(new CreateEventFragment());
+                    return true;
             }
             return false;
         }
@@ -75,6 +77,11 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
 
     @Override
     public void onListFragmentInteraction(AllEventItem item) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }

@@ -1,0 +1,15 @@
+package com.djavid.schoolapp.viewmodel.events;
+
+import com.djavid.schoolapp.model.dto.events.Event;
+
+/**
+ * @author Andrei Kolomiets
+ */
+public class AllEventItem extends EventItem {
+    public boolean isMyEvent;
+
+    public AllEventItem(Event event, boolean isMyEvent) {
+        super(event);
+        this.isMyEvent = isMyEvent;
+    }
+}

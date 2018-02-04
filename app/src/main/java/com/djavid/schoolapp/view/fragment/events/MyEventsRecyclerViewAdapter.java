@@ -4,8 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.annimon.stream.Stream;
 import com.djavid.schoolapp.databinding.FragmentMyeventsBinding;
+import com.djavid.schoolapp.viewmodel.events.MyEventItem;
 
 import java.util.LinkedList;
 import java.util.List;
