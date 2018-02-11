@@ -3,6 +3,7 @@ package com.djavid.schoolapp.model;
 import com.djavid.schoolapp.model.dto.events.Event;
 import com.djavid.schoolapp.model.dto.users.TokenResponse;
 import com.djavid.schoolapp.model.dto.groups.Group;
+import com.djavid.schoolapp.model.dto.users.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,6 +69,9 @@ public interface Api {
     @POST(GROUPS)
     Single<Group> createGroup(@Header(Auth) String auth, @Field("title") String title);
 
+    @GET(GROUPS + "/{id}")
+    Single<Group> getGroup(@Header(Auth) String auth, @Path("id") long id);
+
     @FormUrlEncoded
     @PUT(GROUPS + "/{id}")
     Single<Group> updateGroup(@Header(Auth) String auth, @Path("id") long id, @Field("title") String title);
@@ -80,6 +84,9 @@ public interface Api {
 
     @POST(GROUPS + "/{id}/remove_user")
     Single<Map<String, String>> leaveGroup(@Header(Auth) String auth, @Path("id") long groupId);
+
+    @GET(GROUPS + "/{id}/users")
+    Single<List<User>> getGroupParticipants(@Header(Auth) String auth, @Path("id") long groupId);
 
     // events
 
@@ -94,6 +101,9 @@ public interface Api {
     @FormUrlEncoded
     @POST(EVENTS)
     Single<Event> createEvent(@Header(Auth) String auth, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") String startDate, @Field("end_date") String endDate);
+
+    @GET(EVENTS + "/{id}")
+    Single<Event> getEvent(@Header(Auth) String auth, @Path("id") long id);
 
     @FormUrlEncoded
     @PUT(EVENTS + "/{id}")
