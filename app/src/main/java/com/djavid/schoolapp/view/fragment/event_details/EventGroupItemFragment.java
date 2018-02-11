@@ -1,4 +1,4 @@
-package com.djavid.schoolapp.view.fragment.events;
+package com.djavid.schoolapp.view.fragment.event_details;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +12,11 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.viewmodel.events.MyEventItem;
+import com.djavid.schoolapp.model.dto.events.Event;
+import com.djavid.schoolapp.model.dto.groups.Group;
+import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
+
+import io.reactivex.Single;
 
 /**
  * A fragment representing a list of Items.
@@ -20,34 +24,52 @@ import com.djavid.schoolapp.viewmodel.events.MyEventItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class MyEventsFragment extends Fragment {
+public class EventGroupItemFragment extends Fragment {
+    private static final String ARG_EVENTID = "eventId";
+
+    private long mEventId;
+
     private OnListFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public MyEventsFragment() {
+    public EventGroupItemFragment() {
+    }
+
+    public static EventGroupItemFragment newInstance(long eventId) {
+        EventGroupItemFragment fragment = new EventGroupItemFragment();
+        Bundle args = new Bundle();
+        args.putLong(ARG_EVENTID, eventId);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_myevents_list, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_eventgroupitem_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyEventsRecyclerViewAdapter(
-                    App.getAppInstance().getApi()
-                            .getMyEvents(App.getAppInstance().getPreferences().getToken())
-                            .map(eventList -> Stream.of(eventList)
-                                    .map(event -> new MyEventItem(event))
-                                    .toList()),
+
+            Single<Event> eventAsync = App.getAppInstance().getApi()
+                    .getEvent(App.getAppInstance().getPreferences().getToken(),
+                            mEventId);
+            recyclerView.setAdapter(new MyEventGroupItemRecyclerViewAdapter(
+                    eventAsync
+                            .<Group>flatMapObservable(event -> Single.merge(Stream.<Long>of(event.participation_groups)
+                                    .map(groupId -> App.getAppInstance().getApi().getGroup(App.getAppInstance().getPreferences().getToken(),
+                                            groupId))
+                                    .toList()).toObservable())
+                            .map(group -> new EventGroupItem(group, App.getAppInstance().getApi()
+                                    .getGroupParticipants(App.getAppInstance().getPreferences().getToken(),
+                                            group.id))),
+                    eventAsync,
                     mListener));
         }
         return view;
@@ -73,8 +95,8 @@ public class MyEventsFragment extends Fragment {
 
     /**
      * This interface must be implemented by activities that contain this
-     * fragment to Myow an interaction in this fragment to be communicated
-     * to the activity and potentiMyy other fragments contained in that
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
      * activity.
      * <p/>
      * See the Android Training lesson <a href=
@@ -82,8 +104,6 @@ public class MyEventsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
 
-        void openEventDetails(MyEventItem item);
     }
 }

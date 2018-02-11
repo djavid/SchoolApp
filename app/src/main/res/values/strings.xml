@@ -43,18 +43,25 @@
     <string name="Create">Создать</string>
     <string name="group_name_hint">9Б</string>
     <string name="welcome">Доброй пожаловать!</string>
+
     <string name="title_activity_events">Мероприятия</string>
     <string name="all_events">Все мероприятия</string>
     <string name="my_events">Мои мероприятия</string>
     <string name="create_event">Создать мероприятие</string>
+
     <string name="startDate_note">Начало: </string>
     <string name="endDate_note">Окончание: </string>
     <string name="event_name_label">Название:</string>
     <string name="event_name_hint">Родительское собрание</string>
     <string name="event_description_label">Описание:</string>
-    <string name="event_description_hint">На повестке обсуждение следующих тем: ...</string>
+    <string name="event_description_hint">На повестке обсуждение следующих тем: …</string>
     <string name="event_startDate_label">Начало мероприятия:</string>
     <string name="event_endDate_label">Окончание:</string>
     <string name="event_place_label">Место:</string>
+
+    <string name="title_activity_event_details">EventDetailsActivity</string>
+    <string name="about_event">О мероприятии</string>
+    <string name="event_groups">Группы-участники</string>
+    <string name="event_comments">Обсуждение</string>
 
 </resources>

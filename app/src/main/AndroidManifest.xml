@@ -45,6 +45,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.djavid.schoolapp.view.activity.DashboardActivity" />
         </activity>
+        <activity
+            android:name=".view.activity.EventDetailsActivity"
+            android:label="@string/title_activity_event_details"
+            android:parentActivityName=".view.activity.EventsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.djavid.schoolapp.view.activity.EventsActivity" />
+        </activity>
     </application>
 
 </manifest>

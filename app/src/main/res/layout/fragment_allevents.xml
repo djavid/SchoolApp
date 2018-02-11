@@ -6,11 +6,15 @@
         <import type="com.djavid.schoolapp.model.Api" />
 
         <variable
+            name="presenter"
+            type="com.djavid.schoolapp.view.fragment.events.AllEventsRecyclerViewAdapter" />
+        <variable
             name="event"
             type="com.djavid.schoolapp.viewmodel.events.AllEventItem" />
     </data>
 
     <android.support.v7.widget.CardView
+        android:onClick="@{() -> presenter.onClick(event)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

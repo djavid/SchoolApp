@@ -115,6 +115,6 @@ public class AllEventsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(AllEventItem item);
+        void openEventDetails(AllEventItem item);
     }
 }

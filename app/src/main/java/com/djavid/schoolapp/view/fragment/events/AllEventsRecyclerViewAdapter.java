@@ -58,12 +58,17 @@ public class AllEventsRecyclerViewAdapter extends RecyclerView.Adapter<AllEvents
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.binding.setEvent(mValues.get(position));
+        holder.binding.setPresenter(this);
         holder.binding.executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public void onClick(AllEventItem event) {
+        mListener.openEventDetails(event);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

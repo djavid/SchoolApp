@@ -19,9 +19,13 @@ class EventItem extends BaseObservable implements View.OnClickListener {
         this.event = event;
     }
 
+    public long getIdLong() {
+        return event.id;
+    }
+
     @Bindable
     public String getId() {
-        return Long.toString(BR.id);
+        return Long.toString(event.id);
     }
 
     public void setId(String id) {

@@ -1,6 +1,5 @@
 package com.djavid.schoolapp.view.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -34,7 +33,7 @@ public class GroupsActivity extends AppCompatActivity implements AllGroupFragmen
                     showFragment(new MyGroupFragment());
                     return true;
                 case R.id.groups_navigation_create_group:
-                    showFragment(CreateGroupFragment.newInstance("", ""));
+                    showFragment(new CreateGroupFragment());
                     return true;
             }
             return true;
@@ -57,7 +56,7 @@ public class GroupsActivity extends AppCompatActivity implements AllGroupFragmen
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuView.ItemView createGroupItem = findViewById(R.id.groups_navigation_create_group);
-        createGroupItem.setEnabled(App.getAppInstance().getPreferences().getLevel().ordinal() > Level.Student.ordinal());
+        createGroupItem.setEnabled(App.getAppInstance().isTeacher());
 
         return true;
     }

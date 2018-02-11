@@ -1,57 +1,42 @@
-package com.djavid.schoolapp.view.fragment.groups;
+package com.djavid.schoolapp.view.fragment.event_details;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CreateGroupFragment.OnFragmentInteractionListener} interface
+ * {@link AboutEventFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CreateGroupFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class CreateGroupFragment extends Fragment {
-    Button _createButton;
-    TextView _title;
+public class AboutEventFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CreateGroupFragment() {
+    public AboutEventFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_create_group, container, false);
-        _createButton = view.findViewById(R.id.createGroupButton);
-        _title = view.findViewById(R.id.groupTitle);
+        return inflater.inflate(R.layout.fragment_about_event, container, false);
+    }
 
-        _createButton.setOnClickListener(a -> {
-            String title = _title.getText().toString();
-            if (mListener != null && !title.isEmpty())
-                App.getAppInstance().getApi()
-                        .createGroup(App.getAppInstance().getPreferences().getToken(), title)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(q -> mListener.onGroupCreated());
-        });
-
-        return view;
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     @Override
@@ -83,6 +68,6 @@ public class CreateGroupFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onGroupCreated();
+        void onFragmentInteraction(Uri uri);
     }
 }

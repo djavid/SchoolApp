@@ -1,6 +1,6 @@
 package com.djavid.schoolapp.view.activity;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -60,7 +60,7 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuView.ItemView createEventItem = findViewById(R.id.events_navigation_create_event);
-        createEventItem.setEnabled(App.getAppInstance().getPreferences().getLevel().ordinal() > Level.Student.ordinal());
+        createEventItem.setEnabled(App.getAppInstance().isTeacher());
 
         return true;
     }
@@ -73,13 +73,27 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
     }
 
     @Override
-    public void onListFragmentInteraction(MyEventItem item) {
+    public void openEventDetails(MyEventItem item) {
+        if (!(App.getAppInstance().isTeacher())) {
+            return;
+        }
 
+        Intent intent = new Intent(this, EventDetailsActivity.class);
+        intent.putExtra(EventDetailsActivity.ARG_EVENTID, item.getIdLong());
+
+        startActivity(intent);
     }
 
     @Override
-    public void onListFragmentInteraction(AllEventItem item) {
+    public void openEventDetails(AllEventItem item) {
+        if (!(App.getAppInstance().isTeacher())) {
+            return;
+        }
 
+        Intent intent = new Intent(this, EventDetailsActivity.class);
+        intent.putExtra(EventDetailsActivity.ARG_EVENTID, item.getIdLong());
+
+        startActivity(intent);
     }
 
     @Override

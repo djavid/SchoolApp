@@ -59,7 +59,7 @@ public class MyGroupRecyclerViewAdapter extends RecyclerView.Adapter<MyGroupRecy
         holder.mItem = mValues.get(position);
         holder.mContentView.setText(mValues.get(position).content);
 
-        // TODO: how do I do bindings?
+        // TODO: change to bindings
 
         holder.mRemoveButton.setOnClickListener(v -> {
             switch (v.getId()) {

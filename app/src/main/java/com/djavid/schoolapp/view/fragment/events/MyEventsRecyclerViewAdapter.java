@@ -21,11 +21,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class MyEventsRecyclerViewAdapter extends RecyclerView.Adapter<MyEventsRecyclerViewAdapter.ViewHolder> {
 
-    private List<MyEventItem> mValues;
+    private List<MyEventItem> mValues = new LinkedList<>();
     private final MyEventsFragment.OnListFragmentInteractionListener mListener;
 
     public MyEventsRecyclerViewAdapter(Single<List<MyEventItem>> items, MyEventsFragment.OnListFragmentInteractionListener listener) {
-        mValues = new LinkedList<>();
         mListener = listener;
 
         items
@@ -47,12 +46,17 @@ public class MyEventsRecyclerViewAdapter extends RecyclerView.Adapter<MyEventsRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.binding.setEvent(mValues.get(position));
+        holder.binding.setPresenter(this);
         holder.binding.executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public void onClick(MyEventItem event) {
+        mListener.openEventDetails(event);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
