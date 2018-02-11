@@ -80,11 +80,13 @@ public class CreateGroupFragment extends Fragment {
         _title = view.findViewById(R.id.groupTitle);
 
         _createButton.setOnClickListener(a -> {
-            App.getAppInstance().getApi()
-                    .createGroup(App.getAppInstance().getPreferences().getToken(), _title.getText().toString())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(q -> mListener.onFragmentInteraction(Uri.EMPTY));
+            String title = _title.getText().toString();
+            if (mListener != null && !title.isEmpty())
+                App.getAppInstance().getApi()
+                        .createGroup(App.getAppInstance().getPreferences().getToken(), title)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(q -> mListener.onFragmentInteraction(Uri.EMPTY));
         });
 
         return view;
