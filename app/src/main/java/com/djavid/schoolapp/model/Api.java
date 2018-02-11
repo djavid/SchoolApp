@@ -88,7 +88,7 @@ public interface Api {
     @GET(EVENTS)
     Single<List<Event>> getAllEvents(@Header(Auth) String auth);
 
-    @GET(GROUPS + "/user_events")
+    @GET(EVENTS + "/user_events")
     Single<List<Event>> getMyEvents(@Header(Auth) String auth);
 
     @FormUrlEncoded
