@@ -2,7 +2,7 @@ package com.djavid.schoolapp.util;
 
 import android.content.SharedPreferences;
 
-import com.djavid.schoolapp.model.dto.users.Level;
+import com.djavid.schoolapp.model.users.Level;
 
 
 public class SavedPreferences {

@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.model.dto.users.Level;
+import com.djavid.schoolapp.model.users.Level;
 import com.djavid.schoolapp.view.fragment.groups.AllGroupFragment;
 import com.djavid.schoolapp.viewmodel.groups.AllGroupItem;
 import com.djavid.schoolapp.view.fragment.groups.CreateGroupFragment;

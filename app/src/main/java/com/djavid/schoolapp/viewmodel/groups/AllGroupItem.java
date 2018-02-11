@@ -1,6 +1,6 @@
 package com.djavid.schoolapp.viewmodel.groups;
 
-import com.djavid.schoolapp.model.dto.groups.Group;
+import com.djavid.schoolapp.model.groups.Group;
 
 /**
  * @author Andrei Kolomiets

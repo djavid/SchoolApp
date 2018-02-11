@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.djavid.schoolapp.core.PresenterProvider;
-import com.djavid.schoolapp.model.Api;
-import com.djavid.schoolapp.model.dto.users.Level;
+import com.djavid.schoolapp.model.users.Level;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.util.SavedPreferences;
 import com.google.gson.GsonBuilder;
 

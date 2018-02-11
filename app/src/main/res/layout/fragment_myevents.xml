@@ -6,7 +6,7 @@
         <variable
             name="presenter"
             type="com.djavid.schoolapp.view.fragment.events.MyEventsRecyclerViewAdapter" />
-        <import type="com.djavid.schoolapp.model.Api" />
+        <import type="com.djavid.schoolapp.rest.Api" />
         <variable
             name="event"
             type="com.djavid.schoolapp.viewmodel.events.MyEventItem" />

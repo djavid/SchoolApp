@@ -6,16 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.model.dto.users.Level;
 import com.djavid.schoolapp.view.fragment.event_details.AboutEventFragment;
 import com.djavid.schoolapp.view.fragment.event_details.EventGroupItemFragment;
-import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;
 
 public class EventDetailsActivity extends AppCompatActivity implements AboutEventFragment.OnFragmentInteractionListener, EventGroupItemFragment.OnListFragmentInteractionListener {
 

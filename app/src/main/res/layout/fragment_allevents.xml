@@ -3,7 +3,7 @@
 
     <data>
 
-        <import type="com.djavid.schoolapp.model.Api" />
+        <import type="com.djavid.schoolapp.rest.Api" />
 
         <variable
             name="presenter"

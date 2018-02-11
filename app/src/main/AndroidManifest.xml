@@ -31,15 +31,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activity.GroupsActivity"
-            android:label="@string/title_activity_groups"
+            android:label="@string/title_nav_groups"
             android:parentActivityName=".view.activity.DashboardActivity" />
         <activity
             android:name=".view.activity.GenerateCodeActivity"
-            android:label="@string/create_code"
+            android:label="@string/title_nav_create_code"
             android:parentActivityName=".view.activity.DashboardActivity" />
         <activity
             android:name=".view.activity.EventsActivity"
-            android:label="@string/title_activity_events"
+            android:label="@string/title_nav_events"
             android:parentActivityName=".view.activity.DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -53,6 +53,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.djavid.schoolapp.view.activity.EventsActivity" />
         </activity>
+        <activity android:name=".view.activity.ScheduleActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.djavid.schoolapp.model.dto.groups;
+package com.djavid.schoolapp.model.groups;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

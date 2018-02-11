@@ -1,7 +1,7 @@
 package com.djavid.schoolapp.viewmodel.event_details;
 
-import com.djavid.schoolapp.model.dto.groups.Group;
-import com.djavid.schoolapp.model.dto.users.User;
+import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.model.users.User;
 
 import java.util.List;
 

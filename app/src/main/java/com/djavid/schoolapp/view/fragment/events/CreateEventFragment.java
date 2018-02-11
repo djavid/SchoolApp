@@ -1,7 +1,6 @@
 package com.djavid.schoolapp.view.fragment.events;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.databinding.FragmentCreateEventBinding;
-import com.djavid.schoolapp.model.Api;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.viewmodel.events.CreateEventItem;
 
 import java.util.LinkedList;

@@ -83,6 +83,8 @@ public class DashboardActivity extends AppCompatActivity
             startActivity(new Intent(this, GroupsActivity.class));
         } else if (id == R.id.nav_events) {
             startActivity(new Intent(this, EventsActivity.class));
+        } else if (id == R.id.nav_schedule) {
+            startActivity(new Intent(this, ScheduleActivity.class));
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

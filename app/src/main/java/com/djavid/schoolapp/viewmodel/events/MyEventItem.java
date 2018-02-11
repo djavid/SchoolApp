@@ -1,6 +1,6 @@
 package com.djavid.schoolapp.viewmodel.events;
 
-import com.djavid.schoolapp.model.dto.events.Event;
+import com.djavid.schoolapp.model.events.Event;
 
 /**
  * @author Andrei Kolomiets

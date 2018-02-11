@@ -6,10 +6,14 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_generate_code"
-            android:title="@string/create_code" />
+            android:title="@string/title_nav_create_code" />
+
+        <item
+            android:id="@+id/nav_schedule"
+            android:title="@string/title_nav_schedule" />
     </group>
 
-    <item android:title="@string/title_activity_groups">
+    <item android:title="@string/title_nav_groups">
         <menu>
             <item
                 android:id="@+id/nav_groups"
@@ -17,22 +21,11 @@
         </menu>
     </item>
 
-    <item android:title="@string/title_activity_events">
+    <item android:title="@string/title_nav_events">
         <menu>
             <item
                 android:id="@+id/nav_events"
-                android:title="@string/title_activity_events" />
-        </menu>
-    </item>
-
-    <item android:title="@string/Schedule">
-        <menu>
-            <!--
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-                -->
+                android:title="@string/title_nav_events" />
         </menu>
     </item>
 

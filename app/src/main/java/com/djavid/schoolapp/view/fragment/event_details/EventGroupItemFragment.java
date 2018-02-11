@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.model.dto.events.Event;
-import com.djavid.schoolapp.model.dto.groups.Group;
+import com.djavid.schoolapp.model.events.Event;
+import com.djavid.schoolapp.model.groups.Group;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
 
 import io.reactivex.Single;

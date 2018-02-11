@@ -1,4 +1,4 @@
-package com.djavid.schoolapp.model.dto.users;
+package com.djavid.schoolapp.model.users;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,9 +1,9 @@
-package com.djavid.schoolapp.model;
+package com.djavid.schoolapp.rest;
 
-import com.djavid.schoolapp.model.dto.events.Event;
-import com.djavid.schoolapp.model.dto.users.TokenResponse;
-import com.djavid.schoolapp.model.dto.groups.Group;
-import com.djavid.schoolapp.model.dto.users.User;
+import com.djavid.schoolapp.model.events.Event;
+import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.model.users.TokenResponse;
+import com.djavid.schoolapp.model.users.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -111,6 +111,9 @@ public interface Api {
 
     @DELETE(EVENTS + "/{id}")
     Single<Map<String, String>> deleteEvent(@Header(Auth) String auth, @Path("id") long eventId);
+
+    //schedule
+
 
 
     // helpers
