@@ -202,7 +202,8 @@
                         android:layout_height="wrap_content"
                         android:hour="@={event.endDateHour}"
                         android:minute="@={event.endDateMinute}"
-                        android:timePickerMode="spinner" />
+                        android:timePickerMode="spinner"
+                        android:layout_marginBottom="32dp" />
                 </LinearLayout>
 
             </android.support.constraint.ConstraintLayout>

@@ -41,14 +41,16 @@ public class GroupsActivity extends AppCompatActivity implements AllGroupFragmen
         }
     };
 
+    BottomNavigationView mNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(0);
+        mNavigation = findViewById(R.id.navigation);
+        mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mNavigation.setSelectedItemId(R.id.groups_navigation_all_groups);
         showFragment(new AllGroupFragment());
     }
 
@@ -68,10 +70,9 @@ public class GroupsActivity extends AppCompatActivity implements AllGroupFragmen
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setSelectedItemId(0);
-        showFragment(new AllGroupFragment());
+    public void onGroupCreated() {
+        mNavigation.setSelectedItemId(R.id.groups_navigation_my_groups);
+        //showFragment(new MyGroupFragment());
     }
 
     @Override

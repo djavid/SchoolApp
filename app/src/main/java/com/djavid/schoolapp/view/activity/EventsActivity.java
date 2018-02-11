@@ -24,6 +24,8 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
 
     private TextView mTextMessage;
 
+    BottomNavigationView mNavigation;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -49,9 +51,9 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(0);
+        mNavigation = findViewById(R.id.navigation);
+        mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mNavigation.setSelectedItemId(R.id.events_navigation_all_events);
         showFragment(new AllEventsFragment());
     }
 
@@ -81,7 +83,8 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onEventCreated() {
+        mNavigation.setSelectedItemId(R.id.events_navigation_my_events);
+        //showFragment(new MyEventsFragment());
     }
 }

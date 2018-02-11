@@ -155,7 +155,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hour="@={event.endDateHour}"
-                        android:minute="@={event.endDateMinute}" />
+                        android:minute="@={event.endDateMinute}"
+                        android:layout_marginBottom="32dp" />
                 </LinearLayout>
 
             </android.support.constraint.ConstraintLayout>
