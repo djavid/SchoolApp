@@ -25,7 +25,7 @@ import retrofit2.http.Path;
  */
 public interface Api {
 
-    String ENDPOINT = "https://school-1329-server.appspot.com/api/";
+    String ENDPOINT = "https://school-1329.herokuapp.com/api/";
 
     String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     String DATE_STRING_FORMAT = "%04d-%02d-%02dT%02d:%02d:%02d";
