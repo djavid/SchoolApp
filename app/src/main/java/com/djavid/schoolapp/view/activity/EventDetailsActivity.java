@@ -49,6 +49,11 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        mEventId = getIntent().getLongExtra(ARG_EVENTID, 0);
+        if (mEventId == 0) {
+            onBackPressed();
+        }
+
         mNavigation = findViewById(R.id.navigation);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mNavigation.setSelectedItemId(R.id.navigation_about_event);
