@@ -80,7 +80,8 @@ public class ScheduleFragment extends BaseFragment implements ScheduleFragmentVi
 
     @Override
     public void addSchedule(Schedule schedule) {
-        rv_day_list.removeAllViews();
+        resetFeed();
+
         rv_day_list.addView(new ScheduleDayItem(getContext(), rv_day_list, schedule.monday, 1));
         rv_day_list.addView(new ScheduleDayItem(getContext(), rv_day_list, schedule.tuesday, 2));
         rv_day_list.addView(new ScheduleDayItem(getContext(), rv_day_list, schedule.wednesday, 3));
@@ -88,5 +89,10 @@ public class ScheduleFragment extends BaseFragment implements ScheduleFragmentVi
         rv_day_list.addView(new ScheduleDayItem(getContext(), rv_day_list, schedule.friday, 5));
         rv_day_list.addView(new ScheduleDayItem(getContext(), rv_day_list, schedule.saturday, 6));
         rv_day_list.addView(new ScheduleDayItem(getContext(), rv_day_list, schedule.sunday, 7));
+    }
+
+    @Override
+    public void resetFeed() {
+        rv_day_list.removeAllViews();
     }
 }

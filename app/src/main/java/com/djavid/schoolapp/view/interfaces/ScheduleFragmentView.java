@@ -7,4 +7,5 @@ import com.djavid.schoolapp.model.schedule.Schedule;
 public interface ScheduleFragmentView extends View {
 
     void addSchedule(Schedule schedule);
+    void resetFeed();
 }
