@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.model.dto.users.Level;
 import com.djavid.schoolapp.view.fragment.events.CreateEventFragment;
 import com.djavid.schoolapp.viewmodel.events.AllEventItem;
 import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;

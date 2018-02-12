@@ -19,8 +19,8 @@ import android.widget.RadioButton;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.model.dto.users.Level;
-import com.djavid.schoolapp.model.dto.users.TokenResponse;
+import com.djavid.schoolapp.model.users.Level;
+import com.djavid.schoolapp.model.users.TokenResponse;
 import com.djavid.schoolapp.util.LogTags;
 
 import retrofit2.HttpException;

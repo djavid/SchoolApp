@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,9 +19,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.core.Router;
+import com.djavid.schoolapp.view.fragment.schedule.ScheduleFragment;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Router {
+
+    final String TAG = getClass().getSimpleName();
+    final String TAG_SCHEDULE = "TAG_SCHEDULE";
+    private FragmentManager fragmentManager;
+    private Fragment scheduleFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +37,6 @@ public class DashboardActivity extends AppCompatActivity
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -38,6 +46,9 @@ public class DashboardActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        scheduleFragment = ScheduleFragment.newInstance();
+        fragmentManager = getSupportFragmentManager();
     }
 
     @Override
@@ -83,10 +94,62 @@ public class DashboardActivity extends AppCompatActivity
             startActivity(new Intent(this, GroupsActivity.class));
         } else if (id == R.id.nav_events) {
             startActivity(new Intent(this, EventsActivity.class));
+        } else if (id == R.id.nav_schedule) {
+
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(getString(R.string.title_nav_schedule));
+            }
+
+            changeFragment(scheduleFragment, TAG_SCHEDULE, true);
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void goBack() {
+
+    }
+
+    public void changeFragment(Fragment fragment, String tag, boolean addBackStack) {
+        Log.i(TAG, "changeFragment");
+
+        try {
+
+            Fragment existFragment = fragmentManager.findFragmentByTag(tag);
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN); GOOGLE BUG
+
+            if (existFragment == null) {
+
+                // fragment not in back stack, create it.
+                ft.replace(R.id.container, fragment, tag);
+
+                if (addBackStack)
+                    ft.addToBackStack(tag);
+                ft.commit();
+
+                Log.w(TAG, tag + " added to the backstack");
+
+            } else {
+
+                // fragment in back stack, call it back.
+                ft.replace(R.id.container, existFragment, tag);
+                if (addBackStack) {
+                    fragmentManager.popBackStack(tag, 0);
+                }
+                ft.commit();
+
+                Log.w(TAG, tag + " fragment returned back from backstack");
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

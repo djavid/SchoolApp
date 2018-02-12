@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentEventgroupitemBinding;
 import com.djavid.schoolapp.databinding.FragmentEventgroupitemParticipantBinding;
-import com.djavid.schoolapp.model.dto.users.User;
+import com.djavid.schoolapp.model.users.User;
 
 import java.util.LinkedList;
 import java.util.List;

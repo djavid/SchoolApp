@@ -5,7 +5,7 @@ import android.databinding.Bindable;
 import android.view.View;
 
 import com.djavid.schoolapp.BR;
-import com.djavid.schoolapp.model.dto.events.Event;
+import com.djavid.schoolapp.model.events.Event;
 
 import java.util.Calendar;
 

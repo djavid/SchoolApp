@@ -1,4 +1,4 @@
-package com.djavid.schoolapp.model.dto.users;
+package com.djavid.schoolapp.model.users;
 
 /**
  * @author Andrei Kolomiets

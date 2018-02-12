@@ -1,5 +1,7 @@
 package com.djavid.schoolapp.core;
 
+import com.djavid.schoolapp.presenter.implementations.ScheduleFragmentPresenterImpl;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,8 +23,8 @@ public class PresenterProvider {
         if (presenterMap.containsKey(presenterId)) return;
 
         switch (presenterId){
-            case "some_fragment":
-                //presenterMap.put(presenterId, new RateFragmentPresenterImpl());
+            case "schedule_fragment":
+                presenterMap.put(presenterId, new ScheduleFragmentPresenterImpl());
                 break;
         }
     }

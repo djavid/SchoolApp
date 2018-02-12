@@ -11,10 +11,11 @@ import android.widget.TextView;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.model.Api;
+import com.djavid.schoolapp.rest.Api;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
 
 public class GenerateCodeActivity extends AppCompatActivity implements View.OnClickListener {
 

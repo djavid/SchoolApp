@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.databinding.FragmentEventgroupitemBinding;
-import com.djavid.schoolapp.model.dto.events.Event;
+import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.view.fragment.event_details.EventGroupItemFragment.OnListFragmentInteractionListener;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
 
