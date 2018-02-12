@@ -1,5 +1,8 @@
 package com.djavid.schoolapp.presenter.implementations;
 
+import android.util.Log;
+
+import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.BasePresenter;
 import com.djavid.schoolapp.core.Router;
 import com.djavid.schoolapp.presenter.instancestate.ScheduleFragmentInstanceState;
@@ -24,9 +27,7 @@ public class ScheduleFragmentPresenterImpl extends BasePresenter<ScheduleFragmen
     }
 
     @Override
-    public void onStart() {
-
-    }
+    public void onStart() { }
 
     @Override
     public void onStop() {
@@ -42,5 +43,22 @@ public class ScheduleFragmentPresenterImpl extends BasePresenter<ScheduleFragmen
     @Override
     public void saveInstanceState(ScheduleFragmentInstanceState instanceState) {
         //setInstanceState(instanceState);
+    }
+
+    @Override
+    public void getSchedule() {
+        Log.i(TAG, "getSchedule()");
+
+        disposable = dataRepository.getAllLessons()
+                .subscribe(response -> {
+                    if (response == null) return;
+                    if (getView() == null) return;
+
+                    getView().addSchedule(response);
+
+                }, error -> {
+                    if (getView() == null) return;
+                    getView().showError(R.string.load_error);
+                });
     }
 }

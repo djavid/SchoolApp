@@ -4,11 +4,13 @@
     android:layout_height="match_parent"
     tools:context="com.djavid.schoolapp.view.fragment.schedule.ScheduleFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+
+    <com.mindorks.placeholderview.PlaceHolderView
+        android:id="@+id/schedule_day_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/schedule_day_layout" />
+
 
     <include layout="@layout/view_progressbar"
         android:visibility="gone" />

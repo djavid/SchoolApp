@@ -53,7 +53,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.djavid.schoolapp.view.activity.EventsActivity" />
         </activity>
-        <activity android:name=".view.activity.ScheduleActivity"></activity>
     </application>
 
 </manifest>

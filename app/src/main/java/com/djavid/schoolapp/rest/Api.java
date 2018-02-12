@@ -2,6 +2,9 @@ package com.djavid.schoolapp.rest;
 
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.model.schedule.Schedule;
+import com.djavid.schoolapp.model.schedule.ScheduleLesson;
+import com.djavid.schoolapp.model.schedule.ScheduleSubject;
 import com.djavid.schoolapp.model.users.TokenResponse;
 import com.djavid.schoolapp.model.users.User;
 
@@ -12,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Single;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -34,6 +38,7 @@ public interface Api {
     // headers
 
     String Auth = "Authorization";
+    String ContentType = "content-type";
 
     // users
 
@@ -41,7 +46,8 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(USERS + "/create_code")
-    Single<Map<String, String>> createCode(@Field("expiration_date") String expiration_date, @Field("level") int level);
+    Single<Map<String, String>> createCode(@Field("expiration_date") String expiration_date,
+                                           @Field("level") int level);
 
     @FormUrlEncoded
     @POST(USERS + "/check_code")
@@ -49,7 +55,8 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(USERS + "/register")
-    Single<TokenResponse> register(@Field("username") String nickname, @Field("password") String userID, @Field("level") int level, @Field("code") String code);
+    Single<TokenResponse> register(@Field("username") String nickname, @Field("password") String userID,
+                                   @Field("level") int level, @Field("code") String code);
 
     @FormUrlEncoded
     @POST(USERS + "/login")
@@ -100,21 +107,66 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(EVENTS)
-    Single<Event> createEvent(@Header(Auth) String auth, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") String startDate, @Field("end_date") String endDate);
+    Single<Event> createEvent(@Header(Auth) String auth, @Field("title") String title,
+                              @Field("place") String place, @Field("description") String description,
+                              @Field("participation_groups") List<String> participationGroups,
+                              @Field("start_date") String startDate, @Field("end_date") String endDate);
 
     @GET(EVENTS + "/{id}")
     Single<Event> getEvent(@Header(Auth) String auth, @Path("id") long id);
 
     @FormUrlEncoded
     @PUT(EVENTS + "/{id}")
-    Single<Event> updateEvent(@Header(Auth) String auth, @Path("id") long eventId, @Field("title") String title, @Field("place") String place, @Field("description") String description, @Field("participation_groups") List<String> participationGroups, @Field("start_date") String startDate, @Field("end_date") String endDate);
+    Single<Event> updateEvent(@Header(Auth) String auth, @Path("id") long eventId,
+                              @Field("title") String title, @Field("place") String place,
+                              @Field("description") String description,
+                              @Field("participation_groups") List<String> participationGroups,
+                              @Field("start_date") String startDate, @Field("end_date") String endDate);
 
     @DELETE(EVENTS + "/{id}")
     Single<Map<String, String>> deleteEvent(@Header(Auth) String auth, @Path("id") long eventId);
 
-    //schedule
+    //schedule subjects
 
+    String SUBJECTS = ENDPOINT + "schedule_subjects";
 
+    @GET(SUBJECTS)
+    Single<List<ScheduleSubject>> getAllSubjects(@Header(Auth) String auth);
+
+    @FormUrlEncoded
+    @POST(SUBJECTS)
+    Single<ScheduleSubject> createSubject(@Header(Auth) String auth, @Field("title") String title);
+
+    @FormUrlEncoded
+    @PUT(SUBJECTS + "/{id}")
+    Single<ScheduleSubject> updateSubject(@Header(Auth) String auth, @Path("id") long subjectId,
+                                          @Field("title") String title);
+
+    @DELETE(SUBJECTS + "/{id}")
+    Single<Map<String, String>> deleteSubject(@Header(Auth) String auth, @Path("id") long subjectId);
+
+    //schedule lessons
+
+    String LESSONS = ENDPOINT + "schedule_lessons";
+
+    @GET(LESSONS + "/user_schedule")
+    Single<Schedule> getAllLessons(@Header(Auth) String auth);
+
+    @FormUrlEncoded
+    @POST(LESSONS)
+    Single<ScheduleLesson> createLesson(@Header(Auth) String auth, @Field("start_time") String start_time,
+                                        @Field("weekday") int weekday, @Field("groups") int[] groups,
+                                        @Field("subject") int subject, @Field("place") String place);
+
+    @FormUrlEncoded
+    @PUT(LESSONS + "/{id}")
+    Single<ScheduleLesson> updateLesson(@Header(Auth) String auth, @Path("id") long lessonId,
+                                        @Field("start_time") String start_time,
+                                        @Field("weekday") int weekday, @Field("groups") int[] groups,
+                                        @Field("subject") int subject, @Field("place") String place);
+
+    @DELETE(LESSONS + "/{id}")
+    Single<Map<String, String>> deleteLesson(@Header(Auth) String auth, @Path("id") long lessonId);
 
     // helpers
 

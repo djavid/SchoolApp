@@ -9,5 +9,5 @@ import com.djavid.schoolapp.view.interfaces.ScheduleFragmentView;
 public interface ScheduleFragmentPresenter extends Presenter<ScheduleFragmentView, Router,
         ScheduleFragmentInstanceState> {
 
-
+    void getSchedule();
 }

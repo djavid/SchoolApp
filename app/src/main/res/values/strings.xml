@@ -12,9 +12,8 @@
     <string name="error_invalid_nickname">Подпись содержит невалидные символы</string>
     <string name="error_invalid_password">Пароль не подходит</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="load_error">Ошибка загрузки!</string>
 
     <string name="title_activity_dashboard">Школа 1329</string>
 
@@ -65,6 +64,16 @@
     <string name="title_nav_events">Мероприятия</string>
     <string name="title_nav_create_code">Сгенерировать пароль</string>
 
-
+    <!-- Week days -->
+    <string-array name="week_days">
+        <item> </item>
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+        <item>Суббота</item>
+        <item>Воскресенье</item>
+    </string-array>
 
 </resources>
