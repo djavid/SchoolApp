@@ -27,7 +27,9 @@ public class ScheduleFragmentPresenterImpl extends BasePresenter<ScheduleFragmen
     }
 
     @Override
-    public void onStart() { }
+    public void onStart() {
+
+    }
 
     @Override
     public void onStop() {
