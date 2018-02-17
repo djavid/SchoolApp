@@ -30,8 +30,6 @@ import retrofit2.HttpException;
  */
 public class EnterCodeActivity extends AppCompatActivity {
 
-    public static String AccountParameter = "Account";
-
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -63,6 +61,11 @@ public class EnterCodeActivity extends AppCompatActivity {
         mEnterCodeButton.setOnClickListener(view -> attemptLogin());
 
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         if (App.getAppInstance().getPreferences().getToken() != null) {
             showDashboard();

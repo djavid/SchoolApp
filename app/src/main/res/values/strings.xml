@@ -7,7 +7,7 @@
     <string name="prompt_password">ABC123DEF</string>
     <string name="enter_code_input_code">Введите регистрационный пароль: </string>
     <string name="enter_code_input_nickname">Введите подпись: </string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Войти</string>
     <string name="action_sign_in_short">Войти</string>
     <string name="error_invalid_nickname">Подпись содержит невалидные символы</string>
     <string name="error_invalid_password">Пароль не подходит</string>

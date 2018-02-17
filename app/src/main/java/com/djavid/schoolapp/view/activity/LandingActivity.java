@@ -29,9 +29,14 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         // google sign in
         _googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+    }
 
-        if (App.getAppInstance().getPreferences().getToken() != null) {
-            showDashboard();
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (App.getAppInstance().getPreferences().getIdentity() != null) {
+            showEnterCode();
         }
     }
 
@@ -74,17 +79,15 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
     private void onGoogleSignInSuccess(GoogleSignInAccount account) {
         App.getAppInstance().getPreferences().setIdentity(account.getId());
-        showEnterCode(account);
+        showEnterCode();
     }
 
     private void onGoogleSignInError() {
         findViewById(R.id.note_google_sign_in_error).setVisibility(View.VISIBLE);
     }
 
-    private void showEnterCode(GoogleSignInAccount account) {
-        Intent intent = new Intent(this, EnterCodeActivity.class);
-        intent.putExtra(EnterCodeActivity.AccountParameter, account);
-        startActivity(intent);
+    private void showEnterCode() {
+        startActivity(new Intent(this, EnterCodeActivity.class));
     }
 
     private void showDashboard() {
