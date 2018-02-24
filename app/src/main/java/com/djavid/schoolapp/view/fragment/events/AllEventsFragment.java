@@ -13,8 +13,14 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.viewmodel.events.AllEventItem;
-import com.djavid.schoolapp.viewmodel.events.MyEventItem;
+import com.djavid.schoolapp.model.events.Event;
+import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.viewmodel.events.EventItem;
+
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * A fragment representing a list of Items.
@@ -72,17 +78,29 @@ public class AllEventsFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new AllEventsRecyclerViewAdapter(
-                    App.getAppInstance().getApi().getAllEvents(App.getAppInstance().getPreferences().getToken())
-                            .map(eventList -> Stream.of(eventList)
-                                    .map(event -> new AllEventItem(event, false))
-                                    .toList()),
-                    App.getAppInstance().getApi().getAllEvents(App.getAppInstance().getPreferences().getToken())
-                            .map(eventList -> Stream.of(eventList)
-                                    .map(event -> new MyEventItem(event))
-                                    .toList()),
+                    provideAllEvents(),
                     mListener));
         }
         return view;
+    }
+
+    private Observable<EventItem> provideAllEvents() {
+        return App.getAppInstance().getApi()
+                .getAllEvents(
+                        App.getAppInstance().getPreferences().getToken()
+                ).flatMapObservable(allEvents -> {
+                    Single<List<Event>> enteredEventsSingle = App.getAppInstance().getApi()
+                            .getEnteredEvents(App.getAppInstance().getPreferences().getToken());
+                    Single<List<Event>> createdEventsSingle = App.getAppInstance().getApi()
+                            .getCreatedEvents(App.getAppInstance().getPreferences().getToken());
+                    return enteredEventsSingle.flatMapObservable(enteredEvents ->
+                            createdEventsSingle.flatMapObservable(createdEvents ->
+                                    Observable.fromIterable(allEvents).map(event ->
+                                            new EventItem(event,
+                                                    Stream.<Event>of(enteredEvents).anyMatch(e -> e.id == event.id),
+                                                    Stream.<Event>of(createdEvents).anyMatch(e -> e.id == event.id)))
+                            ));
+                });
     }
 
 
@@ -115,6 +133,6 @@ public class AllEventsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void openEventDetails(AllEventItem item);
+        void openEventDetails(EventItem item);
     }
 }

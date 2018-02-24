@@ -10,9 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
+import com.annimon.stream.operator.ObjMerge;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.viewmodel.events.MyEventItem;
+import com.djavid.schoolapp.model.events.Event;
+import com.djavid.schoolapp.viewmodel.events.EventItem;
+
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * A fragment representing a list of Items.
@@ -42,15 +49,28 @@ public class MyEventsFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyEventsRecyclerViewAdapter(
-                    App.getAppInstance().getApi()
-                            .getMyEvents(App.getAppInstance().getPreferences().getToken())
-                            .map(eventList -> Stream.of(eventList)
-                                    .map(event -> new MyEventItem(event))
-                                    .toList()),
-                    mListener));
+            recyclerView.setAdapter(new MyEventsRecyclerViewAdapter(provideMyEvents(), mListener));
         }
         return view;
+    }
+
+    private Observable<EventItem> provideMyEvents() {
+                    Single<List<Event>> enteredEventsSingle = App.getAppInstance().getApi()
+                            .getEnteredEvents(App.getAppInstance().getPreferences().getToken());
+                    Single<List<Event>> createdEventsSingle = App.getAppInstance().getApi()
+                            .getCreatedEvents(App.getAppInstance().getPreferences().getToken());
+                    return enteredEventsSingle.flatMapObservable(enteredEvents ->
+                            createdEventsSingle.flatMapObservable(createdEvents ->
+                                    Observable.fromIterable(Stream.<Event>merge(
+                                            Stream.<Event>of(enteredEvents),
+                                            Stream.<Event>of(createdEvents),
+                                            (a,b)-> ObjMerge.MergeResult.TAKE_SECOND)
+                                    .map(event -> new EventItem(
+                                            event,
+                                            Stream.<Event>of(enteredEvents).anyMatch(e -> e.id == event.id),
+                                            Stream.<Event>of(createdEvents).anyMatch(e -> e.id == event.id)))
+                                            .toList()
+                            )));
     }
 
 
@@ -84,6 +104,6 @@ public class MyEventsFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
 
-        void openEventDetails(MyEventItem item);
+        void openEventDetails(EventItem item);
     }
 }

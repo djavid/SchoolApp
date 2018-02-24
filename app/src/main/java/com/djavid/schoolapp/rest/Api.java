@@ -102,8 +102,11 @@ public interface Api {
     @GET(EVENTS)
     Single<List<Event>> getAllEvents(@Header(Auth) String auth);
 
-    @GET(EVENTS + "/user_events")
-    Single<List<Event>> getMyEvents(@Header(Auth) String auth);
+    @GET(EVENTS + "/user_entered_events")
+    Single<List<Event>> getEnteredEvents(@Header(Auth) String auth);
+
+    @GET(EVENTS + "/user_created_events")
+    Single<List<Event>> getCreatedEvents(@Header(Auth) String auth);
 
     @FormUrlEncoded
     @POST(EVENTS)
@@ -120,7 +123,7 @@ public interface Api {
     Single<Event> updateEvent(@Header(Auth) String auth, @Path("id") long eventId,
                               @Field("title") String title, @Field("place") String place,
                               @Field("description") String description,
-                              @Field("participation_groups") List<String> participationGroups,
+                              @Field("participation_groups") List<Long> participationGroups,
                               @Field("start_date") String startDate, @Field("end_date") String endDate);
 
     @DELETE(EVENTS + "/{id}")

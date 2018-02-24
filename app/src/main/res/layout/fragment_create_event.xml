@@ -9,7 +9,7 @@
             type="android.view.View.OnClickListener" />
         <variable
             name="event"
-            type="com.djavid.schoolapp.viewmodel.events.CreateEventItem" />
+            type="com.djavid.schoolapp.viewmodel.events.EventItem" />
     </data>
 
 
@@ -45,9 +45,8 @@
 
                 <EditText
                     android:id="@+id/eventTitle"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="104dp"
                     android:hint="@string/event_name_hint"
                     android:inputType="textShortMessage"
                     android:text="@={event.title}"
@@ -68,7 +67,7 @@
 
                 <EditText
                     android:id="@+id/eventDescription"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/event_description_hint"
                     android:inputType="textLongMessage"
@@ -106,7 +105,6 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:calendarViewShown="false"
                         android:day="@={event.startDateDay}"
                         android:month="@={event.startDateMonth}"
                         android:year="@={event.startDateYear}"
@@ -145,7 +143,6 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:calendarViewShown="false"
                         android:day="@={event.endDateDay}"
                         android:month="@={event.endDateMonth}"
                         android:year="@={event.endDateYear}" />

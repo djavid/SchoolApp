@@ -9,9 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.model.events.Event;
+import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.event_details.AboutEventFragment;
 import com.djavid.schoolapp.view.fragment.event_details.EventGroupItemFragment;
+import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
+
+import java.util.List;
+
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 
 public class EventDetailsActivity extends AppCompatActivity implements AboutEventFragment.OnFragmentInteractionListener, EventGroupItemFragment.OnListFragmentInteractionListener {
 
@@ -72,5 +83,58 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void openGroupDetails(EventGroupItem group) {
+        // todo
+    }
+
+    @Override
+    public void addEventGroup(EventGroupItem eventGroup) {
+        Single<Event> event = App.getAppInstance().getApi()
+                .getEvent(App.getAppInstance().getPreferences().getToken(),
+                        eventGroup.event.id);
+        event.subscribeOn(Schedulers.io())
+                .subscribe(e -> {
+                    List<Long> groups = e.participation_groups;
+                    groups.add(eventGroup.id);
+
+                    App.getAppInstance().getApi()
+                            .updateEvent(
+                                    App.getAppInstance().getPreferences().getToken(),
+                                    eventGroup.id,
+                                    eventGroup.event.title,
+                                    eventGroup.event.place,
+                                    eventGroup.event.description,
+                                    groups,
+                                    Api.Date(eventGroup.event.getStartDate()),
+                                    Api.Date(eventGroup.event.getEndDate())
+                            );
+                });
+    }
+
+    @Override
+    public void removeEventGroup(EventGroupItem eventGroup) {
+        Single<Event> event = App.getAppInstance().getApi()
+                .getEvent(App.getAppInstance().getPreferences().getToken(),
+                        eventGroup.event.id);
+        event.subscribeOn(Schedulers.io())
+                .subscribe(e -> {
+                    List<Long> groups = e.participation_groups;
+                    groups.remove(eventGroup.id);
+
+                    App.getAppInstance().getApi()
+                            .updateEvent(
+                                    App.getAppInstance().getPreferences().getToken(),
+                                    eventGroup.id,
+                                    eventGroup.event.title,
+                                    eventGroup.event.place,
+                                    eventGroup.event.description,
+                                    groups,
+                                    Api.Date(eventGroup.event.getStartDate()),
+                                    Api.Date(eventGroup.event.getEndDate())
+                            );
+                });
     }
 }

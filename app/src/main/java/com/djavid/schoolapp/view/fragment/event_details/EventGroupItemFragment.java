@@ -16,6 +16,7 @@ import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.model.groups.Group;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -69,16 +70,19 @@ public class EventGroupItemFragment extends Fragment {
             Single<Event> eventAsync = App.getAppInstance().getApi()
                     .getEvent(App.getAppInstance().getPreferences().getToken(),
                             mEventId);
-            recyclerView.setAdapter(new MyEventGroupItemRecyclerViewAdapter(
+            recyclerView.setAdapter(new EventGroupItemRecyclerViewAdapter(
                     eventAsync
-                            .<Group>flatMapObservable(event -> Single.merge(Stream.<Long>of(event.participation_groups)
-                                    .map(groupId -> App.getAppInstance().getApi().getGroup(App.getAppInstance().getPreferences().getToken(),
-                                            groupId))
-                                    .toList()).toObservable())
-                            .map(group -> new EventGroupItem(group, App.getAppInstance().getApi()
-                                    .getGroupParticipants(App.getAppInstance().getPreferences().getToken(),
-                                            group.id))),
+                            .<EventGroupItem>flatMapObservable(event -> Single.merge(Stream.<Long>of(event.participation_groups)
+                                    .map(groupId -> App.getAppInstance().getApi().getGroup(
+                                            App.getAppInstance().getPreferences().getToken(),
+                                            groupId)
+                                            .map(g -> new EventGroupItem(g, event, true)))
+                                    .toList()).toObservable()),
                     eventAsync,
+                    eventAsync.<EventGroupItem>flatMapObservable(event -> App.getAppInstance().getApi().getAllGroups(App.getAppInstance().getPreferences().getToken())
+                    .flatMapObservable(group -> Observable.fromIterable(
+                            Stream.<Group>of(group).map(g -> new EventGroupItem(g, event, false))
+                            .toList()))),
                     mListener));
         }
         return view;
@@ -113,6 +117,8 @@ public class EventGroupItemFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-
+        void openGroupDetails(EventGroupItem group);
+        void addEventGroup(EventGroupItem eventGroup);
+        void removeEventGroup(EventGroupItem eventGroup);
     }
 }

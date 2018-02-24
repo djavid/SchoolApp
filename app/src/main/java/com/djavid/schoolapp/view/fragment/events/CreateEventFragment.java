@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.databinding.FragmentCreateEventBinding;
 import com.djavid.schoolapp.rest.Api;
-import com.djavid.schoolapp.viewmodel.events.CreateEventItem;
+import com.djavid.schoolapp.viewmodel.events.EventItem;
 
 import java.util.LinkedList;
 
@@ -73,10 +73,10 @@ public class CreateEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         FragmentCreateEventBinding binding = FragmentCreateEventBinding.inflate(inflater, container, false);
-        binding.setEvent(new CreateEventItem());
+        binding.setEvent(new EventItem());
 
         binding.setCreateCommand(a -> {
-            CreateEventItem event = binding.getEvent();
+            EventItem event = binding.getEvent();
             App.getAppInstance().getApi()
                     .createEvent(
                             App.getAppInstance().getPreferences().getToken(),

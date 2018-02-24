@@ -1,16 +1,15 @@
 package com.djavid.schoolapp.view.fragment.events;
 
+import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentMyeventsBinding;
-import com.djavid.schoolapp.viewmodel.events.MyEventItem;
+import com.djavid.schoolapp.viewmodel.events.EventItem;
+import com.djavid.schoolapp.viewmodel.events.EventItemList;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -21,21 +20,40 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class MyEventsRecyclerViewAdapter extends RecyclerView.Adapter<MyEventsRecyclerViewAdapter.ViewHolder> {
 
-    private List<MyEventItem> mValues = new LinkedList<>();
+    private EventItemList mValues = new EventItemList(new ListUpdateCallback() {
+        @Override
+        public void onInserted(int position, int count) {
+            notifyItemRangeInserted(position, count);
+        }
+
+        @Override
+        public void onRemoved(int position, int count) {
+            notifyItemRangeRemoved(position, count);
+        }
+
+        @Override
+        public void onMoved(int fromPosition, int toPosition) {
+            notifyItemMoved(fromPosition, toPosition);
+        }
+
+        @Override
+        public void onChanged(int position, int count, Object payload) {
+            notifyItemRangeChanged(position, count);
+        }
+    });
     private final MyEventsFragment.OnListFragmentInteractionListener mListener;
 
-    public MyEventsRecyclerViewAdapter(Single<List<MyEventItem>> items, MyEventsFragment.OnListFragmentInteractionListener listener) {
+    public MyEventsRecyclerViewAdapter(Observable<EventItem> myEvents, MyEventsFragment.OnListFragmentInteractionListener listener) {
         mListener = listener;
 
-        items
+        myEvents
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onItemsArrived);
+                .subscribe(this::addEvent);
     }
 
-    private void onItemsArrived(List<MyEventItem> items) {
-        mValues = items;
-        notifyDataSetChanged();
+    private void addEvent(EventItem item) {
+        notifyItemInserted(mValues.add(item));
     }
 
     @Override
@@ -55,7 +73,7 @@ public class MyEventsRecyclerViewAdapter extends RecyclerView.Adapter<MyEventsRe
         return mValues.size();
     }
 
-    public void onClick(MyEventItem event) {
+    public void onClick(EventItem event) {
         mListener.openEventDetails(event);
     }
 

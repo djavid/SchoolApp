@@ -12,11 +12,25 @@ import java.util.Calendar;
 /**
  * @author Andrei Kolomiets
  */
-class EventItem extends BaseObservable implements View.OnClickListener {
+public class EventItem extends BaseObservable {
+    public final boolean isEntered;
+    public final boolean isCreated;
+
     protected final Event event;
 
-    EventItem(Event event) {
+    public EventItem(Event event, boolean isEntered, boolean isCreated){
         this.event = event;
+        this.isEntered = isEntered;
+        this.isCreated = isCreated;
+    }
+
+    EventItem(Event event)
+    {
+        this(event, false, false);
+    }
+
+    public EventItem(){
+        this(new Event());
     }
 
     public long getIdLong() {
@@ -64,6 +78,16 @@ class EventItem extends BaseObservable implements View.OnClickListener {
         notifyPropertyChanged(BR.place);
     }
 
+    @Bindable
+    public String getStartDateString(){
+        return getStartDate().toString();
+    }
+
+    @Bindable
+    public String getEndDateString(){
+        return getEndDate().toString();
+    }
+
     public Calendar getStartDate() {
         return event.getStartDate();
     }
@@ -76,9 +100,132 @@ class EventItem extends BaseObservable implements View.OnClickListener {
     public String getCreatedBy() {
         return event.created_by;
     }
+    @Bindable
+    public int getStartDateYear() {
+        return getStartDate().get(Calendar.YEAR);
+    }
+
+    public void setStartDateYear(int year) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.YEAR, year);
+        event.setStartDate(cal);
+    }
+
+    @Bindable
+    public int getStartDateMonth() {
+        return getStartDate().get(Calendar.MONTH);
+    }
+
+    public void setStartDateMonth(int month) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.MONTH, month);
+        event.setStartDate(cal);
+    }
+
+    @Bindable
+    public int getStartDateDay() {
+        return getStartDate().get(Calendar.DATE);
+    }
+
+    public void setStartDateDay(int day) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.DATE, day);
+        event.setStartDate(cal);
+    }
+
+    @Bindable
+    public int getStartDateHour() {
+        return getStartDate().get(Calendar.HOUR);
+    }
+
+    public void setStartDateHour(int hour) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.HOUR, hour);
+        event.setStartDate(cal);
+    }
+
+    @Bindable
+    public int getStartDateMinute() {
+        return getStartDate().get(Calendar.MINUTE);
+    }
+
+    public void setStartDateMinute(int minute) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.MINUTE, minute);
+        event.setStartDate(cal);
+    }
+
+    @Bindable
+    public int getEndDateYear() {
+        return getEndDate().get(Calendar.YEAR);
+    }
+
+    public void setEndDateYear(int year) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.YEAR, year);
+        event.setStartDate(cal);
+    }
+
+    @Bindable
+    public int getEndDateMonth() {
+        return getEndDate().get(Calendar.MONTH);
+    }
+
+    public void setEndDateMonth(int month) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.MONTH, month);
+        event.setStartDate(cal);
+    }
+
+
+    @Bindable
+    public int getEndDateDay() {
+        return getEndDate().get(Calendar.DATE);
+    }
+
+    public void setEndDateDay(int day) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.DATE, day);
+        event.setStartDate(cal);
+    }
+
+    @Bindable
+    public int getEndDateHour() {
+        return getEndDate().get(Calendar.HOUR);
+    }
+
+    public void setEndDateHour(int hour) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.HOUR, hour);
+        event.setStartDate(cal);
+    }
+
+
+    @Bindable
+    public int getEndDateMinute() {
+        return getEndDate().get(Calendar.MINUTE);
+    }
+
+    public void setEndDateMinute(int minute) {
+        Calendar cal = getStartDate();
+        cal.set(Calendar.MINUTE, minute);
+        event.setStartDate(cal);
+    }
+
+    @Bindable
+    public boolean isValid() {
+        return getTitle() != null
+                && !getTitle().isEmpty();
+    }
 
     @Override
-    public void onClick(View view) {
+    public void notifyPropertyChanged(int fieldId) {
+        switch (fieldId) {
+            case BR.id:
+            case BR.title:
+                super.notifyPropertyChanged(BR.valid);
+        }
 
+        super.notifyPropertyChanged(fieldId);
     }
 }

@@ -63,6 +63,7 @@
     <string name="title_nav_groups">Группы</string>
     <string name="title_nav_events">Мероприятия</string>
     <string name="title_nav_create_code">Сгенерировать пароль</string>
+    <string name="event_createdBy_label">Ответственный:</string>
 
     <!-- Week days -->
     <string-array name="week_days">

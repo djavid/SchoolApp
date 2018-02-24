@@ -14,10 +14,9 @@ import android.widget.TextView;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.view.fragment.events.CreateEventFragment;
-import com.djavid.schoolapp.viewmodel.events.AllEventItem;
 import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;
-import com.djavid.schoolapp.viewmodel.events.MyEventItem;
 import com.djavid.schoolapp.view.fragment.events.MyEventsFragment;
+import com.djavid.schoolapp.viewmodel.events.EventItem;
 
 public class EventsActivity extends AppCompatActivity implements AllEventsFragment.OnListFragmentInteractionListener, MyEventsFragment.OnListFragmentInteractionListener, CreateEventFragment.OnFragmentInteractionListener {
 
@@ -72,19 +71,7 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
     }
 
     @Override
-    public void openEventDetails(MyEventItem item) {
-        if (!(App.getAppInstance().isTeacher())) {
-            return;
-        }
-
-        Intent intent = new Intent(this, EventDetailsActivity.class);
-        intent.putExtra(EventDetailsActivity.ARG_EVENTID, item.getIdLong());
-
-        startActivity(intent);
-    }
-
-    @Override
-    public void openEventDetails(AllEventItem item) {
+    public void openEventDetails(EventItem item) {
         if (!(App.getAppInstance().isTeacher())) {
             return;
         }

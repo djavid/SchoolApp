@@ -7,12 +7,17 @@
         <variable
             name="group"
             type="com.djavid.schoolapp.viewmodel.event_details.EventGroupItem" />
+
+        <variable
+            name="presenter"
+            type="com.djavid.schoolapp.view.fragment.event_details.EventGroupItemRecyclerViewAdapter" />
     </data>
 
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> presenter.onGroupClick(group)}">
 
         <TextView
             android:id="@+id/event_group_item_title"
@@ -21,11 +26,13 @@
             android:layout_margin="@dimen/text_margin"
             android:textAppearance="?attr/textAppearanceListItem"
             android:text="@{group.content}" />
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:id="@+id/event_group_item_participants_list"
+        <Button android:id="@+id/event_group_item_addButton"
             android:layout_height="wrap_content"
-            android:maxHeight="200dp" />
+            android:layout_width="wrap_content"
+            android:onClick="@{() -> presenter.onAddClick(group)}"/>
+        <Button android:id="@+id/event_group_item_removeButton"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:onClick="@{() -> presenter.onRemoveClick(group)}" />
     </android.support.constraint.ConstraintLayout>
 </layout>
