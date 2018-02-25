@@ -69,6 +69,7 @@
     <string name="event_place_hint">Кабинет 205</string>
     <string name="group_item_addButton_label">Добавить</string>
     <string name="group_item_removeButton_label">Убрать</string>
+    <string name="send_button">Отправить</string>
 
     <!-- Week days -->
     <string-array name="week_days">

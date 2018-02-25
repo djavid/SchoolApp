@@ -14,7 +14,9 @@ import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.event_details.AboutEventFragment;
+import com.djavid.schoolapp.view.fragment.event_details.EventCommentFragment;
 import com.djavid.schoolapp.view.fragment.event_details.EventGroupItemFragment;
+import com.djavid.schoolapp.viewmodel.event_details.EventCommentItem;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
 
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class EventDetailsActivity extends AppCompatActivity implements AboutEventFragment.AboutEventFragmentInteractionListener, EventGroupItemFragment.EventGroupInteractionListener {
+public class EventDetailsActivity extends AppCompatActivity implements AboutEventFragment.AboutEventFragmentInteractionListener, EventGroupItemFragment.EventGroupInteractionListener, EventCommentFragment.EventCommentFragmentInteractionListener {
 
     public static final String ARG_EVENTID = "eventId";
     private long mEventId;
@@ -43,7 +45,8 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
                     showFragment(EventGroupItemFragment.newInstance(mEventId));
                     return true;
                 case R.id.navigation_event_comments:
-                    return false;
+                    showFragment(EventCommentFragment.newInstance(mEventId));
+                    return true;
             }
             return false;
         }
@@ -132,5 +135,14 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
                                     Api.Date(eventGroup.event.getEndDate())
                             ).subscribeOn(Schedulers.io()).subscribe();
                 });
+    }
+
+    @Override
+    public Single<EventCommentItem> createComment(long eventId, String text) {
+        return App.getAppInstance().getApi().createComment(
+                App.getAppInstance().getPreferences().getToken(),
+                text,
+                eventId)
+                .map(comment -> new EventCommentItem(comment, true));
     }
 }
