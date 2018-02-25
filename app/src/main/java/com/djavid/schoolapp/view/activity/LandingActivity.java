@@ -1,8 +1,8 @@
 package com.djavid.schoolapp.view.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.Task;
 
 public class LandingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // TODO: Where shall I put them?
     public static int RC_SIGN_IN = 1;
 
     @Override

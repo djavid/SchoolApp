@@ -31,12 +31,10 @@
 
     <item android:title="@string/Notifications">
         <menu>
-            <!--
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_notifications"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-                -->
+                android:title="@string/title_nav_notifications" />
         </menu>
     </item>
 

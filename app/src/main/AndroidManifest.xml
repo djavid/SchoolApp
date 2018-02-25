@@ -13,8 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".view.activity.LandingActivity">
+        <activity android:name=".view.activity.LandingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,6 +58,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.activity.GroupsActivity" />
+        </activity>
+        <activity
+            android:name=".view.activity.PublishNotificationActivity"
+            android:label="PublishNotificationActivity"
+            android:parentActivityName=".view.activity.DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.djavid.schoolapp.view.activity.DashboardActivity" />
         </activity>
     </application>
 
