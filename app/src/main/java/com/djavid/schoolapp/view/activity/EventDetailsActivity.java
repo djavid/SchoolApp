@@ -1,6 +1,6 @@
 package com.djavid.schoolapp.view.activity;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.events.Event;
-import com.djavid.schoolapp.model.groups.Group;
 import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.event_details.AboutEventFragment;
 import com.djavid.schoolapp.view.fragment.event_details.EventGroupItemFragment;
@@ -20,11 +19,10 @@ import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
 
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class EventDetailsActivity extends AppCompatActivity implements AboutEventFragment.OnFragmentInteractionListener, EventGroupItemFragment.OnListFragmentInteractionListener {
+public class EventDetailsActivity extends AppCompatActivity implements AboutEventFragment.AboutEventFragmentInteractionListener, EventGroupItemFragment.EventGroupInteractionListener {
 
     public static final String ARG_EVENTID = "eventId";
     private long mEventId;
@@ -39,7 +37,7 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_about_event:
-                    showFragment(new AboutEventFragment());
+                    showFragment(AboutEventFragment.newInstance(mEventId));
                     return true;
                 case R.id.navigation_event_groups:
                     showFragment(EventGroupItemFragment.newInstance(mEventId));
@@ -59,17 +57,17 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
         mEventId = getIntent().getLongExtra(ARG_EVENTID, 0);
         if (mEventId == 0) {
             onBackPressed();
+            return;
         }
 
         mNavigation = findViewById(R.id.navigation);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mNavigation.setSelectedItemId(R.id.navigation_about_event);
-        showFragment(new AboutEventFragment());
+        showFragment(AboutEventFragment.newInstance(mEventId));
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
         return true;
     }
 
@@ -81,36 +79,34 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
     public void openGroupDetails(EventGroupItem group) {
-        // todo
+        Intent intent = new Intent(this, GroupDetailsActivity.class);
+        intent.putExtra(GroupDetailsActivity.ARG_GROUPID, group.group.getIdLong());
+
+        startActivity(intent);
     }
 
     @Override
     public void addEventGroup(EventGroupItem eventGroup) {
         Single<Event> event = App.getAppInstance().getApi()
                 .getEvent(App.getAppInstance().getPreferences().getToken(),
-                        eventGroup.event.id);
+                        eventGroup.event.getIdLong());
         event.subscribeOn(Schedulers.io())
                 .subscribe(e -> {
                     List<Long> groups = e.participation_groups;
-                    groups.add(eventGroup.id);
+                    groups.add(eventGroup.group.getIdLong());
 
                     App.getAppInstance().getApi()
                             .updateEvent(
                                     App.getAppInstance().getPreferences().getToken(),
-                                    eventGroup.id,
-                                    eventGroup.event.title,
-                                    eventGroup.event.place,
-                                    eventGroup.event.description,
+                                    eventGroup.event.getIdLong(),
+                                    eventGroup.event.getTitle(),
+                                    eventGroup.event.getPlace(),
+                                    eventGroup.event.getDescription(),
                                     groups,
                                     Api.Date(eventGroup.event.getStartDate()),
                                     Api.Date(eventGroup.event.getEndDate())
-                            );
+                            ).subscribeOn(Schedulers.io()).subscribe();
                 });
     }
 
@@ -118,23 +114,23 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
     public void removeEventGroup(EventGroupItem eventGroup) {
         Single<Event> event = App.getAppInstance().getApi()
                 .getEvent(App.getAppInstance().getPreferences().getToken(),
-                        eventGroup.event.id);
+                        eventGroup.event.getIdLong());
         event.subscribeOn(Schedulers.io())
                 .subscribe(e -> {
                     List<Long> groups = e.participation_groups;
-                    groups.remove(eventGroup.id);
+                    groups.remove(eventGroup.group.getIdLong());
 
                     App.getAppInstance().getApi()
                             .updateEvent(
                                     App.getAppInstance().getPreferences().getToken(),
-                                    eventGroup.id,
-                                    eventGroup.event.title,
-                                    eventGroup.event.place,
-                                    eventGroup.event.description,
+                                    eventGroup.event.getIdLong(),
+                                    eventGroup.event.getTitle(),
+                                    eventGroup.event.getPlace(),
+                                    eventGroup.event.getDescription(),
                                     groups,
                                     Api.Date(eventGroup.event.getStartDate()),
                                     Api.Date(eventGroup.event.getEndDate())
-                            );
+                            ).subscribeOn(Schedulers.io()).subscribe();
                 });
     }
 }

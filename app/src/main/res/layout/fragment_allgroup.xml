@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.djavid.schoolapp.rest.Api" />
+
+        <variable
+            name="presenter"
+            type="com.djavid.schoolapp.view.fragment.groups.AllGroupRecyclerViewAdapter" />
+
+        <variable
+            name="group"
+            type="com.djavid.schoolapp.viewmodel.groups.GroupItem" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:onClick="@{() -> presenter.showGroup(group)}">
 
     <TextView
         android:id="@+id/content"
@@ -13,7 +29,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="123"
+        android:text="@{group.title}"
         android:textAlignment="viewStart"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="16sp"
@@ -29,6 +45,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:layout_weight="1"
+        android:onClick="@{() -> presenter.removeGroup(group)}"
+        android:visibility="@{group.removeButtonVisibility}"
         android:drawableTop="@drawable/ic_delete_black_48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +60,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:layout_weight="1"
+        android:visibility="@{group.addButtonVisibility}"
+        android:onClick="@{() -> presenter.addGroup(group)}"
         android:drawableTop="@drawable/ic_add_circle_black_48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
+</layout>

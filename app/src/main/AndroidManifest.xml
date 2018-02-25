@@ -52,6 +52,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.djavid.schoolapp.view.activity.EventsActivity" />
         </activity>
+        <activity
+            android:name=".view.activity.GroupDetailsActivity"
+            android:label="GroupDetailsActivity"
+            android:parentActivityName=".view.activity.GroupsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.activity.GroupsActivity" />
+        </activity>
     </application>
 
 </manifest>

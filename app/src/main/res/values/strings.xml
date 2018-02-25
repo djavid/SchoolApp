@@ -64,6 +64,11 @@
     <string name="title_nav_events">Мероприятия</string>
     <string name="title_nav_create_code">Сгенерировать пароль</string>
     <string name="event_createdBy_label">Ответственный:</string>
+    <string name="about_group">О группе</string>
+    <string name="group_participants">Участники</string>
+    <string name="event_place_hint">Кабинет 205</string>
+    <string name="group_item_addButton_label">Добавить</string>
+    <string name="group_item_removeButton_label">Убрать</string>
 
     <!-- Week days -->
     <string-array name="week_days">

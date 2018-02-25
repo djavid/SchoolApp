@@ -2,10 +2,10 @@ package com.djavid.schoolapp.viewmodel.events;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.view.View;
 
 import com.djavid.schoolapp.BR;
 import com.djavid.schoolapp.model.events.Event;
+import com.djavid.schoolapp.rest.Api;
 
 import java.util.Calendar;
 
@@ -24,7 +24,7 @@ public class EventItem extends BaseObservable {
         this.isCreated = isCreated;
     }
 
-    EventItem(Event event)
+    public EventItem(Event event)
     {
         this(event, false, false);
     }
@@ -56,6 +56,7 @@ public class EventItem extends BaseObservable {
     public void setTitle(String title) {
         event.title = title;
         notifyPropertyChanged(BR.title);
+        notifyPropertyChanged(BR.valid);
     }
 
     @Bindable
@@ -80,12 +81,12 @@ public class EventItem extends BaseObservable {
 
     @Bindable
     public String getStartDateString(){
-        return getStartDate().toString();
+        return Api.LocalizedDate(getStartDate());
     }
 
     @Bindable
     public String getEndDateString(){
-        return getEndDate().toString();
+        return Api.LocalizedDate(getEndDate());
     }
 
     public Calendar getStartDate() {
@@ -219,13 +220,17 @@ public class EventItem extends BaseObservable {
     }
 
     @Override
-    public void notifyPropertyChanged(int fieldId) {
-        switch (fieldId) {
-            case BR.id:
-            case BR.title:
-                super.notifyPropertyChanged(BR.valid);
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        super.notifyPropertyChanged(fieldId);
+        EventItem eventItem = (EventItem) o;
+
+        return event.equals(eventItem.event);
+    }
+
+    @Override
+    public int hashCode() {
+        return event.hashCode();
     }
 }

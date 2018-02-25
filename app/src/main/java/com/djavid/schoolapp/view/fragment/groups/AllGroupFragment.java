@@ -13,13 +13,18 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.viewmodel.groups.AllGroupItem;
-import com.djavid.schoolapp.viewmodel.groups.MyGroupItem;
+import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.viewmodel.groups.GroupItem;
+
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link GroupRecyclerViewAdapter.GroupListInteractionListener}
  * interface.
  */
 public class AllGroupFragment extends Fragment {
@@ -28,7 +33,7 @@ public class AllGroupFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private GroupRecyclerViewAdapter.GroupListInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,28 +76,35 @@ public class AllGroupFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new AllGroupRecyclerViewAdapter(
-                    App.getAppInstance().getApi().getAllGroups(App.getAppInstance().getPreferences().getToken())
-                            .map(groupList -> Stream.of(groupList)
-                                    .map(group -> new AllGroupItem(group, false))
-                                    .toList()),
-                    App.getAppInstance().getApi().getMyGroups(App.getAppInstance().getPreferences().getToken())
-                            .map(groupList -> Stream.of(groupList)
-                                    .map(group -> new MyGroupItem(group))
-                                    .toList())
-                    , mListener));
+                    provideAllGroups(), mListener));
         }
         return view;
+    }
+
+    private Observable<GroupItem> provideAllGroups() {
+        return App.getAppInstance().getApi()
+                .getAllGroups(
+                        App.getAppInstance().getPreferences().getToken()
+                ).flatMapObservable(allGroups -> {
+                    Single<List<Group>> enteredGroupsSingle = App.getAppInstance().getApi()
+                            .getMyGroups(App.getAppInstance().getPreferences().getToken());
+                    return enteredGroupsSingle.flatMapObservable(enteredGroups ->
+                            Observable.fromIterable(allGroups).map(group ->
+                                    new GroupItem(group,
+                                            Stream.of(enteredGroups).anyMatch(g -> g.id == group.id)))
+                    );
+                });
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof GroupRecyclerViewAdapter.GroupListInteractionListener) {
+            mListener = (GroupRecyclerViewAdapter.GroupListInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement GroupListInteractionListener");
         }
     }
 
@@ -100,20 +112,5 @@ public class AllGroupFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(AllGroupItem item);
     }
 }

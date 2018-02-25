@@ -15,6 +15,10 @@ import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.model.groups.Group;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
+import com.djavid.schoolapp.viewmodel.events.EventItem;
+import com.djavid.schoolapp.viewmodel.groups.GroupItem;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -22,7 +26,7 @@ import io.reactivex.Single;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link EventGroupInteractionListener}
  * interface.
  */
 public class EventGroupItemFragment extends Fragment {
@@ -30,7 +34,7 @@ public class EventGroupItemFragment extends Fragment {
 
     private long mEventId;
 
-    private OnListFragmentInteractionListener mListener;
+    private EventGroupInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -66,37 +70,51 @@ public class EventGroupItemFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-            Single<Event> eventAsync = App.getAppInstance().getApi()
-                    .getEvent(App.getAppInstance().getPreferences().getToken(),
-                            mEventId);
             recyclerView.setAdapter(new EventGroupItemRecyclerViewAdapter(
-                    eventAsync
-                            .<EventGroupItem>flatMapObservable(event -> Single.merge(Stream.<Long>of(event.participation_groups)
-                                    .map(groupId -> App.getAppInstance().getApi().getGroup(
-                                            App.getAppInstance().getPreferences().getToken(),
-                                            groupId)
-                                            .map(g -> new EventGroupItem(g, event, true)))
-                                    .toList()).toObservable()),
-                    eventAsync,
-                    eventAsync.<EventGroupItem>flatMapObservable(event -> App.getAppInstance().getApi().getAllGroups(App.getAppInstance().getPreferences().getToken())
-                    .flatMapObservable(group -> Observable.fromIterable(
-                            Stream.<Group>of(group).map(g -> new EventGroupItem(g, event, false))
-                            .toList()))),
+                    provideAllGroups(),
                     mListener));
         }
         return view;
+    }
+
+    private Observable<EventGroupItem> provideAllGroups() {
+        Single<Event> eventAsync = App.getAppInstance().getApi()
+                .getEvent(App.getAppInstance().getPreferences().getToken(),
+                        mEventId);
+
+        return eventAsync
+                .flatMapObservable(event -> {
+                    Single<List<Group>> allGroupsSingle = App.getAppInstance().getApi()
+                            .getAllGroups(App.getAppInstance().getPreferences().getToken());
+                    Single<List<Event>> createdEventsSingle = App.getAppInstance().getApi()
+                            .getCreatedEvents(App.getAppInstance().getPreferences().getToken());
+                    return allGroupsSingle.flatMapObservable(
+                            allGroups -> createdEventsSingle.flatMapObservable(
+                                    createdEvents -> {
+                                        EventItem eventItem = new EventItem(event, false,
+                                                Stream.of(createdEvents).anyMatch(
+                                                        e -> e.id == event.id
+                                                ));
+                                        return Observable.fromIterable(
+                                                Stream.of(allGroups)
+                                                        .map(group -> new EventGroupItem(
+                                                                new GroupItem(group, false),
+                                                                eventItem,
+                                                                event.participation_groups.contains(group.id)))
+                                                        .toList());
+                                    }));
+                });
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof EventGroupInteractionListener) {
+            mListener = (EventGroupInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement EventGroupInteractionListener");
         }
     }
 
@@ -116,7 +134,7 @@ public class EventGroupItemFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
+    public interface EventGroupInteractionListener {
         void openGroupDetails(EventGroupItem group);
         void addEventGroup(EventGroupItem eventGroup);
         void removeEventGroup(EventGroupItem eventGroup);

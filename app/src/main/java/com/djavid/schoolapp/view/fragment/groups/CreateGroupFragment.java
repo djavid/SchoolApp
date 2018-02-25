@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CreateGroupFragment.OnFragmentInteractionListener} interface
+ * {@link CreateGroupInteractionListener} interface
  * to handle interaction events.
  * Use the {@link CreateGroupFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -27,7 +27,7 @@ public class CreateGroupFragment extends Fragment {
     Button _createButton;
     TextView _title;
 
-    private OnFragmentInteractionListener mListener;
+    private CreateGroupInteractionListener mListener;
 
     public CreateGroupFragment() {
         // Required empty public constructor
@@ -57,11 +57,11 @@ public class CreateGroupFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof CreateGroupInteractionListener) {
+            mListener = (CreateGroupInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement CreateGroupInteractionListener");
         }
     }
 
@@ -81,7 +81,7 @@ public class CreateGroupFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface CreateGroupInteractionListener {
         // TODO: Update argument type and name
         void onGroupCreated();
     }

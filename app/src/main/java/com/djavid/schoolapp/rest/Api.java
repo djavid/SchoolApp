@@ -1,5 +1,7 @@
 package com.djavid.schoolapp.rest;
 
+import android.text.format.DateFormat;
+
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.model.groups.Group;
 import com.djavid.schoolapp.model.schedule.Schedule;
@@ -12,10 +14,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import io.reactivex.Single;
-import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -175,6 +177,11 @@ public interface Api {
 
     static String Date(Calendar date) {
         return new SimpleDateFormat(Api.DATE_FORMAT).format(date.getTime());
+    }
+
+    static String LocalizedDate(Calendar date) {
+        return new SimpleDateFormat(DateFormat.getBestDateTimePattern(Locale.getDefault(), Api.DATE_FORMAT))
+                .format(date.getTime());
     }
 
     static Calendar ParseDate(String date) {

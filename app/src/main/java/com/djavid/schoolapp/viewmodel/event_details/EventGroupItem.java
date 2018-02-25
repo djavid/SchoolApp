@@ -1,31 +1,26 @@
 package com.djavid.schoolapp.viewmodel.event_details;
 
-import com.djavid.schoolapp.model.events.Event;
-import com.djavid.schoolapp.model.groups.Group;
-import com.djavid.schoolapp.model.users.User;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
-import java.util.List;
+import com.djavid.schoolapp.viewmodel.events.EventItem;
+import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 
-import io.reactivex.Single;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 /**
  * @author Andrei Kolomiets
  */
-public class EventGroupItem {
-    public final long id;
-    public final String content;
-    public final boolean isMy;
+public class EventGroupItem extends BaseObservable {
+    public final GroupItem group;
+    public final EventItem event;
+    private final boolean _isGroupBelongsToEvent;
 
-    public final Group group;
-    public final Event event;
-
-    public EventGroupItem(Group group, Event event, boolean isMy) {
+    public EventGroupItem(GroupItem group, EventItem event, boolean isGroupBelongsToEvent) {
         this.group = group;
         this.event = event;
-
-        this.id = group.id;
-        this.content = group.title;
-        this.isMy = isMy;
+        _isGroupBelongsToEvent = isGroupBelongsToEvent;
     }
 
     public EventGroupItem withMy(boolean my){
@@ -39,9 +34,29 @@ public class EventGroupItem {
 
         EventGroupItem that = (EventGroupItem) o;
 
-        if (isMy != that.isMy) return false;
         if (!group.equals(that.group)) return false;
         return event.equals(that.event);
+    }
+
+    @Bindable
+    public boolean isGroupBelongsToEvent() {
+        return _isGroupBelongsToEvent;
+    }
+
+    @Bindable
+    public int getAddButtonVisibility() {
+        return !event.isCreated
+                || _isGroupBelongsToEvent
+                ? GONE
+                : VISIBLE;
+    }
+
+    @Bindable
+    public int getRemoveButtonVisibility() {
+        return event.isCreated
+                && _isGroupBelongsToEvent
+                ? VISIBLE
+                : GONE;
     }
 
     @Override

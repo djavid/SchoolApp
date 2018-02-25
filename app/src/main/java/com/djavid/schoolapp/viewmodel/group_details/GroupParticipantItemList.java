@@ -1,24 +1,28 @@
-package com.djavid.schoolapp.viewmodel.event_details;
+package com.djavid.schoolapp.viewmodel.group_details;
 
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.util.SortedList;
 
 /**
- * Created by Andrei on 24-Feb-18.
+ * Created by Andrei on 25-Feb-18.
  */
-public class EventGroupItemList extends SortedList<EventGroupItem> {
-    public EventGroupItemList(ListUpdateCallback listUpdateCallback) {
-        super(EventGroupItem.class, new Callback<EventGroupItem>() {
+
+public class GroupParticipantItemList extends SortedList<GroupParticipantItem> {
+    public GroupParticipantItemList(ListUpdateCallback listUpdateCallback) {
+        super(GroupParticipantItem.class, new Callback<GroupParticipantItem>() {
             @Override
-            public int compare(EventGroupItem o1, EventGroupItem o2) {
-                if (o2.group.isEntered() && !o1.group.isEntered()) {
+            public int compare(GroupParticipantItem o1, GroupParticipantItem o2) {
+                if (o1 == null && o2 == null) {
+                    return 0;
+                }
+                if (o1 == null) {
                     return 1;
                 }
-                if (!o2.group.isEntered() && o1.group.isEntered()) {
+                if (o2 == null) {
                     return -1;
                 }
+                return o1.participant.getNick().compareTo(o2.participant.getNick());
 
-                return Long.compare(o1.group.getIdLong(), o2.group.getIdLong());
             }
 
             @Override
@@ -27,12 +31,12 @@ public class EventGroupItemList extends SortedList<EventGroupItem> {
             }
 
             @Override
-            public boolean areContentsTheSame(EventGroupItem oldItem, EventGroupItem newItem) {
+            public boolean areContentsTheSame(GroupParticipantItem oldItem, GroupParticipantItem newItem) {
                 return false;
             }
 
             @Override
-            public boolean areItemsTheSame(EventGroupItem item1, EventGroupItem item2) {
+            public boolean areItemsTheSame(GroupParticipantItem item1, GroupParticipantItem item2) {
                 return item1 != null && item1.equals(item2);
             }
 
@@ -50,6 +54,6 @@ public class EventGroupItemList extends SortedList<EventGroupItem> {
             public void onMoved(int fromPosition, int toPosition) {
                 listUpdateCallback.onMoved(fromPosition, toPosition);
             }
-        }, 0);
+        });
     }
 }

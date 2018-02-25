@@ -6,18 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.databinding.FragmentEventgroupitemBinding;
-import com.djavid.schoolapp.model.events.Event;
-import com.djavid.schoolapp.view.fragment.event_details.EventGroupItemFragment.OnListFragmentInteractionListener;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItemList;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,26 +38,18 @@ public class EventGroupItemRecyclerViewAdapter extends RecyclerView.Adapter<Even
         }
     });
 
-    private Event mEvent = new Event();
-    private final OnListFragmentInteractionListener mListener;
+    private final EventGroupItemFragment.EventGroupInteractionListener mListener;
 
-    public EventGroupItemRecyclerViewAdapter(Observable<EventGroupItem> eventGroups, Single<Event> event, Observable<EventGroupItem> allGroups, OnListFragmentInteractionListener listener) {
-        event.subscribeOn(Schedulers.io())
+    public EventGroupItemRecyclerViewAdapter(Observable<EventGroupItem> groups, EventGroupItemFragment.EventGroupInteractionListener listener) {
+        groups.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(e -> mEvent = e);
-        eventGroups.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addMyGroupItem);
-        allGroups.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter(g -> mValues.indexOf(g)==SortedList.INVALID_POSITION)
                 .subscribe(this::addMyGroupItem);
 
         mListener = listener;
     }
 
     private void addMyGroupItem(EventGroupItem item) {
-        notifyItemInserted(mValues.add(item));
+        mValues.add(item);
     }
 
     private void setGroupItem(EventGroupItem item) {
@@ -82,6 +67,7 @@ public class EventGroupItemRecyclerViewAdapter extends RecyclerView.Adapter<Even
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.binding.setGroup(mValues.get(position));
+        holder.binding.setPresenter(this);
         holder.binding.executePendingBindings();
     }
 
