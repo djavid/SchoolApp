@@ -5,6 +5,7 @@ import android.text.format.DateFormat;
 import com.djavid.schoolapp.model.event_comments.EventComment;
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.model.notifications.Notification;
 import com.djavid.schoolapp.model.schedule.Schedule;
 import com.djavid.schoolapp.model.schedule.ScheduleLesson;
 import com.djavid.schoolapp.model.schedule.ScheduleSubject;
@@ -146,6 +147,17 @@ public interface Api {
 
     @DELETE(COMMENTS + "/{id}")
     Single<Map<String, String>> deleteComment(@Header(Auth) String auth, @Path("id") long commentId);
+
+    // Notifications
+
+    String NOTIFICATIONS = ENDPOINT + "notifications";
+
+    @POST(NOTIFICATIONS)
+    @FormUrlEncoded
+    Single<Notification> publishNotification(@Header(Auth) String auth, @Field("text") String text,
+                                             @Field("frequency") String frequency,
+                                             @Field("send_once") boolean noRepeat,
+                                             @Field("groups") List<Long> groups);
 
     //schedule subjects
 
