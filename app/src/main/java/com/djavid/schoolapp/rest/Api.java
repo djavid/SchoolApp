@@ -2,6 +2,7 @@ package com.djavid.schoolapp.rest;
 
 import android.text.format.DateFormat;
 
+import com.djavid.schoolapp.model.event_comments.EventComment;
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.model.groups.Group;
 import com.djavid.schoolapp.model.schedule.Schedule;
@@ -26,6 +27,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author Andrei Kolomiets
@@ -130,6 +132,20 @@ public interface Api {
 
     @DELETE(EVENTS + "/{id}")
     Single<Map<String, String>> deleteEvent(@Header(Auth) String auth, @Path("id") long eventId);
+
+    // Event Comments
+
+    String COMMENTS = ENDPOINT + "event_comments";
+
+    @GET(COMMENTS)
+    Single<List<EventComment>> getComments(@Header(Auth) String auth, @Query("id") long eventId);
+
+    @FormUrlEncoded
+    @POST(COMMENTS)
+    Single<EventComment> createComment(@Header(Auth) String auth, @Field("text") String text, @Field("event") long eventId);
+
+    @DELETE(COMMENTS + "/{id}")
+    Single<Map<String, String>> deleteComment(@Header(Auth) String auth, @Path("id") long commentId);
 
     //schedule subjects
 
