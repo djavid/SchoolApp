@@ -87,11 +87,12 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
     private void showEnterCode() {
         startActivity(new Intent(this, EnterCodeActivity.class));
+        finish();
     }
 
-    private void showDashboard() {
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 
     private GoogleSignInClient _googleSignInClient;

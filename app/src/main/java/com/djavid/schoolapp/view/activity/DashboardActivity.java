@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.Router;
 import com.djavid.schoolapp.view.fragment.schedule.ScheduleFragment;
@@ -46,6 +47,20 @@ public class DashboardActivity extends AppCompatActivity
 
         scheduleFragment = ScheduleFragment.newInstance();
         fragmentManager = getSupportFragmentManager();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (App.getAppInstance().getPreferences().getIdentity() == null) {
+            startActivity(new Intent(this, LandingActivity.class));
+            finishAffinity();
+        }
+        if (App.getAppInstance().getPreferences().getToken() == null) {
+            startActivity(new Intent(this, EnterCodeActivity.class));
+            finishAffinity();
+        }
     }
 
     @Override

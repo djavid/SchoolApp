@@ -4,12 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.widget.RadioButton;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.users.Level;
-import com.djavid.schoolapp.model.users.TokenResponse;
 import com.djavid.schoolapp.util.LogTags;
 
 import retrofit2.HttpException;
@@ -222,6 +219,7 @@ public class EnterCodeActivity extends AppCompatActivity {
     private void showDashboard() {
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void showLanding() {
