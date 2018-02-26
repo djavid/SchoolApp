@@ -19,6 +19,10 @@ import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.Router;
 import com.djavid.schoolapp.view.fragment.schedule.ScheduleFragment;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Router {
@@ -32,6 +36,7 @@ public class DashboardActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,10 +61,23 @@ public class DashboardActivity extends AppCompatActivity
         if (App.getAppInstance().getPreferences().getIdentity() == null) {
             startActivity(new Intent(this, LandingActivity.class));
             finishAffinity();
-        }
-        if (App.getAppInstance().getPreferences().getToken() == null) {
+        } else if (App.getAppInstance().getPreferences().getToken() == null) {
             startActivity(new Intent(this, EnterCodeActivity.class));
             finishAffinity();
+        } else {
+            String fcm = FirebaseInstanceId.getInstance().getToken();
+            Log.i("firebase", fcm == null ? "null" : fcm);
+            if (fcm != null) {
+                App.getAppInstance().getApi().login(
+                        App.getAppInstance().getPreferences().getDisplayName(),
+                        App.getAppInstance().getPreferences().getIdentity(),
+                        FirebaseInstanceId.getInstance().getToken()
+                )
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(m ->
+                                App.getAppInstance().getPreferences().setToken(m.get("token")));
+            }
         }
     }
 

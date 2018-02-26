@@ -43,6 +43,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:support-vector-drawable:26.1.0'
     compile 'com.android.support:support-v4:26.1.0'
@@ -81,4 +82,11 @@ dependencies {
 
     //Google play services auth
     compile 'com.google.android.gms:play-services-auth:11.8.0'
+
+    // firebase
+    compile 'com.google.firebase:firebase-core:11.8.0'
+    compile 'com.google.firebase:firebase-messaging:11.8.0'
 }
+
+// firebase
+apply plugin: 'com.google.gms.google-services'

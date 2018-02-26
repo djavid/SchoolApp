@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "924130167990",
+    "firebase_url": "https://sch1329-57ed1.firebaseio.com",
+    "project_id": "sch1329-57ed1",
+    "storage_bucket": "sch1329-57ed1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924130167990:android:9f1c27f5dc2a9600",
+        "android_client_info": {
+          "package_name": "com.djavid.schoolapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924130167990-l6kggdfussli2osi2rd25t1n0370b92p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAA3qzEeh_gQXQj9gwN0Kn3eA7mAHb5sk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
