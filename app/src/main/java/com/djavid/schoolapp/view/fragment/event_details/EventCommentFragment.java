@@ -93,6 +93,7 @@ public class EventCommentFragment extends Fragment {
                                     item -> {
                                         if (adapter != null) {
                                             adapter.addItem(item);
+                                            recyclerView.getLayoutManager().scrollToPosition(0);
                                         }
                                     });
                 }
