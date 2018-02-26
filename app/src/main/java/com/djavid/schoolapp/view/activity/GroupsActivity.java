@@ -18,6 +18,8 @@ import com.djavid.schoolapp.view.fragment.groups.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 
+import io.reactivex.schedulers.Schedulers;
+
 public class GroupsActivity extends AppCompatActivity implements GroupRecyclerViewAdapter.GroupListInteractionListener, CreateGroupFragment.CreateGroupInteractionListener {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -78,7 +80,9 @@ public class GroupsActivity extends AppCompatActivity implements GroupRecyclerVi
         App.getAppInstance().getApi().joinGroup(
                 App.getAppInstance().getPreferences().getToken(),
                 group.getIdLong()
-        );
+        )
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
     @Override
@@ -86,7 +90,9 @@ public class GroupsActivity extends AppCompatActivity implements GroupRecyclerVi
         App.getAppInstance().getApi().leaveGroup(
                 App.getAppInstance().getPreferences().getToken(),
                 group.getIdLong()
-        );
+        )
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
     @Override

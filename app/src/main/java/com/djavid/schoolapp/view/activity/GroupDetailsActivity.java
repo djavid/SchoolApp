@@ -46,6 +46,7 @@ public class GroupDetailsActivity extends AppCompatActivity implements GroupPart
         if (mGroupId == 0) {
             onBackPressed();
             return;
+
         }
 
         mNavigation = findViewById(R.id.navigation);
