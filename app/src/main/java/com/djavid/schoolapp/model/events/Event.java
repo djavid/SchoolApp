@@ -12,6 +12,16 @@ import java.util.List;
  * @author Andrei Kolomiets
  */
 public class Event {
+    public Event() {
+        Calendar start = getStartDate();
+        start.set(Calendar.SECOND, 0);
+        setStartDate(start);
+
+        Calendar end = getEndDate();
+        end.set(Calendar.SECOND, 0);
+        setEndDate(end);
+    }
+
     @SerializedName("id")
     @Expose
     public long id;

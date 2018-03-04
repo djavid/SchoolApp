@@ -1,5 +1,7 @@
 package com.djavid.schoolapp.view.fragment.events;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -48,6 +50,41 @@ public class CreateEventFragment extends Fragment {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(q -> mListener.onEventCreated());
+        });
+
+        binding.setSelectStartDateCommand(a -> {
+            EventItem event = binding.getEvent();
+            new DatePickerDialog(getContext(), (datePicker, year, month, day) -> {
+                event.setStartDateYear(year);
+                event.setStartDateMonth(month);
+                event.setStartDateDay(day);
+                new TimePickerDialog(getContext(), (timePicker, hour, min) -> {
+                    event.setStartDateMinute(min);
+                    event.setStartDateHour(hour);
+                }, event.getStartDateHour(), event.getStartDateMinute(), true)
+                        .show();
+            },
+                    event.getStartDateYear(),
+                    event.getStartDateMonth(),
+                    event.getStartDateDay()).show();
+        });
+
+
+        binding.setSelectEndDateCommand(a -> {
+            EventItem event = binding.getEvent();
+            new DatePickerDialog(getContext(), (datePicker, year, month, day) -> {
+                event.setEndDateYear(year);
+                event.setEndDateMonth(month);
+                event.setEndDateDay(day);
+                new TimePickerDialog(getContext(), (timePicker, hour, min) -> {
+                    event.setEndDateMinute(min);
+                    event.setEndDateHour(hour);
+                }, event.getEndDateHour(), event.getEndDateMinute(), true)
+                        .show();
+            },
+                    event.getEndDateYear(),
+                    event.getEndDateMonth(),
+                    event.getEndDateDay()).show();
         });
 
         return binding.getRoot();

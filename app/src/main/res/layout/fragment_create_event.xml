@@ -5,6 +5,13 @@
     <data>
 
         <variable
+            name="selectStartDateCommand"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="selectEndDateCommand"
+            type="android.view.View.OnClickListener" />
+        <variable
             name="createCommand"
             type="android.view.View.OnClickListener" />
         <variable
@@ -108,34 +115,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/eventPlace" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+                <Button
+                    android:id="@+id/startDateDialogResult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical"
+                    android:text="@{event.startDateString}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/eventStartDateLabel">
-
-                    <DatePicker
-                        android:id="@+id/startDatePicker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:day="@={event.startDateDay}"
-                        android:month="@={event.startDateMonth}"
-                        android:year="@={event.startDateYear}"
-                        app:layout_constraintEnd_toEndOf="parent" />
-
-                    <TimePicker
-                        android:id="@+id/startTimePicker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hour="@={event.startDateHour}"
-                        android:minute="@={event.startDateMinute}" />
-                </LinearLayout>
+                    android:onClick="@{selectStartDateCommand::onClick}"
+                    app:layout_constraintTop_toBottomOf="@+id/eventStartDateLabel" />
 
                 <TextView
                     android:id="@+id/eventEndDateLabel"
@@ -144,36 +131,17 @@
                     android:text="@string/event_endDate_label"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/startDateDialogResult" />
 
 
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
+                <Button
+                    android:id="@+id/endDateDialogResult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:text="@{event.endDateString}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/eventEndDateLabel">
-
-                    <DatePicker
-                        android:id="@+id/endDatePicker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:day="@={event.endDateDay}"
-                        android:month="@={event.endDateMonth}"
-                        android:year="@={event.endDateYear}" />
-
-                    <TimePicker
-                        android:id="@+id/endTimePicker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="32dp"
-                        android:hour="@={event.endDateHour}"
-                        android:minute="@={event.endDateMinute}" />
-                </LinearLayout>
+                    android:onClick="@{selectEndDateCommand::onClick}"
+                    app:layout_constraintTop_toBottomOf="@+id/eventEndDateLabel" />
 
             </android.support.constraint.ConstraintLayout>
         </ScrollView>

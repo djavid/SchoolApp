@@ -110,6 +110,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.YEAR, year);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.startDateString);
     }
 
     @Bindable
@@ -121,6 +122,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.MONTH, month);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.startDateString);
     }
 
     @Bindable
@@ -132,6 +134,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.DATE, day);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.startDateString);
     }
 
     @Bindable
@@ -143,6 +146,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.HOUR, hour);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.startDateString);
     }
 
     @Bindable
@@ -154,6 +158,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.MINUTE, minute);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.startDateString);
     }
 
     @Bindable
@@ -165,6 +170,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.YEAR, year);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.endDateString);
     }
 
     @Bindable
@@ -176,6 +182,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.MONTH, month);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.endDateString);
     }
 
 
@@ -188,6 +195,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.DATE, day);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.endDateString);
     }
 
     @Bindable
@@ -199,6 +207,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.HOUR, hour);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.endDateString);
     }
 
 
@@ -211,6 +220,7 @@ public class EventItem extends BaseObservable {
         Calendar cal = getStartDate();
         cal.set(Calendar.MINUTE, minute);
         event.setStartDate(cal);
+        notifyPropertyChanged(BR.endDateString);
     }
 
     @Bindable
