@@ -6,18 +6,22 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_generate_code"
+            android:icon="@drawable/ic_security_black_24dp"
             android:title="@string/title_nav_create_code" />
 
         <item
             android:id="@+id/nav_schedule"
+            android:icon="@drawable/ic_date_range_black_24dp"
             android:title="@string/title_nav_schedule" />
     </group>
     <group android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_groups"
+                android:icon="@drawable/ic_supervisor_account_black_24dp"
                 android:title="@string/groups" />
             <item
                 android:id="@+id/nav_events"
+                android:icon="@drawable/ic_stars_black_24dp"
                 android:title="@string/title_nav_events" />
     </group>
     <group android:title="@string/Notifications">
