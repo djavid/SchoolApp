@@ -124,7 +124,7 @@ public class DashboardActivity extends AppCompatActivity
             startActivity(new Intent(this, GroupsActivity.class));
         } else if (id == R.id.nav_events) {
             startActivity(new Intent(this, EventsActivity.class));
-        } else if (id == R.id.nav_notifications) {
+        } else if (id == R.id.nav_publish_notification) {
             startActivity(new Intent(this, PublishNotificationActivity.class));
         } else if (id == R.id.nav_schedule) {
 

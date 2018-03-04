@@ -62,7 +62,7 @@
         </activity>
         <activity
             android:name=".view.activity.PublishNotificationActivity"
-            android:label="PublishNotificationActivity"
+            android:label="@string/publish_notification_title"
             android:parentActivityName=".view.activity.DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

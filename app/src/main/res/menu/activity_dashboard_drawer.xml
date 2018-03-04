@@ -12,30 +12,19 @@
             android:id="@+id/nav_schedule"
             android:title="@string/title_nav_schedule" />
     </group>
-
-    <item android:title="@string/title_nav_groups">
-        <menu>
+    <group android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_groups"
                 android:title="@string/groups" />
-        </menu>
-    </item>
-
-    <item android:title="@string/title_nav_events">
-        <menu>
             <item
                 android:id="@+id/nav_events"
                 android:title="@string/title_nav_events" />
-        </menu>
-    </item>
-
-    <item android:title="@string/Notifications">
-        <menu>
+    </group>
+    <group android:title="@string/Notifications">
             <item
-                android:id="@+id/nav_notifications"
+                android:id="@+id/nav_publish_notification"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/title_nav_notifications" />
-        </menu>
-    </item>
+    </group>
 
 </menu>

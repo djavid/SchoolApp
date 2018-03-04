@@ -61,8 +61,8 @@ public class PublishNotificationActivity extends AppCompatActivity implements No
         App.getAppInstance().getApi().publishNotification(
                 App.getAppInstance().getPreferences().getToken(),
                 notification.text,
-                "0 0 * * *",
-                true,
+                notification.frequency,
+                notification.noRepeat,
                 notification.groups
         )
                 .subscribeOn(Schedulers.io())

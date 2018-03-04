@@ -74,9 +74,23 @@
     <string name="notification_text_note">Текст оповещения:</string>
     <string name="notification_groups_note">Получатели:</string>
     <string name="title_nav_notifications">Оповещения</string>
+    <string name="title_nav_publish_notifications">Опубликовать оповещение</string>
     <string name="publish_notification_button">Опубликовать</string>
     <string name="notification_publish_success">Оповещение успешно опубликовано!</string>
     <string name="confirm">Готово</string>
+    <string name="publish_notification_repeat_mode_label">Повторять оповещение:</string>
+    <string name="repeat_mode_on_weekdays">По:</string>
+    <string name="repeat_mode_monday">Пн</string>
+    <string name="repeat_mode_tuesday">Вт</string>
+    <string name="repeat_mode_wednesday">Ср</string>
+    <string name="repeat_mode_thursday">Чт</string>
+    <string name="repeat_mode_friday">Пт</string>
+    <string name="repeat_mode_saturday">Сб</string>
+    <string name="repeat_mode_sunday">Вс</string>
+    <string name="repeat_mode_every">Каждый:</string>
+    <string name="repeat_mode_every_week">Раз в неделю</string>
+    <string name="repeat_mode_month_day">День месяца</string>
+    <string name="repeat_mode_never">Не повторять</string>
 
     <!-- Week days -->
     <string-array name="week_days">
@@ -88,6 +102,41 @@
         <item>Пятница</item>
         <item>Суббота</item>
         <item>Воскресенье</item>
+    </string-array>
+
+    <!-- Days of month -->
+    <string-array name="days_of_month">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
     </string-array>
 
 </resources>

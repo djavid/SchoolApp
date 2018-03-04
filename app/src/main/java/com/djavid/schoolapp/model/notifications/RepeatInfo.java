@@ -4,7 +4,8 @@ import android.annotation.SuppressLint;
 
 import com.annimon.stream.Stream;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -14,12 +15,13 @@ import java.util.List;
 public class RepeatInfo {
 
     public Mode mode;
-    public int hour;
+    public int hour = 12;
     public int minute;
-    public List<Integer> daysOfWeek;
-    public List<Integer> daysOfMonth;
+    public Set<Integer> daysOfWeek = new HashSet<>();
+    public Set<Integer> daysOfMonth = new HashSet<>();
 
     public enum Mode {
+        Never,
         DailyWeek,
         DailyMonth,
     }
