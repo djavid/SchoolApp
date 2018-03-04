@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
@@ -17,7 +18,7 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 
-public class PublishNotificationActivity extends AppCompatActivity implements NotificationFragmentBase.NotificationFragmentContext {
+public class PublishNotificationActivity extends AppCompatActivity implements NotificationFragmentBase.NotificationFragmentContext, View.OnClickListener {
     private static final String ARG_NOTIFICATION = "notification";
 
     private Notification notification = new Notification();
@@ -89,5 +90,12 @@ public class PublishNotificationActivity extends AppCompatActivity implements No
     @Override
     public Notification getNotification() {
         return notification;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.confirm) {
+            getSupportFragmentManager().popBackStackImmediate();
+        }
     }
 }

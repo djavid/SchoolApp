@@ -76,6 +76,7 @@
     <string name="title_nav_notifications">Оповещения</string>
     <string name="publish_notification_button">Опубликовать</string>
     <string name="notification_publish_success">Оповещение успешно опубликовано!</string>
+    <string name="confirm">Готово</string>
 
     <!-- Week days -->
     <string-array name="week_days">

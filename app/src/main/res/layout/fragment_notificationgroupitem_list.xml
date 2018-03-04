@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="com.djavid.schoolapp.view.fragment.notifications.NotificationGroupItemFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="com.djavid.schoolapp.view.fragment.notifications.NotificationGroupItemFragment"
-    tools:listitem="@layout/fragment_notificationgroupitem" />
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:name="com.djavid.schoolapp.view.fragment.notifications.NotificationGroupItemFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        app:layoutManager="LinearLayoutManager"
+
+        app:layout_constraintBottom_toTopOf="@+id/confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context="com.djavid.schoolapp.view.fragment.notifications.NotificationGroupItemFragment"
+        tools:listitem="@layout/fragment_notificationgroupitem" />
+
+    <Button
+        android:id="@+id/confirm"
+        android:text="@string/confirm"
+        android:layout_marginStart="16dp"
+        android:onClick="onClick"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:gravity="bottom"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content" />
+</android.support.constraint.ConstraintLayout>

@@ -24,12 +24,13 @@ public class NotificationGroupItemFragment extends NotificationFragmentBase {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_groupparticipantitem_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_notificationgroupitem_list, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        View viewR = view.findViewById(R.id.list);
+        if (viewR instanceof RecyclerView) {
+            Context context = viewR.getContext();
+            RecyclerView recyclerView = (RecyclerView) viewR;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
             recyclerView.setAdapter(new NotificationGroupItemRecyclerViewAdapter(
