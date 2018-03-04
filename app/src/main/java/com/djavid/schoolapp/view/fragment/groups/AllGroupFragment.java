@@ -92,6 +92,7 @@ public class AllGroupFragment extends Fragment {
                             Observable.fromIterable(allGroups).map(group ->
                                     new GroupItem(group,
                                             Stream.of(enteredGroups).anyMatch(g -> g.id == group.id)))
+                                    .sorted((a, b) -> Boolean.compare(a.isEntered(), b.isEntered()))
                     );
                 });
     }

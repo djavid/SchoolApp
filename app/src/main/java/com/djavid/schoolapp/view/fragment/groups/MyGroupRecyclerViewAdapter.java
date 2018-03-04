@@ -40,4 +40,10 @@ public class MyGroupRecyclerViewAdapter extends GroupRecyclerViewAdapter<MyGroup
             this.binding = binding;
         }
     }
+
+    @Override
+    public void removeGroup(GroupItem group) {
+        mValues.remove(group);
+        mListener.removeGroup(group);
+    }
 }

@@ -21,6 +21,9 @@ public class GroupItemList extends SortedList<GroupItem> {
                 if (o2 == null) {
                     return -1;
                 }
+                if (o1.isEntered() != o2.isEntered()) {
+                    return o2.isEntered() ? 1 : -1;
+                }
                 return Long.compare(o1.getIdLong(), o2.getIdLong());
             }
 

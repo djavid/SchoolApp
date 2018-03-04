@@ -2,6 +2,7 @@ package com.djavid.schoolapp.view.fragment.groups;
 
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 import com.djavid.schoolapp.viewmodel.groups.GroupItemList;
@@ -37,7 +38,7 @@ public abstract class GroupRecyclerViewAdapter<T extends RecyclerView.ViewHolder
             notifyItemRangeChanged(position, count);
         }
     });
-    private final GroupListInteractionListener mListener;
+    protected final GroupListInteractionListener mListener;
 
     public GroupRecyclerViewAdapter(Observable<GroupItem> groups, GroupListInteractionListener listener) {
         mListener = listener;
@@ -49,6 +50,7 @@ public abstract class GroupRecyclerViewAdapter<T extends RecyclerView.ViewHolder
     }
 
     private void addItem(GroupItem group) {
+        Log.i("group", group.getTitle());
         mValues.add(group);
     }
 
@@ -62,12 +64,16 @@ public abstract class GroupRecyclerViewAdapter<T extends RecyclerView.ViewHolder
     }
 
     public void addGroup(GroupItem group) {
-        setGroupItem(group.withEntered(true));
+        mValues.remove(group);
+        GroupItem n = group.withEntered(true);
+        mValues.add(n);
         mListener.addGroup(group);
     }
 
     public void removeGroup(GroupItem group) {
-        setGroupItem(group.withEntered(false));
+        mValues.remove(group);
+        GroupItem n = group.withEntered(false);
+        mValues.add(n);
         mListener.removeGroup(group);
     }
 
