@@ -23,26 +23,24 @@ import io.reactivex.schedulers.Schedulers;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class GroupsActivity extends AppCompatActivity implements GroupRecyclerViewAdapter.GroupListInteractionListener, CreateGroupFragment.CreateGroupInteractionListener {
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+public class GroupsActivity extends AppCompatActivity implements
+        GroupRecyclerViewAdapter.GroupListInteractionListener, CreateGroupFragment.CreateGroupInteractionListener {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            invalidateOptionsMenu();
-            switch (item.getItemId()) {
-                case R.id.groups_navigation_all_groups:
-                    showFragment(new AllGroupFragment());
-                    return true;
-                case R.id.groups_navigation_my_groups:
-                    showFragment(new MyGroupFragment());
-                    return true;
-                case R.id.groups_navigation_create_group:
-                    showFragment(new CreateGroupFragment());
-                    return true;
-            }
-            return true;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = item -> {
+        invalidateOptionsMenu();
+        switch (item.getItemId()) {
+            case R.id.groups_navigation_all_groups:
+                showFragment(new AllGroupFragment());
+                return true;
+            case R.id.groups_navigation_my_groups:
+                showFragment(new MyGroupFragment());
+                return true;
+            case R.id.groups_navigation_create_group:
+                showFragment(new CreateGroupFragment());
+                return true;
         }
+        return true;
     };
 
     BottomNavigationView mNavigation;
@@ -55,6 +53,7 @@ public class GroupsActivity extends AppCompatActivity implements GroupRecyclerVi
         mNavigation = findViewById(R.id.navigation);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mNavigation.setSelectedItemId(R.id.groups_navigation_all_groups);
+
         showFragment(new AllGroupFragment());
     }
 

@@ -58,6 +58,9 @@ public class EnterCodeActivity extends AppCompatActivity {
         mEnterCodeButton.setOnClickListener(view -> attemptLogin());
 
         mProgressView = findViewById(R.id.login_progress);
+
+        //todo
+        showDashboard();
     }
 
     @Override

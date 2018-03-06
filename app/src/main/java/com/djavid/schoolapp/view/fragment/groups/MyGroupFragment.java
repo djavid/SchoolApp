@@ -29,6 +29,8 @@ import io.reactivex.Observable;
 
 public class MyGroupFragment extends Fragment {
 
+    RecyclerView recyclerView;
+
     private GroupRecyclerViewAdapter.GroupListInteractionListener mListener;
 
     public MyGroupFragment() { }
@@ -44,7 +46,7 @@ public class MyGroupFragment extends Fragment {
         setHasOptionsMenu(true);
 
         Context context = view.getContext();
-        RecyclerView recyclerView = view.findViewById(R.id.list);
+        recyclerView = view.findViewById(R.id.list);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new MyGroupRecyclerViewAdapter(provideMyGroups(), mListener));
@@ -53,6 +55,8 @@ public class MyGroupFragment extends Fragment {
         if (App.getAppInstance().isTeacher()) {
             fab.setVisibility(View.VISIBLE);
             fab.setOnClickListener(v -> {
+
+                //
 
             });
         }
@@ -84,6 +88,17 @@ public class MyGroupFragment extends Fragment {
                         Stream.of(myGroups)
                                 .map(group -> new GroupItem(group, true))
                                 .toList()));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (recyclerView != null) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(new MyGroupRecyclerViewAdapter(provideMyGroups(), mListener));
+        }
+
     }
 
     @Override
