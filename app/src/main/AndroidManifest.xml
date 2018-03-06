@@ -54,7 +54,7 @@
         </activity>
         <activity
             android:name=".view.activity.GroupDetailsActivity"
-            android:label="GroupDetailsActivity"
+            android:label="@string/title_activity_group_details"
             android:parentActivityName=".view.activity.GroupsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

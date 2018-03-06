@@ -10,34 +10,34 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
             android:name="com.djavid.schoolapp.view.fragment.event_details.EventCommentFragment"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
             android:scrollbars="vertical"
-            android:layout_marginTop="8dp"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/linearLayout3"
             tools:context="com.djavid.schoolapp.view.fragment.event_details.EventCommentFragment"
             tools:listitem="@layout/fragment_eventcomment" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/list">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
                 android:id="@+id/newCommentText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:inputType="textShortMessage"
                 android:gravity="end" />
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/send_button"
-                android:layout_margin="8dp" />
+                android:layout_marginEnd="8dp" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>
