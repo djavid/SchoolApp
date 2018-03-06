@@ -2,8 +2,7 @@
   "project_info": {
     "project_number": "924130167990",
     "firebase_url": "https://sch1329-57ed1.firebaseio.com",
-    "project_id": "sch1329-57ed1",
-    "storage_bucket": "sch1329-57ed1.appspot.com"
+    "project_id": "sch1329-57ed1"
   },
   "client": [
     {
@@ -14,6 +13,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "924130167990-p2ctvssp4850e88eggq7kn6j3fngu1fs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.djavid.schoolapp",
+            "certificate_hash": "37b69f2f2f344bcb5ca7064565e470a14f8d2238"
+          }
+        },
         {
           "client_id": "924130167990-l6kggdfussli2osi2rd25t1n0370b92p.apps.googleusercontent.com",
           "client_type": 3
@@ -29,8 +36,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924130167990-l6kggdfussli2osi2rd25t1n0370b92p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
