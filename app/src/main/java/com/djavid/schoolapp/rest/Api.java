@@ -140,7 +140,7 @@ public interface Api {
     String COMMENTS = ENDPOINT + "event_comments";
 
     @GET(COMMENTS)
-    Single<List<EventComment>> getComments(@Header(Auth) String auth, @Query("id") long eventId);
+    Single<List<EventComment>> getComments(@Header(Auth) String auth, @Query("event") long eventId);
 
     @FormUrlEncoded
     @POST(COMMENTS)
