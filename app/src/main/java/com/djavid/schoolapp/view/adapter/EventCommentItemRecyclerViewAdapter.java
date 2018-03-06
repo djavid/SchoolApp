@@ -1,4 +1,4 @@
-package com.djavid.schoolapp.view.fragment.event_details;
+package com.djavid.schoolapp.view.adapter;
 
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
@@ -42,7 +42,7 @@ public class EventCommentItemRecyclerViewAdapter extends RecyclerView.Adapter<Ev
             notifyItemRangeChanged(position, count);
         }
     });
-    private final EventCommentFragment.EventCommentFragmentInteractionListener mListener;
+    private final EventCommentFragmentInteractionListener mListener;
 
     public EventCommentItemRecyclerViewAdapter(Observable<EventCommentItem> items, EventCommentFragmentInteractionListener listener) {
         items
@@ -53,7 +53,7 @@ public class EventCommentItemRecyclerViewAdapter extends RecyclerView.Adapter<Ev
         mListener = listener;
     }
 
-    void addItem(EventCommentItem item) {
+    public void addItem(EventCommentItem item) {
         mValues.add(item);
     }
 

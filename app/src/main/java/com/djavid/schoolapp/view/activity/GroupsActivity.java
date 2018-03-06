@@ -14,7 +14,7 @@ import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.view.fragment.groups.AllGroupFragment;
 import com.djavid.schoolapp.view.fragment.groups.CreateGroupFragment;
-import com.djavid.schoolapp.view.fragment.groups.GroupRecyclerViewAdapter;
+import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 

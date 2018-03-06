@@ -1,21 +1,16 @@
-package com.djavid.schoolapp.view.fragment.events;
+package com.djavid.schoolapp.view.adapter;
 
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.annimon.stream.Stream;
 import com.djavid.schoolapp.databinding.FragmentAlleventsBinding;
-import com.djavid.schoolapp.model.events.Event;
+import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 import com.djavid.schoolapp.viewmodel.events.EventItemList;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

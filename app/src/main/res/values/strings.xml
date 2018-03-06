@@ -59,6 +59,10 @@
     <string name="event_groups">Группы-участники</string>
     <string name="event_comments">Обсуждение</string>
 
+    <!-- menu titles -->
+    <string name="title_menu_allgroups">Все группы</string>
+
+
     <!-- NavigationDrawer -->
 
     <string name="title_nav_schedule">Расписание</string>
@@ -142,5 +146,6 @@
         <item>30</item>
         <item>31</item>
     </string-array>
+    <string name="title_activity_all_groups">AllGroupsActivity</string>
 
 </resources>

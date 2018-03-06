@@ -1,4 +1,4 @@
-package com.djavid.schoolapp.view.fragment.events;
+package com.djavid.schoolapp.view.adapter;
 
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentMyeventsBinding;
+import com.djavid.schoolapp.view.fragment.events.MyEventsFragment;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 import com.djavid.schoolapp.viewmodel.events.EventItemList;
 

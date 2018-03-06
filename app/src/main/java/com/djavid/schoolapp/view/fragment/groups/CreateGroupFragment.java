@@ -15,23 +15,14 @@ import com.djavid.schoolapp.R;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CreateGroupInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CreateGroupFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class CreateGroupFragment extends Fragment {
     Button _createButton;
     TextView _title;
 
     private CreateGroupInteractionListener mListener;
 
-    public CreateGroupFragment() {
-        // Required empty public constructor
-    }
+    public CreateGroupFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

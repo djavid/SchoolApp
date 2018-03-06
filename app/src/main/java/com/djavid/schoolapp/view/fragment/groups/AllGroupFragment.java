@@ -14,6 +14,8 @@ import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.view.adapter.AllGroupRecyclerViewAdapter;
+import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 
 import java.util.List;
@@ -21,26 +23,15 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link GroupRecyclerViewAdapter.GroupListInteractionListener}
- * interface.
- */
+
 public class AllGroupFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private GroupRecyclerViewAdapter.GroupListInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public AllGroupFragment() {
-    }
+
+    public AllGroupFragment() { }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")

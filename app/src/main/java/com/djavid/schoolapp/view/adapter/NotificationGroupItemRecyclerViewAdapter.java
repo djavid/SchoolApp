@@ -1,4 +1,4 @@
-package com.djavid.schoolapp.view.fragment.notifications;
+package com.djavid.schoolapp.view.adapter;
 
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentNotificationgroupitemBinding;
 import com.djavid.schoolapp.model.notifications.Notification;
+import com.djavid.schoolapp.view.fragment.notifications.NotificationFragmentBase;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationGroupItem;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationGroupItemList;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationItem;

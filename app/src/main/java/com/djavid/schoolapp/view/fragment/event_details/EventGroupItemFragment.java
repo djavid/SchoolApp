@@ -14,6 +14,7 @@ import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.view.adapter.EventGroupItemRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;

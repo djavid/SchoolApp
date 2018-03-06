@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.view.adapter.NotificationGroupItemRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationGroupItem;
 

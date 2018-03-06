@@ -18,22 +18,26 @@ import android.view.MenuItem;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.Router;
+import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
+import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
 import com.djavid.schoolapp.view.fragment.schedule.GenerateCodeFragment;
 import com.djavid.schoolapp.view.fragment.schedule.ScheduleFragment;
+import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Router {
+        implements NavigationView.OnNavigationItemSelectedListener, Router, GroupRecyclerViewAdapter.GroupListInteractionListener {
 
     final String TAG = getClass().getSimpleName();
     final String TAG_SCHEDULE = "TAG_SCHEDULE";
     final String TAG_GENERATE_CODE = "TAG_GENERATE_CODE";
+    final String TAG_GROUPS = "TAG_GROUPS";
 
     private FragmentManager fragmentManager;
-    private Fragment scheduleFragment, generateCodeFragment;
+    private Fragment scheduleFragment, generateCodeFragment, myGroupFragment;
 
 
     @Override
@@ -62,6 +66,7 @@ public class DashboardActivity extends AppCompatActivity
 
         scheduleFragment = ScheduleFragment.newInstance();
         generateCodeFragment = GenerateCodeFragment.newInstance();
+        myGroupFragment = MyGroupFragment.newInstance();
         fragmentManager = getSupportFragmentManager();
     }
 
@@ -105,7 +110,7 @@ public class DashboardActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.dashboard, menu);
+        //getMenuInflater().inflate(R.menu.dashboard, menu);
 
         return true;
     }
@@ -138,7 +143,9 @@ public class DashboardActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_groups) {
 
-            startActivity(new Intent(this, GroupsActivity.class));
+            //startActivity(new Intent(this, GroupsActivity.class));
+            setToolbarTitle(R.string.title_nav_groups);
+            changeFragment(myGroupFragment, TAG_GROUPS, true);
 
         } else if (id == R.id.nav_events) {
 
@@ -208,6 +215,38 @@ public class DashboardActivity extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addGroup(GroupItem group) {
+        App.getAppInstance().getApi().joinGroup(
+                App.getAppInstance().getPreferences().getToken(),
+                group.getIdLong()
+        )
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
+    @Override
+    public void removeGroup(GroupItem group) {
+        App.getAppInstance().getApi().leaveGroup(
+                App.getAppInstance().getPreferences().getToken(),
+                group.getIdLong()
+        )
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
+    @Override
+    public void showGroupDetails(GroupItem group) {
+        if (!(App.getAppInstance().isTeacher())) {
+            return;
+        }
+
+        Intent intent = new Intent(this, GroupDetailsActivity.class);
+        intent.putExtra(GroupDetailsActivity.ARG_GROUPID, group.getIdLong());
+
+        startActivity(intent);
     }
 
 }

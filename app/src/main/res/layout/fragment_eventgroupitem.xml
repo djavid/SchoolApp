@@ -10,7 +10,7 @@
 
         <variable
             name="presenter"
-            type="com.djavid.schoolapp.view.fragment.event_details.EventGroupItemRecyclerViewAdapter" />
+            type="com.djavid.schoolapp.view.adapter.EventGroupItemRecyclerViewAdapter" />
     </data>
 
 

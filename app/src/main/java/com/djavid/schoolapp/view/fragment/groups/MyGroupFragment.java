@@ -1,50 +1,80 @@
 package com.djavid.schoolapp.view.fragment.groups;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.view.activity.AllGroupsActivity;
+import com.djavid.schoolapp.view.activity.GroupsActivity;
+import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
+import com.djavid.schoolapp.view.adapter.MyGroupRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 
 import io.reactivex.Observable;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link GroupRecyclerViewAdapter.GroupListInteractionListener}
- * interface.
- */
+
 public class MyGroupFragment extends Fragment {
 
     private GroupRecyclerViewAdapter.GroupListInteractionListener mListener;
 
-    public MyGroupFragment() {
+    public MyGroupFragment() { }
+
+    public static MyGroupFragment newInstance() {
+        return new MyGroupFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mygroup_list, container, false);
+        setHasOptionsMenu(true);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        Context context = view.getContext();
+        RecyclerView recyclerView = view.findViewById(R.id.list);
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyGroupRecyclerViewAdapter(
-                    provideMyGroups()
-                    , mListener));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(new MyGroupRecyclerViewAdapter(provideMyGroups(), mListener));
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        if (App.getAppInstance().isTeacher()) {
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(v -> {
+
+            });
         }
+
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.mygroup_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_allgroups :
+                startActivity(new Intent(getContext(), AllGroupsActivity.class));
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private Observable<GroupItem> provideMyGroups() {

@@ -14,6 +14,7 @@ import com.annimon.stream.operator.ObjMerge;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.events.Event;
+import com.djavid.schoolapp.view.adapter.MyEventsRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 
 import java.util.List;

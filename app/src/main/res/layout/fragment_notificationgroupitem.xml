@@ -10,7 +10,7 @@
 
         <variable
             name="presenter"
-            type="com.djavid.schoolapp.view.fragment.notifications.NotificationGroupItemRecyclerViewAdapter" />
+            type="com.djavid.schoolapp.view.adapter.NotificationGroupItemRecyclerViewAdapter" />
     </data>
 
 

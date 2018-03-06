@@ -1,4 +1,4 @@
-package com.djavid.schoolapp.view.fragment.group_details;
+package com.djavid.schoolapp.view.adapter;
 
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.util.SortedList;
@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentGroupparticipantitemBinding;
+import com.djavid.schoolapp.view.fragment.group_details.GroupParticipantItemFragment;
 import com.djavid.schoolapp.viewmodel.group_details.GroupParticipantItem;
 import com.djavid.schoolapp.viewmodel.group_details.GroupParticipantItemList;
 

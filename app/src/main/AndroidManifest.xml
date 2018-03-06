@@ -75,6 +75,12 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".view.activity.AllGroupsActivity"
+            android:label="@string/title_activity_all_groups"
+            android:parentActivityName=".view.activity.GroupsActivity" />
+
     </application>
 
 </manifest>

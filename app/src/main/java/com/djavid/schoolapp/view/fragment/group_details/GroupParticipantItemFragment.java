@@ -13,6 +13,7 @@ import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.users.User;
+import com.djavid.schoolapp.view.adapter.GroupParticipantItemRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.group_details.GroupParticipantItem;
 import com.djavid.schoolapp.viewmodel.group_details.UserItem;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;

@@ -14,7 +14,7 @@ import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.events.Event;
-import com.djavid.schoolapp.model.groups.Group;
+import com.djavid.schoolapp.view.adapter.AllEventsRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 
 import java.util.List;
