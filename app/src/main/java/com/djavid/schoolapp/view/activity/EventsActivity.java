@@ -3,20 +3,23 @@ package com.djavid.schoolapp.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.view.fragment.events.CreateEventFragment;
 import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;
+import com.djavid.schoolapp.view.fragment.events.CreateEventFragment;
 import com.djavid.schoolapp.view.fragment.events.MyEventsFragment;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class EventsActivity extends AppCompatActivity implements AllEventsFragment.OnListFragmentInteractionListener, MyEventsFragment.OnListFragmentInteractionListener, CreateEventFragment.OnFragmentInteractionListener {
 
@@ -57,8 +60,8 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuView.ItemView createEventItem = findViewById(R.id.events_navigation_create_event);
-        createEventItem.setEnabled(App.getAppInstance().isTeacher());
+        BottomNavigationItemView createEventItem = findViewById(R.id.events_navigation_create_event);
+        createEventItem.setVisibility(App.getAppInstance().isTeacher() ? VISIBLE : GONE);
 
         return true;
     }
@@ -72,10 +75,6 @@ public class EventsActivity extends AppCompatActivity implements AllEventsFragme
 
     @Override
     public void openEventDetails(EventItem item) {
-        if (!(App.getAppInstance().isTeacher())) {
-            return;
-        }
-
         Intent intent = new Intent(this, EventDetailsActivity.class);
         intent.putExtra(EventDetailsActivity.ARG_EVENTID, item.getIdLong());
 

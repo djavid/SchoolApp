@@ -3,10 +3,10 @@ package com.djavid.schoolapp.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,6 +19,9 @@ import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 
 import io.reactivex.schedulers.Schedulers;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class GroupsActivity extends AppCompatActivity implements GroupRecyclerViewAdapter.GroupListInteractionListener, CreateGroupFragment.CreateGroupInteractionListener {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -57,8 +60,8 @@ public class GroupsActivity extends AppCompatActivity implements GroupRecyclerVi
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuView.ItemView createGroupItem = findViewById(R.id.groups_navigation_create_group);
-        createGroupItem.setEnabled(App.getAppInstance().isTeacher());
+        BottomNavigationItemView createGroupItem = findViewById(R.id.groups_navigation_create_group);
+        createGroupItem.setVisibility(App.getAppInstance().isTeacher() ? VISIBLE : GONE);
 
         return true;
     }

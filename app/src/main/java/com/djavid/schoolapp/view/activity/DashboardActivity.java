@@ -42,6 +42,7 @@ public class DashboardActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -49,6 +50,12 @@ public class DashboardActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Menu menu = navigationView.getMenu();
+        MenuItem item = menu.findItem(R.id.nav_generate_code);
+        item.setVisible(App.getAppInstance().isTeacher());
+        item = menu.findItem(R.id.nav_publish_notification);
+        item.setVisible(App.getAppInstance().isTeacher());
 
         scheduleFragment = ScheduleFragment.newInstance();
         fragmentManager = getSupportFragmentManager();
@@ -95,6 +102,7 @@ public class DashboardActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.dashboard, menu);
+
         return true;
     }
 
