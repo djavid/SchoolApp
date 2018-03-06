@@ -31,6 +31,8 @@ public abstract class BaseFragment extends Fragment implements com.djavid.school
 
     public abstract void loadData();
 
+    public final String TAG = this.getClass().getSimpleName();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

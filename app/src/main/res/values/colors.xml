@@ -10,4 +10,7 @@
     <color name="colorLessonPlace">#3358A6</color>
     <color name="colorLessonDivider">#DFDFDF</color>
 
+    <!-- Generate code fragment -->
+    <color name="colorBtnBg">#DFDFDF</color>
+
 </resources>

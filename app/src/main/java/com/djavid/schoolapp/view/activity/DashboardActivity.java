@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.Router;
+import com.djavid.schoolapp.view.fragment.schedule.GenerateCodeFragment;
 import com.djavid.schoolapp.view.fragment.schedule.ScheduleFragment;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -29,8 +30,10 @@ public class DashboardActivity extends AppCompatActivity
 
     final String TAG = getClass().getSimpleName();
     final String TAG_SCHEDULE = "TAG_SCHEDULE";
+    final String TAG_GENERATE_CODE = "TAG_GENERATE_CODE";
+
     private FragmentManager fragmentManager;
-    private Fragment scheduleFragment;
+    private Fragment scheduleFragment, generateCodeFragment;
 
 
     @Override
@@ -58,6 +61,7 @@ public class DashboardActivity extends AppCompatActivity
         item.setVisible(App.getAppInstance().isTeacher());
 
         scheduleFragment = ScheduleFragment.newInstance();
+        generateCodeFragment = GenerateCodeFragment.newInstance();
         fragmentManager = getSupportFragmentManager();
     }
 
@@ -127,26 +131,40 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_generate_code) {
-            startActivity(new Intent(this, GenerateCodeActivity.class));
+
+            //startActivity(new Intent(this, GenerateCodeActivity.class));
+            setToolbarTitle(R.string.title_nav_create_code);
+            changeFragment(generateCodeFragment, TAG_GENERATE_CODE, true);
+
         } else if (id == R.id.nav_groups) {
+
             startActivity(new Intent(this, GroupsActivity.class));
+
         } else if (id == R.id.nav_events) {
+
             startActivity(new Intent(this, EventsActivity.class));
+
         } else if (id == R.id.nav_publish_notification) {
+
             startActivity(new Intent(this, PublishNotificationActivity.class));
+
         } else if (id == R.id.nav_schedule) {
 
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setTitle(getString(R.string.title_nav_schedule));
-            }
-
+            setToolbarTitle(R.string.title_nav_schedule);
             changeFragment(scheduleFragment, TAG_SCHEDULE, true);
 
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
+    }
+
+    private void setToolbarTitle(int title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(getString(title));
+        }
     }
 
     @Override

@@ -33,10 +33,6 @@
             android:label="@string/title_nav_groups"
             android:parentActivityName=".view.activity.DashboardActivity" />
         <activity
-            android:name=".view.activity.GenerateCodeActivity"
-            android:label="@string/title_nav_create_code"
-            android:parentActivityName=".view.activity.DashboardActivity" />
-        <activity
             android:name=".view.activity.EventsActivity"
             android:label="@string/title_nav_events"
             android:parentActivityName=".view.activity.DashboardActivity">

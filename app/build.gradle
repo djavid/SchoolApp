@@ -83,9 +83,15 @@ dependencies {
     //Google play services auth
     compile 'com.google.android.gms:play-services-auth:11.8.0'
 
-    // firebase
+    //firebase
     compile 'com.google.firebase:firebase-core:11.8.0'
     compile 'com.google.firebase:firebase-messaging:11.8.0'
+
+    //segmented button
+    compile 'info.hoang8f:android-segmented:1.0.6'
+
+    //flat button
+    compile 'info.hoang8f:fbutton:1.0.5'
 }
 
 // firebase

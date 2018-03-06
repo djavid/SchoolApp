@@ -109,4 +109,11 @@ public class RestDataRepository {
                 .retry(2L);
     }
 
+    public Single<Map<String, String>> createCode(String expiration_date, int level) {
+        return apiInterface.createCode(expiration_date, level)
+                .doOnError(Throwable::printStackTrace)
+                .compose(RxUtils.applySingleSchedulers())
+                .retry(2L);
+    }
+
 }
