@@ -49,11 +49,11 @@
     <string name="event_name_hint">Родительское собрание</string>
     <string name="event_description_label">Описание:</string>
     <string name="event_description_hint">На повестке обсуждение следующих тем: …</string>
-    <string name="event_startDate_label">Начало мероприятия:</string>
-    <string name="event_endDate_label">Окончание:</string>
-    <string name="event_place_label">Место:</string>
+    <string name="event_startDate_label">Начало мероприятия: </string>
+    <string name="event_endDate_label">Окончание: </string>
+    <string name="event_place_label">Место: </string>
 
-    <string name="title_activity_event_details">EventDetailsActivity</string>
+    <string name="title_activity_event_details">Мероприятие</string>
     <string name="about_event">О мероприятии</string>
     <string name="event_groups">Группы-участники</string>
     <string name="event_comments">Обсуждение</string>
@@ -63,7 +63,7 @@
     <string name="title_nav_groups">Группы</string>
     <string name="title_nav_events">Мероприятия</string>
     <string name="title_nav_create_code">Сгенерировать пароль</string>
-    <string name="event_createdBy_label">Ответственный:</string>
+    <string name="event_createdBy_label">Ответственный: </string>
     <string name="about_group">О группе</string>
     <string name="group_participants">Участники</string>
     <string name="event_place_hint">Кабинет 205</string>
@@ -71,8 +71,8 @@
     <string name="group_item_removeButton_label">Убрать</string>
     <string name="send_button">Отправить</string>
     <string name="publish_notification_title">Публикация оповещения</string>
-    <string name="notification_text_note">Текст оповещения:</string>
-    <string name="notification_groups_note">Получатели:</string>
+    <string name="notification_text_note">Текст оповещения: </string>
+    <string name="notification_groups_note">Получатели: </string>
     <string name="title_nav_notifications">Оповещения</string>
     <string name="title_nav_publish_notifications">Опубликовать оповещение</string>
     <string name="publish_notification_button">Опубликовать</string>
@@ -91,6 +91,7 @@
     <string name="repeat_mode_every_week">Раз в неделю</string>
     <string name="repeat_mode_month_day">День месяца</string>
     <string name="repeat_mode_never">Не повторять</string>
+    <string name="title_activity_group_details">Группа</string>
 
     <!-- Week days -->
     <string-array name="week_days">
