@@ -26,7 +26,8 @@ public class Notification implements Serializable {
 
     @SerializedName("frequency")
     @Expose
-    public String frequency = frequency_never;
+    public String frequency = "* * * * *";
+    private final static String frequency_now = "* * * * *";
     private final static String frequency_never = "0 12 31 */12 *";
 
     @SerializedName("send_once")
@@ -64,7 +65,7 @@ public class Notification implements Serializable {
     public void setRepeatInfo(RepeatInfo info) {
         switch (info.mode) {
             case Never:
-                frequency = frequency_never;
+                frequency = frequency_now;
                 noRepeat = true;
                 return;
             case DailyWeek:

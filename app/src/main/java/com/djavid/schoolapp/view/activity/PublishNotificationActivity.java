@@ -9,10 +9,13 @@ import android.view.View;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.notifications.Notification;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.notifications.NotificationFragmentBase;
 import com.djavid.schoolapp.view.fragment.notifications.NotificationGroupItemFragment;
 import com.djavid.schoolapp.view.fragment.notifications.PublishNotificationFragment;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationGroupItem;
+
+import java.util.Calendar;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -58,12 +61,15 @@ public class PublishNotificationActivity extends AppCompatActivity implements No
 
     @Override
     public void publish(Notification notification) {
+        Calendar until = Calendar.getInstance();
+        until.add(Calendar.YEAR, 1);
         App.getAppInstance().getApi().publishNotification(
                 App.getAppInstance().getPreferences().getToken(),
                 notification.text,
                 notification.frequency,
                 notification.noRepeat,
-                notification.groups
+                notification.groups,
+                Api.Date(until)
         )
                 .subscribeOn(Schedulers.io())
                 .subscribe();

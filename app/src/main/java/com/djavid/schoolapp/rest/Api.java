@@ -158,7 +158,8 @@ public interface Api {
     Single<Notification> publishNotification(@Header(Auth) String auth, @Field("text") String text,
                                              @Field("frequency") String frequency,
                                              @Field("send_once") boolean noRepeat,
-                                             @Field("groups") List<Long> groups);
+                                             @Field("groups") List<Long> groups,
+                                             @Field("until") String until);
 
     //schedule subjects
 
