@@ -20,7 +20,6 @@ import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.Router;
 import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
-import com.djavid.schoolapp.view.dialog.CreateGroupDialog;
 import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
 import com.djavid.schoolapp.view.fragment.notifications.NotificationListFragment;
 import com.djavid.schoolapp.view.fragment.schedule.GenerateCodeFragment;
@@ -39,7 +38,6 @@ public class DashboardActivity extends AppCompatActivity
     final String TAG_GENERATE_CODE = "TAG_GENERATE_CODE";
     final String TAG_GROUPS = "TAG_GROUPS";
     final String TAG_NOTIFICATION_LIST = "TAG_NOTIFICATION_LIST";
-    final String TAG_CREATE_GROUP_DIALOG = "TAG_CREATE_GROUP_DIALOG";
 
     private FragmentManager fragmentManager;
     private Fragment scheduleFragment, generateCodeFragment, myGroupFragment,
@@ -262,11 +260,5 @@ public class DashboardActivity extends AppCompatActivity
     @Override
     public void createNotification() {
         startActivity(new Intent(this, PublishNotificationActivity.class));
-    }
-
-    @Override
-    public void showCreateGroupDialog() {
-        CreateGroupDialog dialog = new CreateGroupDialog();
-        dialog.show(fragmentManager, TAG_CREATE_GROUP_DIALOG);
     }
 }

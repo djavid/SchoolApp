@@ -1,17 +1,12 @@
 package com.djavid.schoolapp.view.dialog;
 
-import android.content.Context;
-import android.net.Uri;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,6 +31,7 @@ public class CreateGroupDialog extends BaseDialogFragment {
     TextView tv_create_btn;
 
     private ToolTipsManager mToolTipsManager;
+    private IDialogDismissListener mListener;
 
 
     public CreateGroupDialog() { }
@@ -100,8 +96,18 @@ public class CreateGroupDialog extends BaseDialogFragment {
         return R.layout.dialog_create_group;
     }
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+    public void setDismissListener(IDialogDismissListener listener) {
+        mListener = listener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        IDialogDismissListener listener = mListener;
+        if (listener != null) {
+            listener.onDismiss();
+        }
     }
 
     private boolean isValidValue(String value) {

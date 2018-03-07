@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,10 +17,7 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.core.Router;
 import com.djavid.schoolapp.view.activity.AllGroupsActivity;
-import com.djavid.schoolapp.view.activity.DashboardActivity;
-import com.djavid.schoolapp.view.activity.GroupsActivity;
 import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.adapter.MyGroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.dialog.CreateGroupDialog;
@@ -31,6 +27,8 @@ import io.reactivex.Observable;
 
 
 public class MyGroupFragment extends Fragment {
+
+    final String TAG_CREATE_GROUP_DIALOG = "TAG_CREATE_GROUP_DIALOG";
 
     RecyclerView recyclerView;
 
@@ -58,17 +56,13 @@ public class MyGroupFragment extends Fragment {
         if (App.getAppInstance().isTeacher()) {
             fab.setVisibility(View.VISIBLE);
             fab.setOnClickListener(v -> {
-
-//                Intent intent = new Intent(getContext(), AllGroupsActivity.class);
-//                intent.putExtra("activity", "create");
-//                startActivity(intent);
-
                 try {
-                    ((Router) getContext()).showCreateGroupDialog();
+                    CreateGroupDialog dialog = new CreateGroupDialog();
+                    dialog.setDismissListener(this::updateRecycler);
+                    dialog.show(getFragmentManager(), TAG_CREATE_GROUP_DIALOG);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             });
         }
 
