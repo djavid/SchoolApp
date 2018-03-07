@@ -1,6 +1,7 @@
 package com.djavid.schoolapp.rest;
 
 import com.djavid.schoolapp.App;
+import com.djavid.schoolapp.model.groups.Group;
 import com.djavid.schoolapp.model.schedule.Schedule;
 import com.djavid.schoolapp.model.schedule.ScheduleLesson;
 import com.djavid.schoolapp.model.schedule.ScheduleSubject;
@@ -111,6 +112,16 @@ public class RestDataRepository {
 
     public Single<Map<String, String>> createCode(String expiration_date, int level) {
         return apiInterface.createCode(expiration_date, level)
+                .doOnError(Throwable::printStackTrace)
+                .compose(RxUtils.applySingleSchedulers())
+                .retry(2L);
+    }
+
+    public Single<Group> createGroup(String title) {
+
+        String auth = App.getAppInstance().getPreferences().getToken();
+
+        return apiInterface.createGroup(auth, title)
                 .doOnError(Throwable::printStackTrace)
                 .compose(RxUtils.applySingleSchedulers())
                 .retry(2L);

@@ -16,12 +16,11 @@ import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 
 import io.reactivex.schedulers.Schedulers;
 
+
 public class AllGroupsActivity extends AppCompatActivity implements GroupRecyclerViewAdapter.GroupListInteractionListener,
         CreateGroupFragment.CreateGroupInteractionListener {
 
     final String TAG = getClass().getSimpleName();
-    private FragmentManager fragmentManager;
-    private Fragment allGroupFragment;
 
 
     @Override
@@ -32,10 +31,18 @@ public class AllGroupsActivity extends AppCompatActivity implements GroupRecycle
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle("Все группы");
 
-        allGroupFragment = AllGroupFragment.newInstance(1);
-        fragmentManager = getSupportFragmentManager();
+        String activity = getIntent().getStringExtra("activity");
 
-        showFragment(allGroupFragment);
+        switch (activity) {
+            case "all":
+                showFragment(AllGroupFragment.newInstance(1));
+                break;
+            case "create":
+                showFragment(new CreateGroupFragment());
+                break;
+        }
+
+        //showFragment(allGroupFragment);
     }
 
     private void showFragment(Fragment fragment) {

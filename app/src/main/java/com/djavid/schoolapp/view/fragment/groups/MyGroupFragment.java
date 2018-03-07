@@ -18,10 +18,13 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.core.Router;
 import com.djavid.schoolapp.view.activity.AllGroupsActivity;
+import com.djavid.schoolapp.view.activity.DashboardActivity;
 import com.djavid.schoolapp.view.activity.GroupsActivity;
 import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.adapter.MyGroupRecyclerViewAdapter;
+import com.djavid.schoolapp.view.dialog.CreateGroupDialog;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 
 import io.reactivex.Observable;
@@ -56,7 +59,15 @@ public class MyGroupFragment extends Fragment {
             fab.setVisibility(View.VISIBLE);
             fab.setOnClickListener(v -> {
 
-                //
+//                Intent intent = new Intent(getContext(), AllGroupsActivity.class);
+//                intent.putExtra("activity", "create");
+//                startActivity(intent);
+
+                try {
+                    ((Router) getContext()).showCreateGroupDialog();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             });
         }
@@ -74,7 +85,11 @@ public class MyGroupFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_allgroups :
-                startActivity(new Intent(getContext(), AllGroupsActivity.class));
+                //startActivity(new Intent(getContext(), AllGroupsActivity.class));
+
+                Intent intent = new Intent(getContext(), AllGroupsActivity.class);
+                intent.putExtra("activity", "all");
+                startActivity(intent);
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -94,11 +109,14 @@ public class MyGroupFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        updateRecycler();
+    }
+
+    public void updateRecycler() {
         if (recyclerView != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(new MyGroupRecyclerViewAdapter(provideMyGroups(), mListener));
         }
-
     }
 
     @Override

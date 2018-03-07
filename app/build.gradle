@@ -95,6 +95,9 @@ dependencies {
 
     //bottomnavigationviewex
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
+
+    //Tooltips
+    compile 'com.tomergoldst.android:tooltips:1.0.9'
 }
 
 // firebase

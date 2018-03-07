@@ -13,4 +13,9 @@
     <!-- Generate code fragment -->
     <color name="colorBtnBg">#DFDFDF</color>
 
+    <!-- dialog -->
+    <color name="colorEditTextHint">#60000000</color>
+    <color name="colorOrange">#ffab40</color>
+    <color name="colorTooltipBg">#ff6e40</color>
+
 </resources>

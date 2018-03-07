@@ -29,4 +29,12 @@ public class Group {
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
     }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

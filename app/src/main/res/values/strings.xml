@@ -11,10 +11,13 @@
     <string name="action_sign_in_short">Войти</string>
     <string name="error_invalid_nickname">Подпись содержит невалидные символы</string>
     <string name="error_invalid_password">Пароль не подходит</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="error_field_required">Это поле обязаельно!</string>
+    <string name="permission_rationale">"Необходимо разрешить доступ к контактам!"</string>
     <string name="load_error">Произошла ошибка. Пожалуйста, проверьте интернет-соединение!</string>
     <string name="network_error">Произошла ошибка. Пожалуйста, проверьте интернет-соединение!</string>
+    <string name="error_try_again">Произошла ошибка. Пожалуйста попробуйте еще раз.</string>
+    <string name="error_empty_string">Пустая строка!</string>
+    <string name="error_wrong_format">Неправильный формат строки!</string>
 
     <string name="title_activity_dashboard">Школа 1329</string>
 
@@ -62,6 +65,12 @@
 
     <!-- menu titles -->
     <string name="title_menu_allgroups">Все группы</string>
+
+    <!-- dialog -->
+    <string name="title_create_group_dialog">Создать группу</string>
+    <string name="title_hint_group_name">Введите название группы</string>
+    <string name="title_dialog_cancel_btn">ОТМЕНА</string>
+    <string name="title_dialog_add_btn">СОЗДАТЬ</string>
 
 
     <!-- NavigationDrawer -->

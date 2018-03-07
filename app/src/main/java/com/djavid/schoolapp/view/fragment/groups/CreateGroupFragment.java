@@ -18,10 +18,11 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class CreateGroupFragment extends Fragment {
+
     Button _createButton;
     TextView _title;
-
     private CreateGroupInteractionListener mListener;
+
 
     public CreateGroupFragment() { }
 
