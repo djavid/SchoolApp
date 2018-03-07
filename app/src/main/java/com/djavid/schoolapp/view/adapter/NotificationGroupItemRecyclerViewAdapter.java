@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentNotificationgroupitemBinding;
 import com.djavid.schoolapp.model.notifications.Notification;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.notifications.NotificationFragmentBase;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationGroupItem;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationGroupItemList;
@@ -52,7 +53,7 @@ public class NotificationGroupItemRecyclerViewAdapter extends RecyclerView.Adapt
         groups
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addItem);
+                .subscribe(this::addItem, Api::HandleError);
         mListener = listener;
     }
 

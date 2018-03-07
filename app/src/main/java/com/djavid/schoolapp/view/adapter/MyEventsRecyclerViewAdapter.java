@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentMyeventsBinding;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.events.MyEventsFragment;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 import com.djavid.schoolapp.viewmodel.events.EventItemList;
@@ -50,7 +51,7 @@ public class MyEventsRecyclerViewAdapter extends RecyclerView.Adapter<MyEventsRe
         myEvents
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addEvent);
+                .subscribe(this::addEvent, Api::HandleError);
     }
 
     private void addEvent(EventItem item) {

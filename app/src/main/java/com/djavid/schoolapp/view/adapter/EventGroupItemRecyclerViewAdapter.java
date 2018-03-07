@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentEventgroupitemBinding;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.event_details.EventGroupItemFragment;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItem;
 import com.djavid.schoolapp.viewmodel.event_details.EventGroupItemList;
@@ -44,7 +45,7 @@ public class EventGroupItemRecyclerViewAdapter extends RecyclerView.Adapter<Even
     public EventGroupItemRecyclerViewAdapter(Observable<EventGroupItem> groups, EventGroupItemFragment.EventGroupInteractionListener listener) {
         groups.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addMyGroupItem);
+                .subscribe(this::addMyGroupItem, Api::HandleError);
 
         mListener = listener;
     }

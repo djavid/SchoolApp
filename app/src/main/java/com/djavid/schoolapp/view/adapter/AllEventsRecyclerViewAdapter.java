@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentAlleventsBinding;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 import com.djavid.schoolapp.viewmodel.events.EventItemList;
@@ -50,7 +51,7 @@ notifyItemRangeChanged(position, count);
 
         items.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addItem);
+                .subscribe(this::addItem, Api::HandleError);
     }
 
     private void addItem(EventItem item) {

@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.Router;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
 import com.djavid.schoolapp.view.fragment.notifications.NotificationListFragment;
@@ -95,7 +96,8 @@ public class DashboardActivity extends AppCompatActivity
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(m ->
-                                App.getAppInstance().getPreferences().setToken(m.get("token")));
+                                        App.getAppInstance().getPreferences().setToken(m.get("token"))
+                                , Api::HandleError);
             }
         }
     }
@@ -228,7 +230,8 @@ public class DashboardActivity extends AppCompatActivity
                 group.getIdLong()
         )
                 .subscribeOn(Schedulers.io())
-                .subscribe();
+                .subscribe(q -> {
+                }, Api::HandleError);
     }
 
     @Override
@@ -238,7 +241,8 @@ public class DashboardActivity extends AppCompatActivity
                 group.getIdLong()
         )
                 .subscribeOn(Schedulers.io())
-                .subscribe();
+                .subscribe(q -> {
+                }, Api::HandleError);
     }
 
     @Override

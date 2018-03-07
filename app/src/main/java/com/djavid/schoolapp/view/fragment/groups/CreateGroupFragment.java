@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.rest.Api;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -39,7 +40,7 @@ public class CreateGroupFragment extends Fragment {
                         .createGroup(App.getAppInstance().getPreferences().getToken(), title)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(q -> mListener.onGroupCreated());
+                        .subscribe(q -> mListener.onGroupCreated(), Api::HandleError);
         });
 
         return view;

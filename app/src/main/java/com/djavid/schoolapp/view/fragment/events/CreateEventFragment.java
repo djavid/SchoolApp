@@ -49,7 +49,7 @@ public class CreateEventFragment extends Fragment {
                             Api.Date(event.getEndDate()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(q -> mListener.onEventCreated());
+                    .subscribe(q -> mListener.onEventCreated(), Api::HandleError);
         });
 
         binding.setSelectStartDateCommand(a -> {

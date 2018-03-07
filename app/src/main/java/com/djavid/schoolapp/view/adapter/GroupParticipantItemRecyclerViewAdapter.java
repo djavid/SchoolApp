@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentGroupparticipantitemBinding;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.group_details.GroupParticipantItemFragment;
 import com.djavid.schoolapp.viewmodel.group_details.GroupParticipantItem;
 import com.djavid.schoolapp.viewmodel.group_details.GroupParticipantItemList;
@@ -45,7 +46,7 @@ public class GroupParticipantItemRecyclerViewAdapter extends RecyclerView.Adapte
         groupParticipants
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addItem);
+                .subscribe(this::addItem, Api::HandleError);
 
         mListener = listener;
     }

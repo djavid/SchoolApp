@@ -4,6 +4,7 @@ import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 import com.djavid.schoolapp.viewmodel.groups.GroupItemList;
 
@@ -46,7 +47,7 @@ public abstract class GroupRecyclerViewAdapter<T extends RecyclerView.ViewHolder
         groups
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addItem);
+                .subscribe(this::addItem, Api::HandleError);
     }
 
     private void addItem(GroupItem group) {

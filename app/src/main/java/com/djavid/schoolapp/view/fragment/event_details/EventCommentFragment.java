@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.adapter.EventCommentItemRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.event_details.EventCommentItem;
 
@@ -96,7 +97,7 @@ public class EventCommentFragment extends Fragment {
                                             adapter.addItem(item);
                                             recyclerView.getLayoutManager().scrollToPosition(0);
                                         }
-                                    });
+                                    }, Api::HandleError);
                 }
             });
         }

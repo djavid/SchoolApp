@@ -72,7 +72,8 @@ public class PublishNotificationActivity extends AppCompatActivity implements No
                 Api.Date(until)
         )
                 .subscribeOn(Schedulers.io())
-                .subscribe();
+                .subscribe(q -> {
+                }, Api::HandleError);
     }
 
     @Override

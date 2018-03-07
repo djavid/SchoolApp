@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.BR;
+import com.djavid.schoolapp.rest.Api;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class NotificationGroupNamesList extends BaseObservable {
         groups
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addItem);
+                .subscribe(this::addItem, Api::HandleError);
     }
 
     private void addItem(NotificationGroupItem s) {

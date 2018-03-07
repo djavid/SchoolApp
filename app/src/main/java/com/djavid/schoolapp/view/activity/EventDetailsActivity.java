@@ -109,8 +109,9 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
                                     groups,
                                     Api.Date(eventGroup.event.getStartDate()),
                                     Api.Date(eventGroup.event.getEndDate())
-                            ).subscribeOn(Schedulers.io()).subscribe();
-                });
+                            ).subscribeOn(Schedulers.io()).subscribe(q -> {
+                    }, Api::HandleError);
+                }, Api::HandleError);
     }
 
     @Override
@@ -133,8 +134,9 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
                                     groups,
                                     Api.Date(eventGroup.event.getStartDate()),
                                     Api.Date(eventGroup.event.getEndDate())
-                            ).subscribeOn(Schedulers.io()).subscribe();
-                });
+                            ).subscribeOn(Schedulers.io()).subscribe(q -> {
+                    }, Api::HandleError);
+                }, Api::HandleError);
     }
 
     @Override

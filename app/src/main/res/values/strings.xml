@@ -13,7 +13,8 @@
     <string name="error_invalid_password">Пароль не подходит</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
-    <string name="load_error">Ошибка загрузки!</string>
+    <string name="load_error">Произошла ошибка. Пожалуйста, проверьте интернет-соединение!</string>
+    <string name="network_error">Произошла ошибка. Пожалуйста, проверьте интернет-соединение!</string>
 
     <string name="title_activity_dashboard">Школа 1329</string>
 

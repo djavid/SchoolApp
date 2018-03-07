@@ -2,18 +2,13 @@ package com.djavid.schoolapp.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.fragment.groups.AllGroupFragment;
 import com.djavid.schoolapp.view.fragment.groups.CreateGroupFragment;
@@ -62,7 +57,8 @@ public class AllGroupsActivity extends AppCompatActivity implements GroupRecycle
                 .getApi()
                 .joinGroup(App.getAppInstance().getPreferences().getToken(), group.getIdLong())
                 .subscribeOn(Schedulers.io())
-                .subscribe();
+                .subscribe(q -> {
+                }, Api::HandleError);
     }
 
     @Override
@@ -71,7 +67,8 @@ public class AllGroupsActivity extends AppCompatActivity implements GroupRecycle
                 .getApi()
                 .leaveGroup(App.getAppInstance().getPreferences().getToken(), group.getIdLong())
                 .subscribeOn(Schedulers.io())
-                .subscribe();
+                .subscribe(q -> {
+                }, Api::HandleError);
     }
 
     @Override

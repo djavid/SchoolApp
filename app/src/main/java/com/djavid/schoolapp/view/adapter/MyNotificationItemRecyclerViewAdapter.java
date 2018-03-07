@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentNotificationitemBinding;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.notifications.NotificationListFragment;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationItem;
 
@@ -25,7 +26,7 @@ public class MyNotificationItemRecyclerViewAdapter extends RecyclerView.Adapter<
 
         items.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addItem);
+                .subscribe(this::addItem, Api::HandleError);
     }
 
     private void addItem(NotificationItem item) {

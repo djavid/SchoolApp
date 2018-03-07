@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.databinding.FragmentAboutEventBinding;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,7 +59,7 @@ public class AboutEventFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(event -> binding.setEvent(
-                        new EventItem(event)));
+                        new EventItem(event)), Api::HandleError);
 
         return binding.getRoot();
     }

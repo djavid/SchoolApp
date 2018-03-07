@@ -12,6 +12,7 @@ import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.BR;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.databinding.FragmentPublishNotificationBinding;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationGroupItem;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationGroupNamesList;
@@ -41,20 +42,24 @@ public class PublishNotificationFragment extends NotificationFragmentBase {
         binding.setNotification(notification);
         binding.setPresenter(this);
         binding.setGroups(new NotificationGroupNamesList(
-                App.getAppInstance().getApi().getAllGroups(
-                        App.getAppInstance().getPreferences().getToken()
-                ).flatMapObservable(allGroups -> Observable.fromIterable(Stream.of(allGroups).toList())
-                        .map(group -> new NotificationGroupItem(
-                                notification,
-                                new GroupItem(group),
-                                notification.notification.groups.contains(group.id))))));
+                provideNotificationGroups()));
         groupChangedEvent.subscribe(q -> {
             binding.getGroups().notifyPropertyChanged(BR.string);
             binding.executePendingBindings();
-        });
+        }, Api::HandleError);
         binding.executePendingBindings();
 
         return binding.getRoot();
+    }
+
+    private Observable<NotificationGroupItem> provideNotificationGroups() {
+        return App.getAppInstance().getApi().getAllGroups(
+                App.getAppInstance().getPreferences().getToken()
+        ).flatMapObservable(allGroups -> Observable.fromIterable(Stream.of(allGroups).toList())
+                .map(group -> new NotificationGroupItem(
+                        notification,
+                        new GroupItem(group),
+                        notification.notification.groups.contains(group.id))));
     }
 
     public void selectGroups(NotificationItem item) {

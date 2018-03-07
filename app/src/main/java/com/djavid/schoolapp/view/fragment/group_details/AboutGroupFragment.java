@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.databinding.FragmentAboutGroupBinding;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,7 +59,7 @@ public class AboutGroupFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(group -> binding.setGroup(
-                        new GroupItem(group)));
+                        new GroupItem(group)), Api::HandleError);
 
         return binding.getRoot();
     }

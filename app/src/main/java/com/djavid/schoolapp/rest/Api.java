@@ -1,7 +1,10 @@
 package com.djavid.schoolapp.rest;
 
 import android.text.format.DateFormat;
+import android.widget.Toast;
 
+import com.djavid.schoolapp.App;
+import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.event_comments.EventComment;
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.model.groups.Group;
@@ -226,5 +229,10 @@ public interface Api {
         } catch (ParseException e) {
             return Calendar.getInstance();
         }
+    }
+
+    static void HandleError(Throwable consumer) {
+        Toast.makeText(App.getContext(), App.getContext().getString(R.string.network_error),
+                Toast.LENGTH_LONG).show();
     }
 }

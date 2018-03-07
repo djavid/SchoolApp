@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.djavid.schoolapp.databinding.FragmentEventcommentBinding;
+import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.event_details.EventCommentFragment.EventCommentFragmentInteractionListener;
 import com.djavid.schoolapp.viewmodel.event_details.EventCommentItem;
 import com.djavid.schoolapp.viewmodel.event_details.EventCommentItemList;
@@ -48,7 +49,7 @@ public class EventCommentItemRecyclerViewAdapter extends RecyclerView.Adapter<Ev
         items
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::addItem);
+                .subscribe(this::addItem, Api::HandleError);
 
         mListener = listener;
     }

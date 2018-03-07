@@ -2,19 +2,18 @@ package com.djavid.schoolapp.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.rest.Api;
+import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.fragment.groups.AllGroupFragment;
 import com.djavid.schoolapp.view.fragment.groups.CreateGroupFragment;
-import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 
@@ -84,7 +83,8 @@ public class GroupsActivity extends AppCompatActivity implements
                 group.getIdLong()
         )
                 .subscribeOn(Schedulers.io())
-                .subscribe();
+                .subscribe(q -> {
+                }, Api::HandleError);
     }
 
     @Override
@@ -94,7 +94,8 @@ public class GroupsActivity extends AppCompatActivity implements
                 group.getIdLong()
         )
                 .subscribeOn(Schedulers.io())
-                .subscribe();
+                .subscribe(q -> {
+                }, Api::HandleError);
     }
 
     @Override
