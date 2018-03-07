@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v7.widget.RecyclerView
@@ -10,7 +11,7 @@
         android:name="com.djavid.schoolapp.view.fragment.notifications.NotificationGroupItemFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_gravity="bottom"
+        android:layout_gravity="top"
         android:layout_margin="16dp"
         android:layout_weight="1"
         android:scrollbars="vertical"
@@ -26,6 +27,7 @@
     <Button
         android:id="@+id/confirm"
         android:text="@string/confirm"
+        android:textAlignment="center"
         android:layout_marginStart="16dp"
         android:onClick="onClick"
         android:layout_marginEnd="16dp"

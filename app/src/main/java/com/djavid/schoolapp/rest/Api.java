@@ -161,6 +161,9 @@ public interface Api {
                                              @Field("groups") List<Long> groups,
                                              @Field("until") String until);
 
+    @GET(NOTIFICATIONS + "/list_sent_notifications")
+    Single<List<Notification>> getNotifications(@Header(Auth) String auth);
+
     //schedule subjects
 
     String SUBJECTS = ENDPOINT + "schedule_subjects";

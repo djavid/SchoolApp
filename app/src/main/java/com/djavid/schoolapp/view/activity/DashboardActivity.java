@@ -20,6 +20,7 @@ import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.Router;
 import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
+import com.djavid.schoolapp.view.fragment.notifications.NotificationListFragment;
 import com.djavid.schoolapp.view.fragment.schedule.GenerateCodeFragment;
 import com.djavid.schoolapp.view.fragment.schedule.ScheduleFragment;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
@@ -29,15 +30,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Router, GroupRecyclerViewAdapter.GroupListInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Router, GroupRecyclerViewAdapter.GroupListInteractionListener, NotificationListFragment.NotificationsInteractionListener {
 
     final String TAG = getClass().getSimpleName();
     final String TAG_SCHEDULE = "TAG_SCHEDULE";
     final String TAG_GENERATE_CODE = "TAG_GENERATE_CODE";
     final String TAG_GROUPS = "TAG_GROUPS";
+    final String TAG_NOTIFICATION_LIST = "TAG_NOTIFICATION_LIST";
 
     private FragmentManager fragmentManager;
-    private Fragment scheduleFragment, generateCodeFragment, myGroupFragment;
+    private Fragment scheduleFragment, generateCodeFragment, myGroupFragment,
+            notificationListFragment;
 
 
     @Override
@@ -61,12 +64,12 @@ public class DashboardActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         MenuItem item = menu.findItem(R.id.nav_generate_code);
         item.setVisible(App.getAppInstance().isTeacher());
-        item = menu.findItem(R.id.nav_publish_notification);
-        item.setVisible(App.getAppInstance().isTeacher());
 
         scheduleFragment = ScheduleFragment.newInstance();
         generateCodeFragment = GenerateCodeFragment.newInstance();
         myGroupFragment = MyGroupFragment.newInstance();
+        notificationListFragment = NotificationListFragment.newInstance();
+
         fragmentManager = getSupportFragmentManager();
     }
 
@@ -151,9 +154,10 @@ public class DashboardActivity extends AppCompatActivity
 
             startActivity(new Intent(this, EventsActivity.class));
 
-        } else if (id == R.id.nav_publish_notification) {
+        } else if (id == R.id.nav_notifications) {
 
-            startActivity(new Intent(this, PublishNotificationActivity.class));
+            setToolbarTitle(R.string.title_nav_notifications);
+            changeFragment(notificationListFragment, TAG_NOTIFICATION_LIST, true);
 
         } else if (id == R.id.nav_schedule) {
 
@@ -249,4 +253,8 @@ public class DashboardActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    @Override
+    public void createNotification() {
+        startActivity(new Intent(this, PublishNotificationActivity.class));
+    }
 }

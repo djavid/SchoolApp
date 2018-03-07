@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.djavid.schoolapp.view.fragment.notifications.NotificationListFragment" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        tools:context="com.djavid.schoolapp.view.fragment.notifications.NotificationListFragment"
+        android:name="com.djavid.schoolapp.view.fragment.notifications.NotificationListFragment"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/fragment_notificationitem"
+            app:layoutManager="LinearLayoutManager" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@drawable/ic_plus"
+            android:visibility="@{presenter.publishNotificationButtonVisibility}"
+            android:onClick="@{() -> presenter.createNotification()}"
+            android:tint="@android:color/white"
+            android:focusable="true"
+            android:clickable="true"
+            app:fabSize="normal"
+            app:elevation="6dp"
+            app:backgroundTint="@color/colorPrimary"
+            app:pressedTranslationZ="12dp" />
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

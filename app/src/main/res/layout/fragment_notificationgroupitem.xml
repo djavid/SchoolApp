@@ -40,8 +40,8 @@
                 android:id="@+id/event_group_item_addButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
                 android:onClick="@{() -> presenter.onAddClick(group)}"
                 android:text="@string/group_item_addButton_label"
                 android:visibility="@{group.addButtonVisibility}" />
@@ -50,8 +50,8 @@
                 android:id="@+id/event_group_item_removeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
                 android:onClick="@{() -> presenter.onRemoveClick(group)}"
                 android:text="@string/group_item_removeButton_label"
                 android:visibility="@{group.removeButtonVisibility}" />

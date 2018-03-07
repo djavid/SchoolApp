@@ -24,6 +24,10 @@ public class PublishNotificationFragment extends NotificationFragmentBase {
         // Required empty public constructor
     }
 
+    public static PublishNotificationFragment newInstance() {
+        return new PublishNotificationFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
