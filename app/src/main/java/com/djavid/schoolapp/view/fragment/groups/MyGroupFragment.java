@@ -73,6 +73,13 @@ public class MyGroupFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.mygroup_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+
+        int l = menu.size();
+        for (int i = 0; i < l; i++) {
+            MenuItem item = menu.getItem(i);
+            item.getActionView()
+                    .setOnClickListener(v -> onOptionsItemSelected(item));
+        }
     }
 
     @Override
