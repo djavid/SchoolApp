@@ -3,7 +3,6 @@ package com.djavid.schoolapp.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.djavid.schoolapp.App;
@@ -35,7 +34,7 @@ public class AllGroupsActivity extends AppCompatActivity implements GroupRecycle
 
         switch (activity) {
             case "all":
-                showFragment(AllGroupFragment.newInstance(1));
+                showFragment(AllGroupFragment.newInstance());
                 break;
             case "create":
                 showFragment(new CreateGroupFragment());

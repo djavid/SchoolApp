@@ -1,11 +1,17 @@
 package com.djavid.schoolapp.view.adapter;
 
+import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Stream;
 import com.djavid.schoolapp.databinding.FragmentAllgroupBinding;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -20,6 +26,14 @@ public class AllGroupRecyclerViewAdapter extends GroupRecyclerViewAdapter<AllGro
         super(groups, listener);
     }
 
+    protected List<GroupItem> allValues = new LinkedList<>();
+
+    @Override
+    protected void addItem(GroupItem item) {
+        allValues.add(item);
+        super.addItem(item);
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(FragmentAllgroupBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
@@ -30,6 +44,26 @@ public class AllGroupRecyclerViewAdapter extends GroupRecyclerViewAdapter<AllGro
         holder.binding.setGroup(mValues.get(position));
         holder.binding.setPresenter(this);
         holder.binding.executePendingBindings();
+    }
+
+    public void onSearchChanged(CharSequence seq, int start, int before, int count) {
+        String s = seq.toString().toLowerCase();
+        if (TextUtils.isEmpty(s.trim())) {
+            mValues.clear();
+            mValues.addAll(allValues);
+        } else {
+            Stream<GroupItem> filtered = Stream.of(allValues)
+                    .filter(q -> q.getTitle().toLowerCase().contains(s));
+            List<GroupItem> newList = filtered.toList();
+
+            if (newList.size() == mValues.size() &&
+                    filtered.allMatch(q -> mValues.indexOf(q) != SortedList.INVALID_POSITION)) {
+                return;
+            }
+
+            mValues.clear();
+            mValues.addAll(newList);
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.databinding.FragmentMygroupListBinding;
 import com.djavid.schoolapp.view.activity.AllGroupsActivity;
 import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.adapter.MyGroupRecyclerViewAdapter;
@@ -31,6 +32,7 @@ public class MyGroupFragment extends Fragment {
     final String TAG_CREATE_GROUP_DIALOG = "TAG_CREATE_GROUP_DIALOG";
 
     RecyclerView recyclerView;
+    FragmentMygroupListBinding binding;
 
     private GroupRecyclerViewAdapter.GroupListInteractionListener mListener;
 
@@ -43,14 +45,16 @@ public class MyGroupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mygroup_list, container, false);
+        binding = FragmentMygroupListBinding.inflate(
+                inflater, container, false);
+        View view = binding.getRoot();
+
         setHasOptionsMenu(true);
 
         Context context = view.getContext();
         recyclerView = view.findViewById(R.id.list);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new MyGroupRecyclerViewAdapter(provideMyGroups(), mListener));
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         if (App.getAppInstance().isTeacher()) {
@@ -67,6 +71,13 @@ public class MyGroupFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        updateRecycler();
     }
 
     @Override
@@ -106,17 +117,12 @@ public class MyGroupFragment extends Fragment {
                                 .toList()));
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        updateRecycler();
-    }
-
     public void updateRecycler() {
         if (recyclerView != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(new MyGroupRecyclerViewAdapter(provideMyGroups(), mListener));
+            MyGroupRecyclerViewAdapter adapter = new MyGroupRecyclerViewAdapter(provideMyGroups(), mListener);
+            binding.setPresenter(adapter);
+            recyclerView.setAdapter(adapter);
         }
     }
 

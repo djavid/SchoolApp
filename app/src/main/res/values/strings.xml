@@ -157,5 +157,6 @@
         <item>31</item>
     </string-array>
     <string name="title_activity_all_groups">AllGroupsActivity</string>
+    <string name="search">Поиск</string>
 
 </resources>

@@ -50,7 +50,7 @@ public abstract class GroupRecyclerViewAdapter<T extends RecyclerView.ViewHolder
                 .subscribe(this::addItem, Api::HandleError);
     }
 
-    private void addItem(GroupItem group) {
+    protected void addItem(GroupItem group) {
         Log.i("group", group.getTitle());
         mValues.add(group);
     }
