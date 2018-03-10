@@ -212,11 +212,11 @@ public interface Api {
     // helpers
 
     static String Date(Calendar date) {
-        return new SimpleDateFormat(Api.DATE_FORMAT).format(date.getTime());
+        return DateFormat.getDateFormat(App.getContext()).format(date.getTime());
     }
 
     static String LocalizedDate(Calendar date) {
-        return new SimpleDateFormat(DateFormat.getBestDateTimePattern(Locale.getDefault(), Api.DATE_FORMAT))
+        return DateFormat.getDateFormat(App.getContext())
                 .format(date.getTime());
     }
 
@@ -224,7 +224,7 @@ public interface Api {
         try {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(
-                    new SimpleDateFormat(Api.DATE_FORMAT).parse(date));
+                    new SimpleDateFormat(Api.DATE_FORMAT, Locale.getDefault()).parse(date));
             return calendar;
         } catch (ParseException e) {
             return Calendar.getInstance();

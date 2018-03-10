@@ -97,8 +97,8 @@ public class AllEventsFragment extends Fragment {
                             createdEventsSingle.flatMapObservable(createdEvents ->
                                     Observable.fromIterable(allEvents).map(event ->
                                             new EventItem(event,
-                                                    Stream.<Event>of(enteredEvents).anyMatch(e -> e.id == event.id),
-                                                    Stream.<Event>of(createdEvents).anyMatch(e -> e.id == event.id)))
+                                                    Stream.of(enteredEvents).anyMatch(e -> e.id == event.id),
+                                                    Stream.of(createdEvents).anyMatch(e -> e.id == event.id)))
                             ));
                 });
     }

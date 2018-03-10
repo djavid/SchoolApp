@@ -141,14 +141,10 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_generate_code) {
-
-            //startActivity(new Intent(this, GenerateCodeActivity.class));
             setToolbarTitle(R.string.title_nav_create_code);
             changeFragment(generateCodeFragment, TAG_GENERATE_CODE, true);
 
         } else if (id == R.id.nav_groups) {
-
-            //startActivity(new Intent(this, GroupsActivity.class));
             setToolbarTitle(R.string.title_nav_groups);
             changeFragment(myGroupFragment, TAG_GROUPS, true);
 

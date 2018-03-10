@@ -1,7 +1,6 @@
 package com.djavid.schoolapp.view.fragment.groups;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -18,7 +17,6 @@ import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.databinding.FragmentMygroupListBinding;
-import com.djavid.schoolapp.view.activity.AllGroupsActivity;
 import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.adapter.MyGroupRecyclerViewAdapter;
 import com.djavid.schoolapp.view.dialog.CreateGroupDialog;
@@ -90,21 +88,6 @@ public class MyGroupFragment extends Fragment {
             MenuItem item = menu.getItem(i);
             item.getActionView()
                     .setOnClickListener(v -> onOptionsItemSelected(item));
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.navigation_allgroups :
-                //startActivity(new Intent(getContext(), AllGroupsActivity.class));
-
-                Intent intent = new Intent(getContext(), AllGroupsActivity.class);
-                intent.putExtra("activity", "all");
-                startActivity(intent);
-
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 

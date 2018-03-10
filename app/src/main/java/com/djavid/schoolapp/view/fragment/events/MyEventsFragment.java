@@ -62,14 +62,14 @@ public class MyEventsFragment extends Fragment {
                             .getCreatedEvents(App.getAppInstance().getPreferences().getToken());
                     return enteredEventsSingle.flatMapObservable(enteredEvents ->
                             createdEventsSingle.flatMapObservable(createdEvents ->
-                                    Observable.fromIterable(Stream.<Event>merge(
-                                            Stream.<Event>of(enteredEvents),
-                                            Stream.<Event>of(createdEvents),
+                                    Observable.fromIterable(Stream.merge(
+                                            Stream.of(enteredEvents),
+                                            Stream.of(createdEvents),
                                             (a,b)-> ObjMerge.MergeResult.TAKE_SECOND)
                                     .map(event -> new EventItem(
                                             event,
-                                            Stream.<Event>of(enteredEvents).anyMatch(e -> e.id == event.id),
-                                            Stream.<Event>of(createdEvents).anyMatch(e -> e.id == event.id)))
+                                            Stream.of(enteredEvents).anyMatch(e -> e.id == event.id),
+                                            Stream.of(createdEvents).anyMatch(e -> e.id == event.id)))
                                             .toList()
                             )));
     }
