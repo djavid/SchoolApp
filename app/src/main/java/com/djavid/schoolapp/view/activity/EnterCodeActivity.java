@@ -19,6 +19,7 @@ import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.model.users.Level;
 import com.djavid.schoolapp.util.LogTags;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import retrofit2.HttpException;
 
@@ -181,9 +182,9 @@ public class EnterCodeActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             try {
                 String token = App.getAppInstance().getApi()
-                        .register(_nickname, _userID, _level.ordinal(), _code).blockingGet()
+                        .login(_nickname, _userID, FirebaseInstanceId.getInstance().getToken()).blockingGet()
                         .token;
-                Log.i(LogTags.SignIn, "register returned:" + token);
+                Log.i(LogTags.SignIn, "login returned:" + token);
                 App.getAppInstance().getPreferences().setToken(token);
                 App.getAppInstance().getPreferences().setDisplayName(_nickname);
                 App.getAppInstance().getPreferences().setLevel(_level);
@@ -191,7 +192,19 @@ public class EnterCodeActivity extends AppCompatActivity {
                 return token != null;
             } catch (HttpException e) {
                 Log.w(LogTags.Exception, e);
-                return false;
+                try {
+                    String token = App.getAppInstance().getApi()
+                            .register(_nickname, _userID, _level.ordinal(), _code).blockingGet()
+                            .token;
+                    Log.i(LogTags.SignIn, "register returned:" + token);
+                    App.getAppInstance().getPreferences().setToken(token);
+                    App.getAppInstance().getPreferences().setDisplayName(_nickname);
+                    App.getAppInstance().getPreferences().setLevel(_level);
+                    return token != null;
+                } catch (HttpException q) {
+                    Log.w(LogTags.Exception, q);
+                    return false;
+                }
             }
         }
 

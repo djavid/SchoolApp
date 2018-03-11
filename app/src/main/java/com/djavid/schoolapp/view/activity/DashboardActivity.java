@@ -141,7 +141,7 @@ public class DashboardActivity extends AppCompatActivity
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(m ->
-                                        App.getAppInstance().getPreferences().setToken(m.get("token"))
+                                        App.getAppInstance().getPreferences().setToken(m.token)
                                 , Api::HandleError);
             }
         }

@@ -69,8 +69,8 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(USERS + "/login")
-    Single<Map<String, String>> login(@Field("username") String nickname, @Field("password") String userID,
-                                      @Field("fcm_token") String fcm);
+    Single<TokenResponse> login(@Field("username") String nickname, @Field("password") String userID,
+                                @Field("fcm_token") String fcm);
 
     // groups
 
