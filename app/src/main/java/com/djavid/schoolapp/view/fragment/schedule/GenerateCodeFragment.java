@@ -1,13 +1,8 @@
 package com.djavid.schoolapp.view.fragment.schedule;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
@@ -18,10 +13,10 @@ import com.djavid.schoolapp.core.BaseFragment;
 import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.rest.RestDataRepository;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 import butterknife.BindView;
-import info.hoang8f.widget.FButton;
 
 
 public class GenerateCodeFragment extends BaseFragment {
@@ -51,6 +46,10 @@ public class GenerateCodeFragment extends BaseFragment {
 
     @Override
     public View setupView(View view) {
+        Calendar date = Calendar.getInstance();
+        date.set(date_picker.getYear(), date_picker.getMonth(), date_picker.getDayOfMonth());
+        date.add(Calendar.DAY_OF_MONTH, 1);
+        date_picker.updateDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
 
         generate_btn.setOnClickListener(v -> {
 
