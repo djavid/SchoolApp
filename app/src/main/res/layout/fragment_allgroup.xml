@@ -40,7 +40,8 @@
                 android:textColor="@color/colorLessonPrimary"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="20sp"
-                tools:text="9Б класс" />
+                tools:text="9Б класс"
+                android:layout_alignParentLeft="true" />
 
             <ImageView
                 android:id="@+id/allgroup_remove"
@@ -51,7 +52,8 @@
                 android:tint="@color/colorPrimary"
                 android:onClick="@{() -> presenter.removeGroup(group)}"
                 android:visibility="@{group.removeButtonVisibility}"
-                android:src="@drawable/ic_delete_black_48dp" />
+                android:src="@drawable/ic_delete_black_48dp"
+                android:layout_alignParentRight="true" />
 
             <ImageView
                 android:id="@+id/allgroup_add"
@@ -63,7 +65,8 @@
                 tools:visibility="gone"
                 android:visibility="@{group.addButtonVisibility}"
                 android:onClick="@{() -> presenter.addGroup(group)}"
-                android:src="@drawable/ic_add_circle_black_48dp" />
+                android:src="@drawable/ic_add_circle_black_48dp"
+                android:layout_alignParentRight="true" />
 
 
         </RelativeLayout>

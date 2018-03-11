@@ -3,11 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="presenter"
             type="com.djavid.schoolapp.view.adapter.MyEventsRecyclerViewAdapter" />
-        <import type="com.djavid.schoolapp.rest.Api" />
         <variable
             name="event"
             type="com.djavid.schoolapp.viewmodel.events.EventItem" />
@@ -68,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    android:text="@{Api.Date(event.startDate)}" />
+                    android:text="@{event.startDateString}" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    android:text="@{Api.Date(event.endDate)}" />
+                    android:text="@{event.endDateString}" />
             </LinearLayout>
 
             <TextView

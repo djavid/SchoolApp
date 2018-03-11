@@ -1,6 +1,5 @@
 package com.djavid.schoolapp.rest;
 
-import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import com.djavid.schoolapp.App;
@@ -42,6 +41,8 @@ public interface Api {
 
     String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     String DATE_STRING_FORMAT = "%04d-%02d-%02dT%02d:%02d:%02d";
+    String LOC_DATE_FORMAT = " dd MMM yyyy";
+    String LOC_DATE_TIME_FORMAT = " dd MMM yyyy, HH:mm";
 
     // headers
 
@@ -212,11 +213,17 @@ public interface Api {
     // helpers
 
     static String Date(Calendar date) {
-        return DateFormat.getDateFormat(App.getContext()).format(date.getTime());
+        return new SimpleDateFormat(Api.DATE_FORMAT, Locale.getDefault())
+                .format(date.getTime());
     }
 
     static String LocalizedDate(Calendar date) {
-        return DateFormat.getDateFormat(App.getContext())
+        return new SimpleDateFormat(Api.LOC_DATE_FORMAT, Locale.getDefault())
+                .format(date.getTime());
+    }
+
+    static String LocalizedDateTime(Calendar date) {
+        return new SimpleDateFormat(Api.LOC_DATE_TIME_FORMAT, Locale.getDefault())
                 .format(date.getTime());
     }
 

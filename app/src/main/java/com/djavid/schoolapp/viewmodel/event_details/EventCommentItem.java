@@ -54,7 +54,7 @@ public class EventCommentItem extends BaseObservable {
 
     @Bindable
     public String getTimeStamp() {
-        return Api.LocalizedDate(getTimeStampCalendar());
+        return Api.LocalizedDateTime(getTimeStampCalendar());
     }
 
     public Calendar getTimeStampCalendar() {

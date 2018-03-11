@@ -81,12 +81,12 @@ public class EventItem extends BaseObservable {
 
     @Bindable
     public String getStartDateString(){
-        return Api.LocalizedDate(getStartDate());
+        return Api.LocalizedDateTime(getStartDate());
     }
 
     @Bindable
     public String getEndDateString(){
-        return Api.LocalizedDate(getEndDate());
+        return Api.LocalizedDateTime(getEndDate());
     }
 
     public Calendar getStartDate() {
@@ -167,9 +167,9 @@ public class EventItem extends BaseObservable {
     }
 
     public void setEndDateYear(int year) {
-        Calendar cal = getStartDate();
+        Calendar cal = getEndDate();
         cal.set(Calendar.YEAR, year);
-        event.setStartDate(cal);
+        event.setEndDate(cal);
         notifyPropertyChanged(BR.endDateString);
     }
 
@@ -179,9 +179,9 @@ public class EventItem extends BaseObservable {
     }
 
     public void setEndDateMonth(int month) {
-        Calendar cal = getStartDate();
+        Calendar cal = getEndDate();
         cal.set(Calendar.MONTH, month);
-        event.setStartDate(cal);
+        event.setEndDate(cal);
         notifyPropertyChanged(BR.endDateString);
     }
 
@@ -192,9 +192,9 @@ public class EventItem extends BaseObservable {
     }
 
     public void setEndDateDay(int day) {
-        Calendar cal = getStartDate();
+        Calendar cal = getEndDate();
         cal.set(Calendar.DATE, day);
-        event.setStartDate(cal);
+        event.setEndDate(cal);
         notifyPropertyChanged(BR.endDateString);
     }
 
@@ -204,9 +204,9 @@ public class EventItem extends BaseObservable {
     }
 
     public void setEndDateHour(int hour) {
-        Calendar cal = getStartDate();
+        Calendar cal = getEndDate();
         cal.set(Calendar.HOUR, hour);
-        event.setStartDate(cal);
+        event.setEndDate(cal);
         notifyPropertyChanged(BR.endDateString);
     }
 
@@ -217,9 +217,9 @@ public class EventItem extends BaseObservable {
     }
 
     public void setEndDateMinute(int minute) {
-        Calendar cal = getStartDate();
+        Calendar cal = getEndDate();
         cal.set(Calendar.MINUTE, minute);
-        event.setStartDate(cal);
+        event.setEndDate(cal);
         notifyPropertyChanged(BR.endDateString);
     }
 

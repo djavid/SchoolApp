@@ -20,7 +20,7 @@
     </data>
 
 
-    <AbsoluteLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
@@ -28,10 +28,13 @@
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
-            android:layout_height="370dp"
-            android:layout_marginBottom="8dp"
-            android:layout_y="0dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/createEventButton"
             android:scrollbars="vertical">
 
             <android.support.constraint.ConstraintLayout
@@ -55,6 +58,7 @@
                     android:inputType="textShortMessage"
                     android:text="@={event.title}"
                     android:textSize="24sp"
+                    android:maxLines="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/eventNameLabel" />
@@ -74,8 +78,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/event_description_hint"
-                    android:inputType="textLongMessage"
-                    android:singleLine="false"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
                     android:text="@={event.description}"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -97,9 +101,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/event_place_hint"
-                    android:inputType="textLongMessage"
-                    android:singleLine="false"
+                    android:inputType="textMultiLine"
                     android:text="@={event.place}"
+                    android:maxLines="2"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -149,16 +153,13 @@
 
         <Button
             android:id="@+id/createEventButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_x="0dp"
-            android:layout_y="400dp"
-            android:height="50dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:onClick="@{createCommand::onClick}"
             android:text="@string/Create"
             tools:text="Create" />
-    </AbsoluteLayout>
+    </android.support.constraint.ConstraintLayout>
 </layout>

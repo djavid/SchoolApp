@@ -3,9 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
-        <import type="com.djavid.schoolapp.rest.Api" />
-
         <variable
             name="presenter"
             type="com.djavid.schoolapp.view.adapter.AllEventsRecyclerViewAdapter" />
@@ -68,7 +65,7 @@
                     android:id="@+id/startDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{Api.Date(event.startDate)}"
+                    android:text="@{event.startDateString}"
                     android:textAppearance="?attr/textAppearanceListItem" />
             </LinearLayout>
 
@@ -85,7 +82,7 @@
                     android:id="@+id/endDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{Api.Date(event.endDate)}"
+                    android:text="@{event.endDateString}"
                     android:textAppearance="?attr/textAppearanceListItem" />
             </LinearLayout>
 

@@ -24,201 +24,226 @@
         android:layout_height="match_parent"
         tools:context="com.djavid.schoolapp.view.activity.PublishNotificationActivity">
 
-        <TextView
-            android:layout_marginTop="16dp"
-            android:id="@+id/notification_text_note_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/notification_text_note"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/notification_text_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@={notification.text}"
-            android:maxLines="3"
-            app:layout_constraintTop_toBottomOf="@id/notification_text_note_textview" />
-
-        <TextView
-            android:id="@+id/notification_groups_note_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/notification_groups_note"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintTop_toBottomOf="@id/notification_text_textview" />
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:id="@+id/groups_holder_layout"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/notification_groups_note_textview"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:maxLines="3"
-                android:ellipsize="none"
-                android:layout_weight="1"
-                android:scrollHorizontally="false"
-                android:text='@{groups.string}'
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/select_groups_button"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/select_groups_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_add_circle_black_24dp"
-                android:onClick="@{() -> presenter.selectGroups(notification)}"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/repeat_mode_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/groups_holder_layout"
-            android:text="@string/publish_notification_repeat_mode_label" />
-
-        <LinearLayout
-            android:id="@+id/repeat_mode_layout_1"
+        <ScrollView
             android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/repeat_mode_label"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="247dp">
-
-            <RadioButton
-                android:id="@+id/repeat_mode_never"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:text="@string/repeat_mode_never"
-                android:checked="@={notification.never}" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/repeat_mode_layout_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/repeat_mode_layout_1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom">
 
-            <RadioButton
-                android:id="@+id/radioButton2"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:text="@string/repeat_mode_on_weekdays"
-                android:checked="@={notification.weekly}" />
-
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal">
+                tools:context="com.djavid.schoolapp.view.activity.PublishNotificationActivity">
 
-                <CheckBox
-                    android:id="@+id/repeat_mode_monday"
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/notification_text_note_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notification_text_note"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/notification_text_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={notification.text}"
+                    android:maxLines="3"
+                    app:layout_constraintTop_toBottomOf="@id/notification_text_note_textview" />
+
+                <TextView
+                    android:id="@+id/notification_groups_note_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notification_groups_note"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    app:layout_constraintTop_toBottomOf="@id/notification_text_textview" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/groups_holder_layout"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/notification_groups_note_textview"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:maxLines="3"
+                        android:ellipsize="none"
+                        android:layout_weight="1"
+                        android:scrollHorizontally="false"
+                        android:text='@{groups.string}'
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/select_groups_button"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="8dp" />
+
+                    <ImageButton
+                        android:id="@+id/select_groups_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_add_circle_black_24dp"
+                        android:onClick="@{() -> presenter.selectGroups(notification)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginRight="8dp" />
+                </android.support.constraint.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/repeat_mode_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@={notification.monday}"
-                    android:text="@string/repeat_mode_monday"
-                    android:textSize="12sp" />
+                    app:layout_constraintTop_toBottomOf="@id/groups_holder_layout"
+                    android:text="@string/publish_notification_repeat_mode_label" />
 
-                <CheckBox
-                    android:id="@+id/repeat_mode_tuesday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@={notification.tuesday}"
-                    android:text="@string/repeat_mode_tuesday"
-                    android:textSize="12sp" />
+                <LinearLayout
+                    android:id="@+id/repeat_mode_layout_1"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/repeat_mode_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="247dp">
 
-                <CheckBox
-                    android:id="@+id/repeat_mode_wednesday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@={notification.wednesday}"
-                    android:text="@string/repeat_mode_wednesday"
-                    android:textSize="12sp" />
+                    <RadioButton
+                        android:id="@+id/repeat_mode_never"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:text="@string/repeat_mode_never"
+                        android:checked="@={notification.never}" />
+                </LinearLayout>
 
-                <CheckBox
-                    android:id="@+id/repeat_mode_thursday"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/repeat_mode_layout_2"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:checked="@={notification.thursday}"
-                    android:text="@string/repeat_mode_thursday"
-                    android:textSize="12sp" />
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/repeat_mode_layout_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-                <CheckBox
-                    android:id="@+id/repeat_mode_friday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@={notification.friday}"
-                    android:text="@string/repeat_mode_friday"
-                    android:textSize="12sp" />
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:text="@string/repeat_mode_on_weekdays"
+                        android:checked="@={notification.weekly}" />
 
-                <CheckBox
-                    android:id="@+id/repeat_mode_saturday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@={notification.saturday}"
-                    android:text="@string/repeat_mode_saturday"
-                    android:textSize="12sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/repeat_mode_sunday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@={notification.sunday}"
-                    android:text="@string/repeat_mode_sunday"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
+                        <CheckBox
+                            android:id="@+id/repeat_mode_monday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={notification.monday}"
+                            android:text="@string/repeat_mode_monday"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/repeat_mode_tuesday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={notification.tuesday}"
+                            android:text="@string/repeat_mode_tuesday"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/repeat_mode_wednesday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={notification.wednesday}"
+                            android:text="@string/repeat_mode_wednesday"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/repeat_mode_thursday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={notification.thursday}"
+                            android:text="@string/repeat_mode_thursday"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/repeat_mode_friday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={notification.friday}"
+                            android:text="@string/repeat_mode_friday"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/repeat_mode_saturday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={notification.saturday}"
+                            android:text="@string/repeat_mode_saturday"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/repeat_mode_sunday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={notification.sunday}"
+                            android:text="@string/repeat_mode_sunday"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/repeat_mode_layout_3"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/repeat_mode_layout_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/radioButton3"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:text="@string/repeat_mode_every"
+                        android:checked="@={notification.monthly}" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/repeat_mode_day_spinner"
+                        android:layout_width="wrap_content"
+                        android:entries="@array/days_of_month"
+                        android:onItemSelected="@{notification::onItemSelected}"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/repeat_mode_month_day" />
+                </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
 
         <LinearLayout
-            android:id="@+id/repeat_mode_layout_3"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/repeat_mode_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <RadioButton
-                android:id="@+id/radioButton3"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:text="@string/repeat_mode_every"
-                android:checked="@={notification.monthly}" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/repeat_mode_day_spinner"
-                android:layout_width="wrap_content"
-                android:entries="@array/days_of_month"
-                android:onItemSelected="@{notification::onItemSelected}"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/repeat_mode_month_day" />
-        </LinearLayout>
-
+            android:id="@+id/bottom">
         <Button
             android:id="@+id/notification_publish_button"
             android:layout_width="match_parent"
@@ -226,8 +251,7 @@
             android:onClick="@{() -> presenter.publish(notification)}"
             android:layout_marginBottom="8dp"
             android:visibility="@{notification.publishVisibility}"
-            android:text="@string/publish_notification_button"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:text="@string/publish_notification_button" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -235,5 +259,6 @@
             android:text="@string/notification_publish_success"
             android:visibility="@{notification.successVisibility}"
             app:layout_constraintBottom_toBottomOf="parent" />
+        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

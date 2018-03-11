@@ -16,7 +16,7 @@
         android:textSize="17sp"
         android:textColor="@color/colorLessonPrimary"
         android:text="12:10"
-        />
+        android:layout_marginRight="20dp" />
 
     <TextView
         android:id="@+id/end_time"
@@ -26,7 +26,8 @@
         android:layout_alignBottom="@id/ll_lesson_info"
         android:textSize="17sp"
         android:textColor="@color/colorLessonPrimary"
-        android:text="13:30" />
+        android:text="13:30"
+        android:layout_marginRight="20dp" />
 
     <LinearLayout
         android:id="@+id/ll_lesson_info"
@@ -35,7 +36,8 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:orientation="vertical"
-        android:layout_toEndOf="@id/start_time">
+        android:layout_toEndOf="@id/start_time"
+        android:layout_toRightOf="@id/start_time">
 
         <TextView
             android:id="@+id/tv_title"
