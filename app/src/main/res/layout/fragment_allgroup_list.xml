@@ -31,7 +31,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
             android:name="com.djavid.schoolapp.view.fragment.groups.AllGroupFragment"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

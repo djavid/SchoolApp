@@ -14,8 +14,9 @@ import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 import com.djavid.schoolapp.viewmodel.events.EventItemList;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -52,7 +53,7 @@ notifyItemRangeChanged(position, count);
 
     private final AllEventsFragment.OnListFragmentInteractionListener mListener;
 
-    protected List<EventItem> allValues = new LinkedList<>();
+    protected Set<EventItem> allValues = new HashSet<>();
 
     public AllEventsRecyclerViewAdapter(Observable<EventItem> items, AllEventsFragment.OnListFragmentInteractionListener listener) {
         mListener = listener;

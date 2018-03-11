@@ -14,8 +14,9 @@ import com.djavid.schoolapp.view.fragment.events.MyEventsFragment;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 import com.djavid.schoolapp.viewmodel.events.EventItemList;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -46,7 +47,7 @@ public class MyEventsRecyclerViewAdapter extends RecyclerView.Adapter<MyEventsRe
     });
     private final MyEventsFragment.OnListFragmentInteractionListener mListener;
 
-    protected List<EventItem> allValues = new LinkedList<>();
+    protected Set<EventItem> allValues = new HashSet<>();
 
     public MyEventsRecyclerViewAdapter(Observable<EventItem> myEvents, MyEventsFragment.OnListFragmentInteractionListener listener) {
         mListener = listener;
