@@ -64,8 +64,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(USERS + "/register")
-    Single<TokenResponse> register(@Field("username") String nickname, @Field("password") String userID,
-                                   @Field("level") int level, @Field("code") String code);
+    Single<TokenResponse> register(@Field("username") String nickname, @Field("password") String userID, @Field("code") String code);
 
     @FormUrlEncoded
     @POST(USERS + "/login")

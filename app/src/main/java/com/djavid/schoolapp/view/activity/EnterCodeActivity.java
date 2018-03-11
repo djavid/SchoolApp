@@ -13,11 +13,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.model.users.Level;
+import com.djavid.schoolapp.model.users.TokenResponse;
 import com.djavid.schoolapp.util.LogTags;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -124,7 +123,7 @@ public class EnterCodeActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(password, nickname, _userID, ((RadioButton) findViewById(R.id.enter_code_i_am_teacher)).isChecked() ? Level.Teacher : Level.Student);
+            mAuthTask = new UserLoginTask(password, nickname, _userID);
             mAuthTask.execute((Void) null);
         }
     }
@@ -169,38 +168,35 @@ public class EnterCodeActivity extends AppCompatActivity {
         private final String _nickname;
         private final String _userID;
         private final String _code;
-        private final Level _level;
 
-        UserLoginTask(String code, String nickname, String userID, Level level) {
+        UserLoginTask(String code, String nickname, String userID) {
             _code = code;
             _nickname = nickname;
             _userID = userID;
-            _level = level;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                String token = App.getAppInstance().getApi()
-                        .login(_nickname, _userID, FirebaseInstanceId.getInstance().getToken()).blockingGet()
-                        .token;
-                Log.i(LogTags.SignIn, "login returned:" + token);
-                App.getAppInstance().getPreferences().setToken(token);
+                TokenResponse response = App.getAppInstance().getApi()
+                        .login(_nickname, _userID, FirebaseInstanceId.getInstance().getToken()).blockingGet();
+                Log.i(LogTags.SignIn, "login returned:" + response);
+                App.getAppInstance().getPreferences().setToken(response.token);
                 App.getAppInstance().getPreferences().setDisplayName(_nickname);
-                App.getAppInstance().getPreferences().setLevel(_level);
+                App.getAppInstance().getPreferences().setLevel(response.getLevel());
 
-                return token != null;
+                return response.token != null && !response.token.trim().isEmpty();
             } catch (HttpException e) {
                 Log.w(LogTags.Exception, e);
                 try {
-                    String token = App.getAppInstance().getApi()
-                            .register(_nickname, _userID, _level.ordinal(), _code).blockingGet()
-                            .token;
-                    Log.i(LogTags.SignIn, "register returned:" + token);
-                    App.getAppInstance().getPreferences().setToken(token);
+                    TokenResponse response = App.getAppInstance().getApi()
+                            .register(_nickname, _userID, _code).blockingGet();
+                    Log.i(LogTags.SignIn, "register returned:" + response);
+                    App.getAppInstance().getPreferences().setToken(response.token);
                     App.getAppInstance().getPreferences().setDisplayName(_nickname);
-                    App.getAppInstance().getPreferences().setLevel(_level);
-                    return token != null;
+                    App.getAppInstance().getPreferences().setLevel(response.getLevel());
+
+                    return response.token != null && !response.token.trim().isEmpty();
                 } catch (HttpException q) {
                     Log.w(LogTags.Exception, q);
                     return false;
