@@ -37,13 +37,16 @@ public class PublishNotificationActivity extends AppCompatActivity implements No
 
         setContentView(R.layout.activity_publish_notification);
 
-        showFragment(new PublishNotificationFragment());
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.notificationFragment, new PublishNotificationFragment())
+                .commit();
     }
 
     private void showFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.notificationFragment, fragment)
+                .replace(R.id.notificationFragment, fragment)
                 .addToBackStack(null)
                 .commit();
     }

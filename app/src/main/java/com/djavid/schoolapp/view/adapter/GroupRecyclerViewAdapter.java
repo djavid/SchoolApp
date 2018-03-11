@@ -99,5 +99,7 @@ public abstract class GroupRecyclerViewAdapter<T extends RecyclerView.ViewHolder
         void removeGroup(GroupItem group);
 
         void showGroupDetails(GroupItem group);
+
+        void showAllGroups();
     }
 }

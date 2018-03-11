@@ -20,10 +20,15 @@ import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.Router;
 import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.adapter.GroupRecyclerViewAdapter;
+import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;
+import com.djavid.schoolapp.view.fragment.events.CreateEventFragment;
+import com.djavid.schoolapp.view.fragment.events.MyEventsFragment;
+import com.djavid.schoolapp.view.fragment.groups.AllGroupFragment;
 import com.djavid.schoolapp.view.fragment.groups.MyGroupFragment;
 import com.djavid.schoolapp.view.fragment.notifications.NotificationListFragment;
 import com.djavid.schoolapp.view.fragment.schedule.GenerateCodeFragment;
 import com.djavid.schoolapp.view.fragment.schedule.ScheduleFragment;
+import com.djavid.schoolapp.viewmodel.events.EventItem;
 import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -31,17 +36,22 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Router, GroupRecyclerViewAdapter.GroupListInteractionListener, NotificationListFragment.NotificationsInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Router, GroupRecyclerViewAdapter.GroupListInteractionListener, NotificationListFragment.NotificationsInteractionListener,
+        MyEventsFragment.OnListFragmentInteractionListener, CreateEventFragment.OnFragmentInteractionListener, AllEventsFragment.OnListFragmentInteractionListener {
 
     final String TAG = getClass().getSimpleName();
     final String TAG_SCHEDULE = "TAG_SCHEDULE";
     final String TAG_GENERATE_CODE = "TAG_GENERATE_CODE";
-    final String TAG_GROUPS = "TAG_GROUPS";
+    final String TAG_ALL_GROUPS = "TAG_ALL_GROUPS";
+    final String TAG_MY_GROUPS = "TAG_MY_GROUPS";
+    final String TAG_ALL_EVENTS = "TAG_ALL_EVENTS";
+    final String TAG_MY_EVENTS = "TAG_MY_EVENTS";
+    final String TAG_CREATE_EVENT = "TAG_CREATE_EVENT";
     final String TAG_NOTIFICATION_LIST = "TAG_NOTIFICATION_LIST";
 
     private FragmentManager fragmentManager;
     private Fragment scheduleFragment, generateCodeFragment, myGroupFragment,
-            notificationListFragment;
+            notificationListFragment, myEventsFragment;
 
 
     @Override
@@ -69,9 +79,44 @@ public class DashboardActivity extends AppCompatActivity
         scheduleFragment = ScheduleFragment.newInstance();
         generateCodeFragment = GenerateCodeFragment.newInstance();
         myGroupFragment = MyGroupFragment.newInstance();
+        myEventsFragment = MyEventsFragment.newInstance();
         notificationListFragment = NotificationListFragment.newInstance();
 
         fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.addOnBackStackChangedListener(() -> {
+            int count = fragmentManager.getBackStackEntryCount();
+            if (count == 0) {
+                setToolbarTitle(R.string.app_name);
+            } else {
+                setToolbarTitle(fragmentManager.getBackStackEntryAt(count - 1).getName());
+            }
+        });
+    }
+
+    private void setToolbarTitle(String tag) {
+        switch (tag) {
+            case TAG_SCHEDULE:
+                setToolbarTitle(R.string.title_nav_schedule);
+                break;
+            case TAG_GENERATE_CODE:
+                setToolbarTitle(R.string.title_nav_create_code);
+                break;
+            case TAG_ALL_GROUPS:
+            case TAG_MY_GROUPS:
+                setToolbarTitle(R.string.title_nav_groups);
+                break;
+            case TAG_ALL_EVENTS:
+            case TAG_MY_EVENTS:
+            case TAG_CREATE_EVENT:
+                setToolbarTitle(R.string.title_nav_events);
+                break;
+            case TAG_NOTIFICATION_LIST:
+                setToolbarTitle(R.string.title_nav_notifications);
+                break;
+            default:
+                setToolbarTitle(R.string.app_name);
+        }
     }
 
     @Override
@@ -141,27 +186,15 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_generate_code) {
-            setToolbarTitle(R.string.title_nav_create_code);
             changeFragment(generateCodeFragment, TAG_GENERATE_CODE, true);
-
         } else if (id == R.id.nav_groups) {
-            setToolbarTitle(R.string.title_nav_groups);
-            changeFragment(myGroupFragment, TAG_GROUPS, true);
-
+            changeFragment(myGroupFragment, TAG_MY_GROUPS, true);
         } else if (id == R.id.nav_events) {
-
-            startActivity(new Intent(this, EventsActivity.class));
-
+            changeFragment(myEventsFragment, TAG_MY_EVENTS, true);
         } else if (id == R.id.nav_notifications) {
-
-            setToolbarTitle(R.string.title_nav_notifications);
             changeFragment(notificationListFragment, TAG_NOTIFICATION_LIST, true);
-
         } else if (id == R.id.nav_schedule) {
-
-            setToolbarTitle(R.string.title_nav_schedule);
             changeFragment(scheduleFragment, TAG_SCHEDULE, true);
-
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -241,6 +274,7 @@ public class DashboardActivity extends AppCompatActivity
                 }, Api::HandleError);
     }
 
+
     @Override
     public void showGroupDetails(GroupItem group) {
         if (!(App.getAppInstance().isTeacher())) {
@@ -254,7 +288,35 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     @Override
+    public void showAllEvents() {
+        changeFragment(AllEventsFragment.newInstance(), TAG_ALL_EVENTS, true);
+    }
+
+    @Override
+    public void openCreateEvent() {
+        changeFragment(CreateEventFragment.newInstance(), TAG_CREATE_EVENT, true);
+    }
+
+    @Override
+    public void showAllGroups() {
+        changeFragment(AllGroupFragment.newInstance(), TAG_ALL_GROUPS, true);
+    }
+
+    @Override
     public void createNotification() {
         startActivity(new Intent(this, PublishNotificationActivity.class));
+    }
+
+    @Override
+    public void openEventDetails(EventItem item) {
+        Intent intent = new Intent(this, EventDetailsActivity.class);
+        intent.putExtra(EventDetailsActivity.ARG_EVENTID, item.getIdLong());
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onEventCreated() {
+        changeFragment(new MyEventsFragment(), TAG_MY_EVENTS, true);
     }
 }

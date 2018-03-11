@@ -91,6 +91,16 @@ public class MyGroupFragment extends Fragment {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_allgroups:
+                mListener.showAllGroups();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private Observable<GroupItem> provideMyGroups() {
         return App.getAppInstance().getApi()
                 .getMyGroups(App.getAppInstance().getPreferences().getToken())

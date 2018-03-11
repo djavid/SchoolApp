@@ -29,6 +29,10 @@ public class CreateEventFragment extends Fragment {
     public CreateEventFragment() {
     }
 
+    public static CreateEventFragment newInstance() {
+        return new CreateEventFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

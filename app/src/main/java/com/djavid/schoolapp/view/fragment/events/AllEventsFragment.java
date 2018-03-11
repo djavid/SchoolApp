@@ -3,7 +3,6 @@ package com.djavid.schoolapp.view.fragment.events;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import com.annimon.stream.Stream;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.databinding.FragmentAlleventsListBinding;
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.view.adapter.AllEventsRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
@@ -43,14 +43,8 @@ public class AllEventsFragment extends Fragment {
     public AllEventsFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static AllEventsFragment newInstance(int columnCount) {
-        AllEventsFragment fragment = new AllEventsFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
+    public static AllEventsFragment newInstance() {
+        return new AllEventsFragment();
     }
 
     @Override
@@ -65,22 +59,15 @@ public class AllEventsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_allevents_list, container, false);
+        FragmentAlleventsListBinding binding = FragmentAlleventsListBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        RecyclerView recyclerView = view.findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new AllEventsRecyclerViewAdapter(
-                    provideAllEvents(),
-                    mListener));
-        }
+        AllEventsRecyclerViewAdapter adapter = new AllEventsRecyclerViewAdapter(
+                provideAllEvents(), mListener);
+        binding.setPresenter(adapter);
+        recyclerView.setAdapter(adapter);
         return view;
     }
 

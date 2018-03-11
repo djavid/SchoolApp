@@ -2,10 +2,14 @@ package com.djavid.schoolapp.view.fragment.events;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,6 +17,7 @@ import com.annimon.stream.Stream;
 import com.annimon.stream.operator.ObjMerge;
 import com.djavid.schoolapp.App;
 import com.djavid.schoolapp.R;
+import com.djavid.schoolapp.databinding.FragmentMyeventsListBinding;
 import com.djavid.schoolapp.model.events.Event;
 import com.djavid.schoolapp.view.adapter.MyEventsRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
@@ -38,21 +43,66 @@ public class MyEventsFragment extends Fragment {
     public MyEventsFragment() {
     }
 
+    public static MyEventsFragment newInstance() {
+        return new MyEventsFragment();
+    }
+
+    FragmentMyeventsListBinding binding;
+    RecyclerView recyclerView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_myevents_list, container, false);
 
+        binding = FragmentMyeventsListBinding.inflate(
+                inflater, container, false);
+        View view = binding.getRoot();
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        setHasOptionsMenu(true);
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyEventsRecyclerViewAdapter(provideMyEvents(), mListener));
+        Context context = view.getContext();
+        recyclerView = view.findViewById(R.id.list);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        if (App.getAppInstance().isTeacher()) {
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(v -> mListener.openCreateEvent());
         }
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        updateRecycler();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.myevent_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+        int l = menu.size();
+        for (int i = 0; i < l; i++) {
+            MenuItem item = menu.getItem(i);
+            item.getActionView()
+                    .setOnClickListener(v -> onOptionsItemSelected(item));
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_allevents:
+                mListener.showAllEvents();
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private Observable<EventItem> provideMyEvents() {
@@ -72,6 +122,15 @@ public class MyEventsFragment extends Fragment {
                                             Stream.of(createdEvents).anyMatch(e -> e.id == event.id)))
                                             .toList()
                             )));
+    }
+
+    public void updateRecycler() {
+        if (recyclerView != null) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            MyEventsRecyclerViewAdapter adapter = new MyEventsRecyclerViewAdapter(provideMyEvents(), mListener);
+            binding.setPresenter(adapter);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
 
@@ -106,5 +165,9 @@ public class MyEventsFragment extends Fragment {
         // TODO: Update argument type and name
 
         void openEventDetails(EventItem item);
+
+        void showAllEvents();
+
+        void openCreateEvent();
     }
 }

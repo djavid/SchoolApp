@@ -1,15 +1,21 @@
 package com.djavid.schoolapp.view.adapter;
 
 import android.support.v7.util.ListUpdateCallback;
+import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Stream;
 import com.djavid.schoolapp.databinding.FragmentAlleventsBinding;
 import com.djavid.schoolapp.rest.Api;
 import com.djavid.schoolapp.view.fragment.events.AllEventsFragment;
 import com.djavid.schoolapp.viewmodel.events.EventItem;
 import com.djavid.schoolapp.viewmodel.events.EventItemList;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -46,6 +52,8 @@ notifyItemRangeChanged(position, count);
 
     private final AllEventsFragment.OnListFragmentInteractionListener mListener;
 
+    protected List<EventItem> allValues = new LinkedList<>();
+
     public AllEventsRecyclerViewAdapter(Observable<EventItem> items, AllEventsFragment.OnListFragmentInteractionListener listener) {
         mListener = listener;
 
@@ -55,6 +63,7 @@ notifyItemRangeChanged(position, count);
     }
 
     private void addItem(EventItem item) {
+        allValues.add(item);
         mValues.add(item);
     }
 
@@ -77,6 +86,26 @@ notifyItemRangeChanged(position, count);
 
     public void onClick(EventItem event) {
         mListener.openEventDetails(event);
+    }
+
+    public void onSearchChanged(CharSequence seq, int start, int before, int count) {
+        String s = seq.toString().toLowerCase();
+        if (TextUtils.isEmpty(s.trim())) {
+            mValues.clear();
+            mValues.addAll(allValues);
+        } else {
+            Stream<EventItem> filtered = Stream.of(allValues)
+                    .filter(q -> q.getTitle().toLowerCase().contains(s));
+            List<EventItem> newList = filtered.toList();
+
+            if (newList.size() == mValues.size() &&
+                    filtered.allMatch(q -> mValues.indexOf(q) != SortedList.INVALID_POSITION)) {
+                return;
+            }
+
+            mValues.clear();
+            mValues.addAll(newList);
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
