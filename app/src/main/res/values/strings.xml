@@ -2,6 +2,8 @@
     <string name="app_name">Школа 1329</string>
     <string name="title_activity_login">Войти</string>
 
+    <string name="title_participants">Участники:</string>
+
     <!-- Strings related to login -->
     <string name="prompt_nickname">Вовочка</string>
     <string name="prompt_password">ABC123DEF</string>
@@ -69,9 +71,9 @@
     <!-- dialog -->
     <string name="title_create_group_dialog">Создать группу</string>
     <string name="title_hint_group_name">Введите название группы</string>
+    <string name="title_hint_publish">Введите название оповещения</string>
     <string name="title_dialog_cancel_btn">ОТМЕНА</string>
     <string name="title_dialog_add_btn">СОЗДАТЬ</string>
-
 
     <!-- NavigationDrawer -->
 

@@ -1,58 +1,36 @@
 package com.djavid.schoolapp.view.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.djavid.schoolapp.R;
-import com.djavid.schoolapp.view.fragment.group_details.AboutGroupFragment;
-import com.djavid.schoolapp.view.fragment.group_details.GroupParticipantItemFragment;
+import com.djavid.schoolapp.view.fragment.groups.GroupDetailsFragment;
 
-public class GroupDetailsActivity extends AppCompatActivity implements GroupParticipantItemFragment.GroupParticipantListInteractionListener, AboutGroupFragment.AboutGroupFragmentInteractionListener {
+public class GroupDetailsActivity extends AppCompatActivity implements
+        GroupDetailsFragment.GroupParticipantListInteractionListener {
 
-    public static final String ARG_GROUPID = "groupId";
-    private long mGroupId;
-
-
-    BottomNavigationView mNavigation;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_about_group:
-                    showFragment(AboutGroupFragment.newInstance(mGroupId));
-                    return true;
-                case R.id.navigation_group_participants:
-                    showFragment(GroupParticipantItemFragment.newInstance(mGroupId));
-                    return true;
-            }
-            return false;
-        }
-    };
+    public static final String ARG_GROUP_ID = "groupId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_details);
 
-        mGroupId = getIntent().getLongExtra(ARG_GROUPID, 0);
+        long mGroupId = getIntent().getLongExtra(ARG_GROUP_ID, 0);
         if (mGroupId == 0) {
             onBackPressed();
             return;
-
         }
 
-        mNavigation = findViewById(R.id.navigation);
-        mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        mNavigation.setSelectedItemId(R.id.navigation_about_group);
-        showFragment(AboutGroupFragment.newInstance(mGroupId));
+        showFragment(GroupDetailsFragment.newInstance(mGroupId));
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
 
     @Override
@@ -64,7 +42,7 @@ public class GroupDetailsActivity extends AppCompatActivity implements GroupPart
     private void showFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.groupDetailsFragment, fragment)
+                .add(R.id.groupDetailsFragment, fragment)
                 .commit();
     }
 }

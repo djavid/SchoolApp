@@ -6,15 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.djavid.schoolapp.databinding.FragmentGroupparticipantitemBinding;
+import com.djavid.schoolapp.databinding.FragmentGroupdetailsItemBinding;
 import com.djavid.schoolapp.rest.Api;
-import com.djavid.schoolapp.view.fragment.group_details.GroupParticipantItemFragment;
+import com.djavid.schoolapp.view.fragment.groups.GroupDetailsFragment;
 import com.djavid.schoolapp.viewmodel.group_details.GroupParticipantItem;
 import com.djavid.schoolapp.viewmodel.group_details.GroupParticipantItemList;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
 
 public class GroupParticipantItemRecyclerViewAdapter extends RecyclerView.Adapter<GroupParticipantItemRecyclerViewAdapter.ViewHolder> {
 
@@ -40,9 +41,10 @@ public class GroupParticipantItemRecyclerViewAdapter extends RecyclerView.Adapte
         }
     });
 
-    private final GroupParticipantItemFragment.GroupParticipantListInteractionListener mListener;
+    private final GroupDetailsFragment.GroupParticipantListInteractionListener mListener;
 
-    public GroupParticipantItemRecyclerViewAdapter(Observable<GroupParticipantItem> groupParticipants, GroupParticipantItemFragment.GroupParticipantListInteractionListener listener) {
+    public GroupParticipantItemRecyclerViewAdapter(Observable<GroupParticipantItem> groupParticipants,
+                                                   GroupDetailsFragment.GroupParticipantListInteractionListener listener) {
         groupParticipants
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -58,7 +60,7 @@ public class GroupParticipantItemRecyclerViewAdapter extends RecyclerView.Adapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(
-                FragmentGroupparticipantitemBinding.inflate(LayoutInflater.from(parent.getContext()),
+                FragmentGroupdetailsItemBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent,
                         false));
     }
@@ -75,9 +77,9 @@ public class GroupParticipantItemRecyclerViewAdapter extends RecyclerView.Adapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        final FragmentGroupparticipantitemBinding binding;
+        final FragmentGroupdetailsItemBinding binding;
 
-        public ViewHolder(FragmentGroupparticipantitemBinding binding) {
+        public ViewHolder(FragmentGroupdetailsItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

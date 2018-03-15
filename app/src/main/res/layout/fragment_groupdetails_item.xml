@@ -3,14 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="presenter"
-            type="com.djavid.schoolapp.view.adapter.MyNotificationItemRecyclerViewAdapter" />
-
-        <variable
-            name="notification"
-            type="com.djavid.schoolapp.viewmodel.notifications.NotificationItem" />
+            name="participant"
+            type="com.djavid.schoolapp.viewmodel.group_details.GroupParticipantItem" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -18,19 +13,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="5dp">
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/group_participant_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:textSize="20sp"
             android:textColor="@color/colorLessonPrimary"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{notification.text}"
-            tools:text="9Б класс" />
+            android:textSize="20sp"
+            android:text="@{participant.participant.nick}"
+            tools:text="9Б класс"/>
 
     </android.support.v7.widget.CardView>
 

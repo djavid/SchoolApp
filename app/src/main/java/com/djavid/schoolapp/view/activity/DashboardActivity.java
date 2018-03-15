@@ -290,9 +290,10 @@ public class DashboardActivity extends AppCompatActivity
         }
 
         Intent intent = new Intent(this, GroupDetailsActivity.class);
-        intent.putExtra(GroupDetailsActivity.ARG_GROUPID, group.getIdLong());
+        intent.putExtra(GroupDetailsActivity.ARG_GROUP_ID, group.getIdLong());
 
         startActivity(intent);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
     @Override
@@ -313,6 +314,7 @@ public class DashboardActivity extends AppCompatActivity
     @Override
     public void createNotification() {
         startActivity(new Intent(this, PublishNotificationActivity.class));
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
     @Override
@@ -321,6 +323,7 @@ public class DashboardActivity extends AppCompatActivity
         intent.putExtra(EventDetailsActivity.ARG_EVENTID, item.getIdLong());
 
         startActivity(intent);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
     @Override

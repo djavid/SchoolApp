@@ -70,6 +70,12 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
     }
 
     @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+    }
+
+    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return true;
     }
@@ -84,7 +90,7 @@ public class EventDetailsActivity extends AppCompatActivity implements AboutEven
     @Override
     public void openGroupDetails(EventGroupItem group) {
         Intent intent = new Intent(this, GroupDetailsActivity.class);
-        intent.putExtra(GroupDetailsActivity.ARG_GROUPID, group.group.getIdLong());
+        intent.putExtra(GroupDetailsActivity.ARG_GROUP_ID, group.group.getIdLong());
 
         startActivity(intent);
     }
