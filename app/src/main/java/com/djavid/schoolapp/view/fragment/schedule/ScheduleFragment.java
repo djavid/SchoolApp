@@ -2,6 +2,7 @@ package com.djavid.schoolapp.view.fragment.schedule;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.djavid.schoolapp.R;
@@ -81,6 +82,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleFragmentVi
     @Override
     public void addSchedule(Schedule schedule) {
         resetFeed();
+        System.out.println("addShedule");
 
         rv_day_list.addView(new ScheduleDayItem(getContext(), rv_day_list, schedule.monday, 1));
         rv_day_list.addView(new ScheduleDayItem(getContext(), rv_day_list, schedule.tuesday, 2));

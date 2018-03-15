@@ -43,9 +43,11 @@ public class ScheduleDayItem {
     private void onResolved() {
 
         try {
-
             tv_day.setText(Codes.getWeekDayTitle(weekday));
 
+            System.out.println("onResolved SheduleDayItem");
+
+            lesson_container.removeAllViews();
             for (ScheduleLesson lesson : lessons) {
                 lesson_container.addView(new LessonItem(mContext, mPlaceHolderView, lesson));
             }

@@ -6,14 +6,16 @@ public class ScheduleLesson {
     private int id;
     private String place;
     private String start_time;
+    private String end_time;
     private String subject;
     private String teacher;
 
 
-    public ScheduleLesson(int id, String place, String start_time, String subject, String teacher) {
+    public ScheduleLesson(int id, String place, String start_time, String end_time, String subject, String teacher) {
         this.id = id;
         this.place = place;
         this.start_time = start_time;
+        this.end_time = end_time;
         this.subject = subject;
         this.teacher = teacher;
     }
@@ -57,5 +59,13 @@ public class ScheduleLesson {
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
     }
 }

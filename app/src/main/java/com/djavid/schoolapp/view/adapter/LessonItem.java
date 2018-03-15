@@ -47,7 +47,7 @@ public class LessonItem {
 
         try {
             start_time.setText(lesson.getStart_time());
-            end_time.setText(lesson.getStart_time()); //TODO add end_time on server
+            end_time.setText(lesson.getEnd_time());
             tv_title.setText(lesson.getSubject());
             tv_teacher.setText(lesson.getTeacher());
             tv_place.setText(lesson.getPlace());
