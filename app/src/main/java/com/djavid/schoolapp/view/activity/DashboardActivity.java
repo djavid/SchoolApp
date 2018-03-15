@@ -57,6 +57,8 @@ public class DashboardActivity extends AppCompatActivity
     private Fragment scheduleFragment, generateCodeFragment, myGroupFragment,
             notificationListFragment, myEventsFragment;
 
+    public static final String NAV_PARAM = "NAV_PARAM";
+    public static final String NAV_NOTIFICATIONS = "NAV_NOTIFICATIONS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +99,12 @@ public class DashboardActivity extends AppCompatActivity
             }
         });
 
-        changeFragment(scheduleFragment, TAG_SCHEDULE, true);
+        String navParam = getIntent().getStringExtra(NAV_PARAM);
+        if (NAV_NOTIFICATIONS.equals(navParam)) {
+            changeFragment(notificationListFragment, TAG_NOTIFICATION_LIST, true);
+        } else {
+            changeFragment(scheduleFragment, TAG_SCHEDULE, true);
+        }
     }
 
     @Override

@@ -74,7 +74,8 @@ public class PublishNotificationActivity extends AppCompatActivity implements No
         until.add(Calendar.YEAR, 1);
         App.getAppInstance().getApi().publishNotification(
                 App.getAppInstance().getPreferences().getToken(),
-                notification.text,
+                Notification.addAuthor(notification.text,
+                        App.getAppInstance().getPreferences().getDisplayName()),
                 notification.frequency,
                 notification.noRepeat,
                 notification.groups,

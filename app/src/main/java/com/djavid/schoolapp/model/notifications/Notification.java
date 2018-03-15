@@ -87,4 +87,14 @@ public class Notification implements Serializable {
                 return;
         }
     }
+
+    public static String addAuthor(String text, String displayName) {
+        if (text.endsWith(". ")) {
+            return text + displayName;
+        }
+        if (text.endsWith(".")) {
+            return text + " " + displayName;
+        }
+        return text + ". " + displayName;
+    }
 }

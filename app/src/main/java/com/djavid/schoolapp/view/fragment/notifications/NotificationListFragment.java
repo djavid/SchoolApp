@@ -17,6 +17,8 @@ import com.djavid.schoolapp.databinding.FragmentNotificationitemListBinding;
 import com.djavid.schoolapp.view.adapter.MyNotificationItemRecyclerViewAdapter;
 import com.djavid.schoolapp.viewmodel.notifications.NotificationItem;
 
+import java.util.Collections;
+
 import io.reactivex.Observable;
 
 import static android.view.View.GONE;
@@ -59,11 +61,14 @@ public class NotificationListFragment extends Fragment {
     private Observable<NotificationItem> provideNotifications() {
         return App.getAppInstance().getApi()
                 .getNotifications(App.getAppInstance().getPreferences().getToken())
-                .flatMapObservable(notifications -> Observable.fromIterable(
-                        Stream.of(notifications)
-                                .map(n -> new NotificationItem(n))
-                                .toList()
-                ));
+                .flatMapObservable(notifications -> {
+                    Collections.reverse(notifications);
+                    return Observable.fromIterable(
+                            Stream.of(notifications)
+                                    .map(n -> new NotificationItem(n))
+                                    .toList()
+                    );
+                });
     }
 
     public int getPublishNotificationButtonVisibility() {
