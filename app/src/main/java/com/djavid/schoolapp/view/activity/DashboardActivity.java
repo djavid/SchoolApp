@@ -36,8 +36,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Router, GroupRecyclerViewAdapter.GroupListInteractionListener, NotificationListFragment.NotificationsInteractionListener,
-        MyEventsFragment.OnListFragmentInteractionListener, CreateEventFragment.OnFragmentInteractionListener, AllEventsFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Router,
+        GroupRecyclerViewAdapter.GroupListInteractionListener,
+        NotificationListFragment.NotificationsInteractionListener,
+        MyEventsFragment.OnListFragmentInteractionListener,
+        CreateEventFragment.OnFragmentInteractionListener,
+        AllEventsFragment.OnListFragmentInteractionListener {
 
     final String TAG = getClass().getSimpleName();
     final String TAG_SCHEDULE = "TAG_SCHEDULE";
@@ -94,31 +98,6 @@ public class DashboardActivity extends AppCompatActivity
         });
     }
 
-    private void setToolbarTitle(String tag) {
-        switch (tag) {
-            case TAG_SCHEDULE:
-                setToolbarTitle(R.string.title_nav_schedule);
-                break;
-            case TAG_GENERATE_CODE:
-                setToolbarTitle(R.string.title_nav_create_code);
-                break;
-            case TAG_ALL_GROUPS:
-            case TAG_MY_GROUPS:
-                setToolbarTitle(R.string.title_nav_groups);
-                break;
-            case TAG_ALL_EVENTS:
-            case TAG_MY_EVENTS:
-            case TAG_CREATE_EVENT:
-                setToolbarTitle(R.string.title_nav_events);
-                break;
-            case TAG_NOTIFICATION_LIST:
-                setToolbarTitle(R.string.title_nav_notifications);
-                break;
-            default:
-                setToolbarTitle(R.string.app_name);
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -133,18 +112,14 @@ public class DashboardActivity extends AppCompatActivity
             String fcm = FirebaseInstanceId.getInstance().getToken();
             Log.i("firebase", fcm == null ? "null" : fcm);
             if (fcm != null) {
-                App.getAppInstance().getApi().login(
-                        App.getAppInstance().getPreferences().getDisplayName(),
-                        App.getAppInstance().getPreferences().getIdentity(),
-                        FirebaseInstanceId.getInstance().getToken()
-                )
+                App.getAppInstance().getApi().login(App.getAppInstance().getPreferences().getDisplayName(),
+                        App.getAppInstance().getPreferences().getIdentity(), FirebaseInstanceId.getInstance().getToken())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(m -> {
                                     App.getAppInstance().getPreferences().setLevel(m.getLevel());
                                     App.getAppInstance().getPreferences().setToken(m.token);
-                                }
-                                , Api::HandleError);
+                                }, Api::HandleError);
             }
         }
     }
@@ -184,25 +159,56 @@ public class DashboardActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_generate_code) {
             changeFragment(generateCodeFragment, TAG_GENERATE_CODE, true);
+
         } else if (id == R.id.nav_groups) {
             changeFragment(myGroupFragment, TAG_MY_GROUPS, true);
+
         } else if (id == R.id.nav_events) {
             changeFragment(myEventsFragment, TAG_MY_EVENTS, true);
+
         } else if (id == R.id.nav_notifications) {
             changeFragment(notificationListFragment, TAG_NOTIFICATION_LIST, true);
+
         } else if (id == R.id.nav_schedule) {
             changeFragment(scheduleFragment, TAG_SCHEDULE, true);
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private void setToolbarTitle(String tag) {
+        switch (tag) {
+            case TAG_SCHEDULE:
+                setToolbarTitle(R.string.title_nav_schedule);
+                break;
+            case TAG_GENERATE_CODE:
+                setToolbarTitle(R.string.title_nav_create_code);
+                break;
+            case TAG_ALL_GROUPS:
+            case TAG_MY_GROUPS:
+                setToolbarTitle(R.string.title_nav_groups);
+                break;
+            case TAG_ALL_EVENTS:
+            case TAG_MY_EVENTS:
+            case TAG_CREATE_EVENT:
+                setToolbarTitle(R.string.title_nav_events);
+                break;
+            case TAG_NOTIFICATION_LIST:
+                setToolbarTitle(R.string.title_nav_notifications);
+                break;
+            default:
+                setToolbarTitle(R.string.app_name);
+        }
     }
 
     private void setToolbarTitle(int title) {

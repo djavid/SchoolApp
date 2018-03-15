@@ -27,12 +27,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+
 public class MyEventsFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
@@ -85,13 +80,6 @@ public class MyEventsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.myevent_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
-        int l = menu.size();
-        for (int i = 0; i < l; i++) {
-            MenuItem item = menu.getItem(i);
-            item.getActionView()
-                    .setOnClickListener(v -> onOptionsItemSelected(item));
-        }
     }
 
     @Override

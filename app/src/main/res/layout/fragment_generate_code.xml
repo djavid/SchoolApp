@@ -11,12 +11,12 @@
 
     <ScrollView
         android:id="@+id/generate_code_scroll"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         segmentedgroup:layout_constraintTop_toTopOf="parent"
-        segmentedgroup:layout_constraintStart_toStartOf="parent"
-        segmentedgroup:layout_constraintEnd_toEndOf="parent"
         segmentedgroup:layout_constraintBottom_toTopOf="@id/generate_btn"
-        android:layout_height="0dp">
+        segmentedgroup:layout_constraintStart_toStartOf="parent"
+        segmentedgroup:layout_constraintEnd_toEndOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -110,7 +110,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="invisible"
-        android:text=" "
         android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.djavid.schoolapp.R;
 import com.djavid.schoolapp.core.BaseDialogFragment;
 import com.djavid.schoolapp.rest.RestDataRepository;
+import com.djavid.schoolapp.viewmodel.groups.GroupItem;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
 
@@ -32,6 +33,8 @@ public class CreateGroupDialog extends BaseDialogFragment {
 
     private ToolTipsManager mToolTipsManager;
     private IDialogDismissListener mListener;
+
+    GroupItem newGroupItem;
 
 
     public CreateGroupDialog() { }
@@ -60,6 +63,8 @@ public class CreateGroupDialog extends BaseDialogFragment {
                 dataRepository.createGroup(title)
                         .subscribe(response -> {
                             Log.d("CreateGroupDialog", "Succesfully sent " + response.toString());
+                            newGroupItem = new GroupItem(response);
+
                             dismiss();
 
                         }, error -> {
@@ -106,7 +111,7 @@ public class CreateGroupDialog extends BaseDialogFragment {
 
         IDialogDismissListener listener = mListener;
         if (listener != null) {
-            listener.onDismiss();
+            listener.onDismiss(newGroupItem);
         }
     }
 

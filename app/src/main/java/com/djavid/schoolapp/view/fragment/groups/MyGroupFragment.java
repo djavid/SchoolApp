@@ -30,6 +30,7 @@ public class MyGroupFragment extends Fragment {
     final String TAG_CREATE_GROUP_DIALOG = "TAG_CREATE_GROUP_DIALOG";
 
     RecyclerView recyclerView;
+    MyGroupRecyclerViewAdapter adapter;
     FragmentMygroupListBinding binding;
 
     private GroupRecyclerViewAdapter.GroupListInteractionListener mListener;
@@ -50,9 +51,12 @@ public class MyGroupFragment extends Fragment {
         setHasOptionsMenu(true);
 
         Context context = view.getContext();
-        recyclerView = view.findViewById(R.id.list);
 
+        recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new MyGroupRecyclerViewAdapter(provideMyGroups(), mListener);
+        binding.setPresenter(adapter);
+        recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         if (App.getAppInstance().isTeacher()) {
@@ -75,20 +79,13 @@ public class MyGroupFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        updateRecycler();
+        updateRecycler(null);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.mygroup_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
-        int l = menu.size();
-        for (int i = 0; i < l; i++) {
-            MenuItem item = menu.getItem(i);
-            item.getActionView()
-                    .setOnClickListener(v -> onOptionsItemSelected(item));
-        }
     }
 
     @Override
@@ -102,6 +99,7 @@ public class MyGroupFragment extends Fragment {
     }
 
     private Observable<GroupItem> provideMyGroups() {
+
         return App.getAppInstance().getApi()
                 .getMyGroups(App.getAppInstance().getPreferences().getToken())
                 .flatMapObservable(myGroups -> Observable.fromIterable(
@@ -110,12 +108,16 @@ public class MyGroupFragment extends Fragment {
                                 .toList()));
     }
 
-    public void updateRecycler() {
-        if (recyclerView != null) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            MyGroupRecyclerViewAdapter adapter = new MyGroupRecyclerViewAdapter(provideMyGroups(), mListener);
-            binding.setPresenter(adapter);
-            recyclerView.setAdapter(adapter);
+    public void updateRecycler(GroupItem groupItem) {
+
+        if (groupItem != null) {
+            if (recyclerView != null) {
+
+                adapter.addGroup(groupItem);
+                adapter.notifyItemInserted(adapter.getItemCount() - 1);
+                recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+
+            }
         }
     }
 

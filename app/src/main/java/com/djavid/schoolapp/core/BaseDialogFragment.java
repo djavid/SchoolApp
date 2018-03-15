@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.djavid.schoolapp.viewmodel.groups.GroupItem;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -50,7 +52,8 @@ public abstract class BaseDialogFragment extends DialogFragment {
     }
 
     public interface IDialogDismissListener {
-        void onDismiss();
+        //void onDismiss();
+        void onDismiss(GroupItem groupItem);
     }
 
 }

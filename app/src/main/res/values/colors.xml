@@ -14,6 +14,7 @@
     <color name="colorBtnBg">#DFDFDF</color>
 
     <!-- dialog -->
+    <color name="colorEditText">#424242</color>
     <color name="colorEditTextHint">#60000000</color>
     <color name="colorOrange">#ffab40</color>
     <color name="colorTooltipBg">#ff6e40</color>

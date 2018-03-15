@@ -22,16 +22,13 @@ import io.reactivex.Observable;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+
 public class NotificationListFragment extends Fragment {
 
     private NotificationsInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public NotificationListFragment() {
-    }
+
+    public NotificationListFragment() { }
 
     public static NotificationListFragment newInstance() {
         return new NotificationListFragment();
@@ -45,6 +42,7 @@ public class NotificationListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         FragmentNotificationitemListBinding binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_notificationitem_list, container, false);
         binding.setPresenter(this);
@@ -69,8 +67,7 @@ public class NotificationListFragment extends Fragment {
     }
 
     public int getPublishNotificationButtonVisibility() {
-        return App.getAppInstance().isTeacher()
-                ? VISIBLE : GONE;
+        return App.getAppInstance().isTeacher() ? VISIBLE : GONE;
     }
 
     public void createNotification() {
