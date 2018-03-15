@@ -96,6 +96,8 @@ public class DashboardActivity extends AppCompatActivity
                 setToolbarTitle(fragmentManager.getBackStackEntryAt(count - 1).getName());
             }
         });
+
+        changeFragment(scheduleFragment, TAG_SCHEDULE, true);
     }
 
     @Override
@@ -127,10 +129,23 @@ public class DashboardActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+            int entryCount = fragmentManager.getBackStackEntryCount();
+
+            // if first fragment is not on screen, just pop back to the previous fragment.
+            if (entryCount > 1) {
+
+                //fragmentManager.popBackStack();
+                super.onBackPressed();
+                return;
+            }
+
+            // if first fragment is showing, then finish the activity.
+            finish();
         }
     }
 

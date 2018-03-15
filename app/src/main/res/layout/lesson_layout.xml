@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    >
+    android:layout_marginBottom="5dp">
 
     <TextView
         android:id="@+id/start_time"
@@ -13,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_alignTop="@id/ll_lesson_info"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textColor="@color/colorLessonPrimary"
-        android:text="12:10"
+        tools:text="12:10"
         android:layout_marginRight="20dp" />
 
     <TextView
@@ -24,9 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_alignBottom="@id/ll_lesson_info"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textColor="@color/colorLessonPrimary"
-        android:text="13:30"
+        tools:text="13:30"
         android:layout_marginRight="20dp" />
 
     <LinearLayout
@@ -45,7 +44,7 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:textColor="@color/colorLessonPrimary"
-            android:text="Распределенные вычисления" />
+            tools:text="Распределенные вычисления" />
 
         <TextView
             android:id="@+id/tv_teacher"
@@ -53,7 +52,7 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:textColor="@color/colorLessonSecondary"
-            android:text="Ватрушкин Павел Игоревич" />
+            tools:text="Ватрушкин Павел Игоревич" />
 
         <TextView
             android:id="@+id/tv_place"
@@ -61,7 +60,7 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:textColor="@color/colorLessonPlace"
-            android:text="Кирпичная ул., д. 33, 302" />
+            tools:text="Кирпичная ул., д. 33, 302" />
 
     </LinearLayout>
 
@@ -71,6 +70,7 @@
         android:layout_height="1dp"
         android:layout_below="@id/ll_lesson_info"
         android:layout_toEndOf="@id/end_time"
+        android:layout_toRightOf="@id/end_time"
         android:background="@color/colorLessonDivider"
         />
 
