@@ -25,7 +25,9 @@
                 android:icon="@drawable/ic_stars_black_24dp"
                 android:title="@string/title_nav_events" />
     </group>
-    <group android:title="@string/Notifications">
+    <group
+        android:title="@string/Notifications"
+        android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_notifications"
                 android:icon="@drawable/ic_share"
